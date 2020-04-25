@@ -1,0 +1,501 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:context="http://www.springframework.org/schema/context"
+	xmlns:tx="http://www.springframework.org/schema/tx"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd
+		http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context-4.0.xsd
+		http://www.springframework.org/schema/tx http://www.springframework.org/schema/tx/spring-tx-4.0.xsd">
+
+	<!-- Enable Annotation based Declarative Transaction Management -->
+
+  <bean id="modelService" class="com.xingyou.xingyou.ModelService"/>
+	<bean id="hikariConfig" class="com.zaxxer.hikari.HikariConfig">
+  	  <property name="poolName" value="xingyou_connection_pool" />
+  	  <property name="dataSourceClassName" value="${app.database.dataSourceClassName}"/>
+  	  <property name="maximumPoolSize" value="10" />
+  	  <property name="maxLifetime" value="60000" />
+  	  <property name="idleTimeout" value="30000" />
+  	  <property name="dataSourceProperties">
+  	   <props>
+  	     <prop key="url">${app.database.jdbcURL}</prop>
+  	     <prop key="user">${app.database.username}</prop>
+  	     <prop key="password">${app.database.password}</prop>
+  	   </props>
+  	  </property>
+  	</bean>
+
+
+	<!-- dbcp 2.6 https://commons.apache.org/proper/commons-dbcp/configuration.html
+	<bean id="hikariConfig" class="com.zaxxer.hikari.HikariConfig">
+	  <property name="poolName" value="xingyou_connection_pool" />
+	  <property name="dataSourceClassName" value="${app.database.dataSourceClassName}"/>
+	  <property name="maximumPoolSize" value="10" />
+	  <property name="maxLifetime" value="60000" />
+	  <property name="idleTimeout" value="30000" />
+	  <property name="dataSourceProperties">
+	   <props>
+	     <prop key="url">${app.database.jdbcURL}</prop>
+	     <prop key="user">${app.database.username}</prop>
+	     <prop key="password">${app.database.password}</prop>
+	     <prop key="prepStmtCacheSize">250</prop>
+	     <prop key="prepStmtCacheSqlLimit">2048</prop>
+	     <prop key="cachePrepStmts">true</prop>
+	     <prop key="useServerPrepStmts">true</prop>
+	   </props>
+	  </property>
+	</bean>
+	-->
+
+	<bean id="dataSource" class="com.zaxxer.hikari.HikariDataSource" destroy-method="close">
+	  <constructor-arg ref="hikariConfig" />
+	</bean>
+
+
+	<bean id="franchisedOutletProvinceCenterDAOBase" class="com.xingyou.xingyou.franchisedoutletprovincecenter.FranchisedOutletProvinceCenterJDBCTemplateDAO">
+		<property name="dataSource" ref="dataSource" />
+		<property name="catalogDAO" ref="catalogDAO" />
+		
+	</bean>
+	<bean id="franchisedOutletProvinceCenterDAO" parent="franchisedOutletProvinceCenterDAOBase"></bean>
+	
+
+	<bean id="catalogDAOBase" class="com.xingyou.xingyou.catalog.CatalogJDBCTemplateDAO">
+		<property name="dataSource" ref="dataSource" /><property name="franchisedOutletProvinceCenterDAO" ref="franchisedOutletProvinceCenterDAO" />
+		<property name="levelOneCategoryDAO" ref="levelOneCategoryDAO" />
+		
+	</bean>
+	<bean id="catalogDAO" parent="catalogDAOBase"></bean>
+	
+
+	<bean id="levelOneCategoryDAOBase" class="com.xingyou.xingyou.levelonecategory.LevelOneCategoryJDBCTemplateDAO">
+		<property name="dataSource" ref="dataSource" /><property name="catalogDAO" ref="catalogDAO" />
+		<property name="levelTwoCategoryDAO" ref="levelTwoCategoryDAO" />
+		
+	</bean>
+	<bean id="levelOneCategoryDAO" parent="levelOneCategoryDAOBase"></bean>
+	
+
+	<bean id="levelTwoCategoryDAOBase" class="com.xingyou.xingyou.leveltwocategory.LevelTwoCategoryJDBCTemplateDAO">
+		<property name="dataSource" ref="dataSource" /><property name="levelOneCategoryDAO" ref="levelOneCategoryDAO" />
+		<property name="levelThreeCategoryDAO" ref="levelThreeCategoryDAO" />
+		
+	</bean>
+	<bean id="levelTwoCategoryDAO" parent="levelTwoCategoryDAOBase"></bean>
+	
+
+	<bean id="levelThreeCategoryDAOBase" class="com.xingyou.xingyou.levelthreecategory.LevelThreeCategoryJDBCTemplateDAO">
+		<property name="dataSource" ref="dataSource" /><property name="levelTwoCategoryDAO" ref="levelTwoCategoryDAO" />
+		<property name="productDAO" ref="productDAO" />
+		
+	</bean>
+	<bean id="levelThreeCategoryDAO" parent="levelThreeCategoryDAOBase"></bean>
+	
+
+	<bean id="productDAOBase" class="com.xingyou.xingyou.product.ProductJDBCTemplateDAO">
+		<property name="dataSource" ref="dataSource" /><property name="levelThreeCategoryDAO" ref="levelThreeCategoryDAO" />
+		<property name="skuDAO" ref="skuDAO" />
+		
+	</bean>
+	<bean id="productDAO" parent="productDAOBase"></bean>
+	
+
+	<bean id="skuDAOBase" class="com.xingyou.xingyou.sku.SkuJDBCTemplateDAO">
+		<property name="dataSource" ref="dataSource" /><property name="productDAO" ref="productDAO" />
+	</bean>
+	<bean id="skuDAO" parent="skuDAOBase"></bean>
+	
+
+	<bean id="franchisedOutletCityCenterDAOBase" class="com.xingyou.xingyou.franchisedoutletcitycenter.FranchisedOutletCityCenterJDBCTemplateDAO">
+		<property name="dataSource" ref="dataSource" />
+		<property name="franchisedOutletCityCenterDAO" ref="franchisedOutletCityCenterDAO" />
+		
+		<property name="cityCenterDepartmentDAO" ref="cityCenterDepartmentDAO" />
+		
+		<property name="cityCenterEmployeeDAO" ref="cityCenterEmployeeDAO" />
+		
+		<property name="franchisedOutletCityServiceCenterDAO" ref="franchisedOutletCityServiceCenterDAO" />
+		
+	</bean>
+	<bean id="franchisedOutletCityCenterDAO" parent="franchisedOutletCityCenterDAOBase"></bean>
+	
+
+	<bean id="cityCenterDepartmentDAOBase" class="com.xingyou.xingyou.citycenterdepartment.CityCenterDepartmentJDBCTemplateDAO">
+		<property name="dataSource" ref="dataSource" /><property name="franchisedOutletCityCenterDAO" ref="franchisedOutletCityCenterDAO" />
+		<property name="cityCenterEmployeeDAO" ref="cityCenterEmployeeDAO" />
+		
+	</bean>
+	<bean id="cityCenterDepartmentDAO" parent="cityCenterDepartmentDAOBase"></bean>
+	
+
+	<bean id="cityCenterEmployeeDAOBase" class="com.xingyou.xingyou.citycenteremployee.CityCenterEmployeeJDBCTemplateDAO">
+		<property name="dataSource" ref="dataSource" /><property name="cityCenterDepartmentDAO" ref="cityCenterDepartmentDAO" /><property name="franchisedOutletCityCenterDAO" ref="franchisedOutletCityCenterDAO" />
+	</bean>
+	<bean id="cityCenterEmployeeDAO" parent="cityCenterEmployeeDAOBase"></bean>
+	
+
+	<bean id="franchisedOutletCityServiceCenterDAOBase" class="com.xingyou.xingyou.franchisedoutletcityservicecenter.FranchisedOutletCityServiceCenterJDBCTemplateDAO">
+		<property name="dataSource" ref="dataSource" /><property name="franchisedOutletCityCenterDAO" ref="franchisedOutletCityCenterDAO" />
+		<property name="cityPartnerDAO" ref="cityPartnerDAO" />
+		
+		<property name="potentialCustomerDAO" ref="potentialCustomerDAO" />
+		
+		<property name="cityEventDAO" ref="cityEventDAO" />
+		
+	</bean>
+	<bean id="franchisedOutletCityServiceCenterDAO" parent="franchisedOutletCityServiceCenterDAOBase"></bean>
+	
+
+	<bean id="cityPartnerDAOBase" class="com.xingyou.xingyou.citypartner.CityPartnerJDBCTemplateDAO">
+		<property name="dataSource" ref="dataSource" /><property name="franchisedOutletCityServiceCenterDAO" ref="franchisedOutletCityServiceCenterDAO" />
+		<property name="potentialCustomerDAO" ref="potentialCustomerDAO" />
+		
+		<property name="potentialCustomerContactDAO" ref="potentialCustomerContactDAO" />
+		
+	</bean>
+	<bean id="cityPartnerDAO" parent="cityPartnerDAOBase"></bean>
+	
+
+	<bean id="potentialCustomerDAOBase" class="com.xingyou.xingyou.potentialcustomer.PotentialCustomerJDBCTemplateDAO">
+		<property name="dataSource" ref="dataSource" /><property name="cityPartnerDAO" ref="cityPartnerDAO" /><property name="franchisedOutletCityServiceCenterDAO" ref="franchisedOutletCityServiceCenterDAO" />
+		<property name="potentialCustomerContactPersonDAO" ref="potentialCustomerContactPersonDAO" />
+		
+		<property name="potentialCustomerContactDAO" ref="potentialCustomerContactDAO" />
+		
+		<property name="eventAttendanceDAO" ref="eventAttendanceDAO" />
+		
+	</bean>
+	<bean id="potentialCustomerDAO" parent="potentialCustomerDAOBase"></bean>
+	
+
+	<bean id="potentialCustomerContactPersonDAOBase" class="com.xingyou.xingyou.potentialcustomercontactperson.PotentialCustomerContactPersonJDBCTemplateDAO">
+		<property name="dataSource" ref="dataSource" /><property name="potentialCustomerDAO" ref="potentialCustomerDAO" />
+		<property name="potentialCustomerContactDAO" ref="potentialCustomerContactDAO" />
+		
+	</bean>
+	<bean id="potentialCustomerContactPersonDAO" parent="potentialCustomerContactPersonDAOBase"></bean>
+	
+
+	<bean id="potentialCustomerContactDAOBase" class="com.xingyou.xingyou.potentialcustomercontact.PotentialCustomerContactJDBCTemplateDAO">
+		<property name="dataSource" ref="dataSource" /><property name="potentialCustomerDAO" ref="potentialCustomerDAO" /><property name="cityPartnerDAO" ref="cityPartnerDAO" /><property name="potentialCustomerContactPersonDAO" ref="potentialCustomerContactPersonDAO" />
+	</bean>
+	<bean id="potentialCustomerContactDAO" parent="potentialCustomerContactDAOBase"></bean>
+	
+
+	<bean id="cityEventDAOBase" class="com.xingyou.xingyou.cityevent.CityEventJDBCTemplateDAO">
+		<property name="dataSource" ref="dataSource" /><property name="franchisedOutletCityServiceCenterDAO" ref="franchisedOutletCityServiceCenterDAO" />
+		<property name="eventAttendanceDAO" ref="eventAttendanceDAO" />
+		
+	</bean>
+	<bean id="cityEventDAO" parent="cityEventDAOBase"></bean>
+	
+
+	<bean id="eventAttendanceDAOBase" class="com.xingyou.xingyou.eventattendance.EventAttendanceJDBCTemplateDAO">
+		<property name="dataSource" ref="dataSource" /><property name="potentialCustomerDAO" ref="potentialCustomerDAO" /><property name="cityEventDAO" ref="cityEventDAO" />
+	</bean>
+	<bean id="eventAttendanceDAO" parent="eventAttendanceDAOBase"></bean>
+	
+
+	<bean id="mobileAppDAOBase" class="com.xingyou.xingyou.mobileapp.MobileAppJDBCTemplateDAO">
+		<property name="dataSource" ref="dataSource" />
+		<property name="pageDAO" ref="pageDAO" />
+		
+		<property name="pageTypeDAO" ref="pageTypeDAO" />
+		
+	</bean>
+	<bean id="mobileAppDAO" parent="mobileAppDAOBase"></bean>
+	
+
+	<bean id="pageDAOBase" class="com.xingyou.xingyou.page.PageJDBCTemplateDAO">
+		<property name="dataSource" ref="dataSource" /><property name="pageTypeDAO" ref="pageTypeDAO" /><property name="mobileAppDAO" ref="mobileAppDAO" />
+		<property name="slideDAO" ref="slideDAO" />
+		
+		<property name="uiActionDAO" ref="uiActionDAO" />
+		
+		<property name="sectionDAO" ref="sectionDAO" />
+		
+	</bean>
+	<bean id="pageDAO" parent="pageDAOBase"></bean>
+	
+
+	<bean id="pageTypeDAOBase" class="com.xingyou.xingyou.pagetype.PageTypeJDBCTemplateDAO">
+		<property name="dataSource" ref="dataSource" /><property name="mobileAppDAO" ref="mobileAppDAO" />
+		<property name="pageDAO" ref="pageDAO" />
+		
+	</bean>
+	<bean id="pageTypeDAO" parent="pageTypeDAOBase"></bean>
+	
+
+	<bean id="slideDAOBase" class="com.xingyou.xingyou.slide.SlideJDBCTemplateDAO">
+		<property name="dataSource" ref="dataSource" /><property name="pageDAO" ref="pageDAO" />
+	</bean>
+	<bean id="slideDAO" parent="slideDAOBase"></bean>
+	
+
+	<bean id="uiActionDAOBase" class="com.xingyou.xingyou.uiaction.UiActionJDBCTemplateDAO">
+		<property name="dataSource" ref="dataSource" /><property name="pageDAO" ref="pageDAO" />
+	</bean>
+	<bean id="uiActionDAO" parent="uiActionDAOBase"></bean>
+	
+
+	<bean id="sectionDAOBase" class="com.xingyou.xingyou.section.SectionJDBCTemplateDAO">
+		<property name="dataSource" ref="dataSource" /><property name="pageDAO" ref="pageDAO" />
+	</bean>
+	<bean id="sectionDAO" parent="sectionDAOBase"></bean>
+	
+
+	<bean id="userDomainDAOBase" class="com.xingyou.xingyou.userdomain.UserDomainJDBCTemplateDAO">
+		<property name="dataSource" ref="dataSource" />
+		<property name="userWhiteListDAO" ref="userWhiteListDAO" />
+		
+		<property name="secUserDAO" ref="secUserDAO" />
+		
+		<property name="publicKeyTypeDAO" ref="publicKeyTypeDAO" />
+		
+	</bean>
+	<bean id="userDomainDAO" parent="userDomainDAOBase"></bean>
+	
+
+	<bean id="userWhiteListDAOBase" class="com.xingyou.xingyou.userwhitelist.UserWhiteListJDBCTemplateDAO">
+		<property name="dataSource" ref="dataSource" /><property name="userDomainDAO" ref="userDomainDAO" />
+	</bean>
+	<bean id="userWhiteListDAO" parent="userWhiteListDAOBase"></bean>
+	
+
+	<bean id="secUserDAOBase" class="com.xingyou.xingyou.secuser.SecUserJDBCTemplateDAO">
+		<property name="dataSource" ref="dataSource" /><property name="userDomainDAO" ref="userDomainDAO" />
+		<property name="userAppDAO" ref="userAppDAO" />
+		
+		<property name="loginHistoryDAO" ref="loginHistoryDAO" />
+		
+		<property name="wechatWorkappIdentifyDAO" ref="wechatWorkappIdentifyDAO" />
+		
+		<property name="wechatMiniappIdentifyDAO" ref="wechatMiniappIdentifyDAO" />
+		
+		<property name="keypairIdentifyDAO" ref="keypairIdentifyDAO" />
+		
+	</bean>
+	<bean id="secUserDAO" parent="secUserDAOBase"></bean>
+	
+
+	<bean id="userAppDAOBase" class="com.xingyou.xingyou.userapp.UserAppJDBCTemplateDAO">
+		<property name="dataSource" ref="dataSource" /><property name="secUserDAO" ref="secUserDAO" />
+		<property name="quickLinkDAO" ref="quickLinkDAO" />
+		
+		<property name="listAccessDAO" ref="listAccessDAO" />
+		
+	</bean>
+	<bean id="userAppDAO" parent="userAppDAOBase"></bean>
+	
+
+	<bean id="quickLinkDAOBase" class="com.xingyou.xingyou.quicklink.QuickLinkJDBCTemplateDAO">
+		<property name="dataSource" ref="dataSource" /><property name="userAppDAO" ref="userAppDAO" />
+	</bean>
+	<bean id="quickLinkDAO" parent="quickLinkDAOBase"></bean>
+	
+
+	<bean id="listAccessDAOBase" class="com.xingyou.xingyou.listaccess.ListAccessJDBCTemplateDAO">
+		<property name="dataSource" ref="dataSource" /><property name="userAppDAO" ref="userAppDAO" />
+	</bean>
+	<bean id="listAccessDAO" parent="listAccessDAOBase"></bean>
+	
+
+	<bean id="loginHistoryDAOBase" class="com.xingyou.xingyou.loginhistory.LoginHistoryJDBCTemplateDAO">
+		<property name="dataSource" ref="dataSource" /><property name="secUserDAO" ref="secUserDAO" />
+	</bean>
+	<bean id="loginHistoryDAO" parent="loginHistoryDAOBase"></bean>
+	
+
+	<bean id="candidateContainerDAOBase" class="com.xingyou.xingyou.candidatecontainer.CandidateContainerJDBCTemplateDAO">
+		<property name="dataSource" ref="dataSource" />
+		<property name="candidateElementDAO" ref="candidateElementDAO" />
+		
+	</bean>
+	<bean id="candidateContainerDAO" parent="candidateContainerDAOBase"></bean>
+	
+
+	<bean id="candidateElementDAOBase" class="com.xingyou.xingyou.candidateelement.CandidateElementJDBCTemplateDAO">
+		<property name="dataSource" ref="dataSource" /><property name="candidateContainerDAO" ref="candidateContainerDAO" />
+	</bean>
+	<bean id="candidateElementDAO" parent="candidateElementDAOBase"></bean>
+	
+
+	<bean id="wechatWorkappIdentifyDAOBase" class="com.xingyou.xingyou.wechatworkappidentify.WechatWorkappIdentifyJDBCTemplateDAO">
+		<property name="dataSource" ref="dataSource" /><property name="secUserDAO" ref="secUserDAO" />
+	</bean>
+	<bean id="wechatWorkappIdentifyDAO" parent="wechatWorkappIdentifyDAOBase"></bean>
+	
+
+	<bean id="wechatMiniappIdentifyDAOBase" class="com.xingyou.xingyou.wechatminiappidentify.WechatMiniappIdentifyJDBCTemplateDAO">
+		<property name="dataSource" ref="dataSource" /><property name="secUserDAO" ref="secUserDAO" />
+	</bean>
+	<bean id="wechatMiniappIdentifyDAO" parent="wechatMiniappIdentifyDAOBase"></bean>
+	
+
+	<bean id="keypairIdentifyDAOBase" class="com.xingyou.xingyou.keypairidentify.KeypairIdentifyJDBCTemplateDAO">
+		<property name="dataSource" ref="dataSource" /><property name="publicKeyTypeDAO" ref="publicKeyTypeDAO" /><property name="secUserDAO" ref="secUserDAO" />
+	</bean>
+	<bean id="keypairIdentifyDAO" parent="keypairIdentifyDAOBase"></bean>
+	
+
+	<bean id="publicKeyTypeDAOBase" class="com.xingyou.xingyou.publickeytype.PublicKeyTypeJDBCTemplateDAO">
+		<property name="dataSource" ref="dataSource" /><property name="userDomainDAO" ref="userDomainDAO" />
+		<property name="keypairIdentifyDAO" ref="keypairIdentifyDAO" />
+		
+	</bean>
+	<bean id="publicKeyTypeDAO" parent="publicKeyTypeDAOBase"></bean>
+	
+
+	<bean id="treeNodeDAOBase" class="com.xingyou.xingyou.treenode.TreeNodeJDBCTemplateDAO">
+		<property name="dataSource" ref="dataSource" />
+	</bean>
+	<bean id="treeNodeDAO" parent="treeNodeDAOBase"></bean>
+	
+
+
+	<bean id="DAOGroupBase" class="com.xingyou.xingyou.DAOGroup">
+		<property name="franchisedOutletProvinceCenterDAO" ref="franchisedOutletProvinceCenterDAO"/>
+		<property name="catalogDAO" ref="catalogDAO"/>
+		<property name="levelOneCategoryDAO" ref="levelOneCategoryDAO"/>
+		<property name="levelTwoCategoryDAO" ref="levelTwoCategoryDAO"/>
+		<property name="levelThreeCategoryDAO" ref="levelThreeCategoryDAO"/>
+		<property name="productDAO" ref="productDAO"/>
+		<property name="skuDAO" ref="skuDAO"/>
+		<property name="franchisedOutletCityCenterDAO" ref="franchisedOutletCityCenterDAO"/>
+		<property name="cityCenterDepartmentDAO" ref="cityCenterDepartmentDAO"/>
+		<property name="cityCenterEmployeeDAO" ref="cityCenterEmployeeDAO"/>
+		<property name="franchisedOutletCityServiceCenterDAO" ref="franchisedOutletCityServiceCenterDAO"/>
+		<property name="cityPartnerDAO" ref="cityPartnerDAO"/>
+		<property name="potentialCustomerDAO" ref="potentialCustomerDAO"/>
+		<property name="potentialCustomerContactPersonDAO" ref="potentialCustomerContactPersonDAO"/>
+		<property name="potentialCustomerContactDAO" ref="potentialCustomerContactDAO"/>
+		<property name="cityEventDAO" ref="cityEventDAO"/>
+		<property name="eventAttendanceDAO" ref="eventAttendanceDAO"/>
+		<property name="mobileAppDAO" ref="mobileAppDAO"/>
+		<property name="pageDAO" ref="pageDAO"/>
+		<property name="pageTypeDAO" ref="pageTypeDAO"/>
+		<property name="slideDAO" ref="slideDAO"/>
+		<property name="uiActionDAO" ref="uiActionDAO"/>
+		<property name="sectionDAO" ref="sectionDAO"/>
+		<property name="userDomainDAO" ref="userDomainDAO"/>
+		<property name="userWhiteListDAO" ref="userWhiteListDAO"/>
+		<property name="secUserDAO" ref="secUserDAO"/>
+		<property name="userAppDAO" ref="userAppDAO"/>
+		<property name="quickLinkDAO" ref="quickLinkDAO"/>
+		<property name="listAccessDAO" ref="listAccessDAO"/>
+		<property name="loginHistoryDAO" ref="loginHistoryDAO"/>
+		<property name="candidateContainerDAO" ref="candidateContainerDAO"/>
+		<property name="candidateElementDAO" ref="candidateElementDAO"/>
+		<property name="wechatWorkappIdentifyDAO" ref="wechatWorkappIdentifyDAO"/>
+		<property name="wechatMiniappIdentifyDAO" ref="wechatMiniappIdentifyDAO"/>
+		<property name="keypairIdentifyDAO" ref="keypairIdentifyDAO"/>
+		<property name="publicKeyTypeDAO" ref="publicKeyTypeDAO"/>
+		<property name="treeNodeDAO" ref="treeNodeDAO"/>
+	</bean>
+	<bean id="DAOGroup" parent="DAOGroupBase"></bean>
+</beans>
+
+
+
+
+<!--
+
+	各种候选配置，可以选择你更为熟悉的类型
+	Creating TransactionManager Bean, since JDBC we are creating of type
+		DataSourceTransactionManager
+
+		<bean id="hikariConfig" class="com.zaxxer.hikari.HikariConfig">
+	  <property name="poolName" value="mercatus_connection_pool" />
+	  <property name="dataSourceClassName" value="com.mysql.cj.jdbc.MysqlDataSource"/>
+	  <property name="maximumPoolSize" value="50" />
+	  <property name="maxLifetime" value="60000" />
+	  <property name="idleTimeout" value="30000" />
+	  <property name="dataSourceProperties">
+	   <props>
+	     <prop key="url">${app.database.jdbcURL}</prop>
+	     <prop key="user">${app.database.username}</prop>
+	     <prop key="password">${app.database.password}</prop>
+	     <prop key="prepStmtCacheSize">250</prop>
+	     <prop key="prepStmtCacheSqlLimit">2048</prop>
+	     <prop key="cachePrepStmts">true</prop>
+	     <prop key="useServerPrepStmts">true</prop>
+	   </props>
+	  </property>
+	</bean>
+
+	<bean id="dataSource" class="org.apache.commons.dbcp2.BasicDataSource" destroy-method="close" >
+
+		<property name="url" value="${app.database.jdbcURL}" />
+		<property name="username" value="${app.database.username}" />
+		<property name="password" value="${app.database.password}" />
+		<property name="driverClassName" value="${app.database.driverClass}" />
+		<property name="initialSize" value="${app.database.pool.initialSize}" />
+		<property name="maxTotal" value="${app.database.pool.maxActive}" />
+
+		<property name="testOnBorrow" value="true" />
+		<property name="testWhileIdle" value="true" />
+		<property name="validationQuery" value="SELECT 1 from sec_user_data" />
+		<property name="removeAbandonedTimeout" value="55" />
+		<property name="removeAbandonedOnBorrow" value="true"/>
+
+	</bean>
+
+	<bean id="dataSource" class="com.mchange.v2.c3p0.ComboPooledDataSource" destroy-method="close" >
+
+		<property name="jdbcUrl" value="${app.database.jdbcURL}" />
+		<property name="user" value="${app.database.username}" />
+		<property name="password" value="${app.database.password}" />
+		<property name="driverClass" value="${app.database.driverClass}" />
+
+  		<property name="minPoolSize" value="10"/>
+  		<property name="maxPoolSize" value="50"/>
+  		<property name="acquireIncrement" value="1"/>
+  		<property name="idleConnectionTestPeriod" value="1000"/>
+  		<property name="maxStatements" value="250"/>
+  		<property name="checkoutTimeout" value="60000"/>
+  		<property name="initialPoolSize" value="10" />
+
+	</bean>
+
+
+	<bean id="hikariConfig" class="com.zaxxer.hikari.HikariConfig">
+	  <property name="poolName" value="mercatus_connection_pool" />
+	  <property name="dataSourceClassName" value="${app.database.dataSourceClassName}"/>
+	  <property name="maximumPoolSize" value="50" />
+	  <property name="maxLifetime" value="60000" />
+	  <property name="idleTimeout" value="30000" />
+	  <property name="dataSourceProperties">
+	   <props>
+	     <prop key="url">${app.database.jdbcURL}</prop>
+	     <prop key="user">${app.database.username}</prop>
+	     <prop key="password">${app.database.password}</prop>
+	     <prop key="prepStmtCacheSize">250</prop>
+	     <prop key="prepStmtCacheSqlLimit">2048</prop>
+	     <prop key="cachePrepStmts">true</prop>
+	     <prop key="useServerPrepStmts">true</prop>
+	   </props>
+	  </property>
+	</bean>
+	<bean id="dataSource" class="com.zaxxer.hikari.HikariDataSource" destroy-method="close">
+	  <constructor-arg ref="hikariConfig" />
+	</bean>
+
+
+-->
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

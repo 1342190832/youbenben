@@ -1,0 +1,181 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:context="http://www.springframework.org/schema/context"
+	xmlns:tx="http://www.springframework.org/schema/tx"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd
+		http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context-4.0.xsd
+		http://www.springframework.org/schema/tx http://www.springframework.org/schema/tx/spring-tx-4.0.xsd">
+
+	<bean id="checker" class="com.xingyou.xingyou.XingyouObjectChecker" scope="prototype"></bean>
+
+	<bean id="franchisedOutletProvinceCenterManagerBase" class="com.xingyou.xingyou.franchisedoutletprovincecenter.FranchisedOutletProvinceCenterManagerImpl"/>
+	<bean id="franchisedOutletProvinceCenterManager" class="com.xingyou.xingyou.franchisedoutletprovincecenter.FranchisedOutletProvinceCenterCustomManagerImpl" parent="franchisedOutletProvinceCenterManagerBase" ></bean>
+	
+	<bean id="catalogManagerBase" class="com.xingyou.xingyou.catalog.CatalogManagerImpl"/>
+	<bean id="catalogManager" class="com.xingyou.xingyou.catalog.CatalogManagerImpl" parent="catalogManagerBase" ></bean>
+	
+	<bean id="levelOneCategoryManagerBase" class="com.xingyou.xingyou.levelonecategory.LevelOneCategoryManagerImpl"/>
+	<bean id="levelOneCategoryManager" class="com.xingyou.xingyou.levelonecategory.LevelOneCategoryManagerImpl" parent="levelOneCategoryManagerBase" ></bean>
+	
+	<bean id="levelTwoCategoryManagerBase" class="com.xingyou.xingyou.leveltwocategory.LevelTwoCategoryManagerImpl"/>
+	<bean id="levelTwoCategoryManager" class="com.xingyou.xingyou.leveltwocategory.LevelTwoCategoryManagerImpl" parent="levelTwoCategoryManagerBase" ></bean>
+	
+	<bean id="levelThreeCategoryManagerBase" class="com.xingyou.xingyou.levelthreecategory.LevelThreeCategoryManagerImpl"/>
+	<bean id="levelThreeCategoryManager" class="com.xingyou.xingyou.levelthreecategory.LevelThreeCategoryManagerImpl" parent="levelThreeCategoryManagerBase" ></bean>
+	
+	<bean id="productManagerBase" class="com.xingyou.xingyou.product.ProductManagerImpl"/>
+	<bean id="productManager" class="com.xingyou.xingyou.product.ProductManagerImpl" parent="productManagerBase" ></bean>
+	
+	<bean id="skuManagerBase" class="com.xingyou.xingyou.sku.SkuManagerImpl"/>
+	<bean id="skuManager" class="com.xingyou.xingyou.sku.SkuManagerImpl" parent="skuManagerBase" ></bean>
+	
+	<bean id="franchisedOutletCityCenterManagerBase" class="com.xingyou.xingyou.franchisedoutletcitycenter.FranchisedOutletCityCenterManagerImpl"/>
+	<bean id="franchisedOutletCityCenterManager" class="com.xingyou.xingyou.franchisedoutletcitycenter.FranchisedOutletCityCenterCustomManagerImpl" parent="franchisedOutletCityCenterManagerBase" ></bean>
+	
+	<bean id="cityCenterDepartmentManagerBase" class="com.xingyou.xingyou.citycenterdepartment.CityCenterDepartmentManagerImpl"/>
+	<bean id="cityCenterDepartmentManager" class="com.xingyou.xingyou.citycenterdepartment.CityCenterDepartmentManagerImpl" parent="cityCenterDepartmentManagerBase" ></bean>
+	
+	<bean id="cityCenterEmployeeManagerBase" class="com.xingyou.xingyou.citycenteremployee.CityCenterEmployeeManagerImpl"/>
+	<bean id="cityCenterEmployeeManager" class="com.xingyou.xingyou.citycenteremployee.CityCenterEmployeeManagerImpl" parent="cityCenterEmployeeManagerBase" ></bean>
+	
+	<bean id="franchisedOutletCityServiceCenterManagerBase" class="com.xingyou.xingyou.franchisedoutletcityservicecenter.FranchisedOutletCityServiceCenterManagerImpl"/>
+	<bean id="franchisedOutletCityServiceCenterManager" class="com.xingyou.xingyou.franchisedoutletcityservicecenter.FranchisedOutletCityServiceCenterCustomManagerImpl" parent="franchisedOutletCityServiceCenterManagerBase" ></bean>
+	
+	<bean id="cityPartnerManagerBase" class="com.xingyou.xingyou.citypartner.CityPartnerManagerImpl"/>
+	<bean id="cityPartnerManager" class="com.xingyou.xingyou.citypartner.CityPartnerCustomManagerImpl" parent="cityPartnerManagerBase" ></bean>
+	
+	<bean id="potentialCustomerManagerBase" class="com.xingyou.xingyou.potentialcustomer.PotentialCustomerManagerImpl"/>
+	<bean id="potentialCustomerManager" class="com.xingyou.xingyou.potentialcustomer.PotentialCustomerCustomManagerImpl" parent="potentialCustomerManagerBase" ></bean>
+	
+	<bean id="potentialCustomerContactPersonManagerBase" class="com.xingyou.xingyou.potentialcustomercontactperson.PotentialCustomerContactPersonManagerImpl"/>
+	<bean id="potentialCustomerContactPersonManager" class="com.xingyou.xingyou.potentialcustomercontactperson.PotentialCustomerContactPersonManagerImpl" parent="potentialCustomerContactPersonManagerBase" ></bean>
+	
+	<bean id="potentialCustomerContactManagerBase" class="com.xingyou.xingyou.potentialcustomercontact.PotentialCustomerContactManagerImpl"/>
+	<bean id="potentialCustomerContactManager" class="com.xingyou.xingyou.potentialcustomercontact.PotentialCustomerContactManagerImpl" parent="potentialCustomerContactManagerBase" ></bean>
+	
+	<bean id="cityEventManagerBase" class="com.xingyou.xingyou.cityevent.CityEventManagerImpl"/>
+	<bean id="cityEventManager" class="com.xingyou.xingyou.cityevent.CityEventManagerImpl" parent="cityEventManagerBase" ></bean>
+	
+	<bean id="eventAttendanceManagerBase" class="com.xingyou.xingyou.eventattendance.EventAttendanceManagerImpl"/>
+	<bean id="eventAttendanceManager" class="com.xingyou.xingyou.eventattendance.EventAttendanceManagerImpl" parent="eventAttendanceManagerBase" ></bean>
+	
+	<bean id="mobileAppManagerBase" class="com.xingyou.xingyou.mobileapp.MobileAppManagerImpl"/>
+	<bean id="mobileAppManager" class="com.xingyou.xingyou.mobileapp.MobileAppCustomManagerImpl" parent="mobileAppManagerBase" ></bean>
+	
+	<bean id="pageManagerBase" class="com.xingyou.xingyou.page.PageManagerImpl"/>
+	<bean id="pageManager" class="com.xingyou.xingyou.page.PageCustomManagerImpl" parent="pageManagerBase" ></bean>
+	
+	<bean id="pageTypeManagerBase" class="com.xingyou.xingyou.pagetype.PageTypeManagerImpl"/>
+	<bean id="pageTypeManager" class="com.xingyou.xingyou.pagetype.PageTypeManagerImpl" parent="pageTypeManagerBase" ></bean>
+	
+	<bean id="slideManagerBase" class="com.xingyou.xingyou.slide.SlideManagerImpl"/>
+	<bean id="slideManager" class="com.xingyou.xingyou.slide.SlideManagerImpl" parent="slideManagerBase" ></bean>
+	
+	<bean id="uiActionManagerBase" class="com.xingyou.xingyou.uiaction.UiActionManagerImpl"/>
+	<bean id="uiActionManager" class="com.xingyou.xingyou.uiaction.UiActionManagerImpl" parent="uiActionManagerBase" ></bean>
+	
+	<bean id="sectionManagerBase" class="com.xingyou.xingyou.section.SectionManagerImpl"/>
+	<bean id="sectionManager" class="com.xingyou.xingyou.section.SectionManagerImpl" parent="sectionManagerBase" ></bean>
+	
+	<bean id="userDomainManagerBase" class="com.xingyou.xingyou.userdomain.UserDomainManagerImpl"/>
+	<bean id="userDomainManager" class="com.xingyou.xingyou.userdomain.UserDomainCustomManagerImpl" parent="userDomainManagerBase" ></bean>
+	
+	<bean id="userWhiteListManagerBase" class="com.xingyou.xingyou.userwhitelist.UserWhiteListManagerImpl"/>
+	<bean id="userWhiteListManager" class="com.xingyou.xingyou.userwhitelist.UserWhiteListManagerImpl" parent="userWhiteListManagerBase" ></bean>
+	
+	<bean id="secUserManagerBase" class="com.xingyou.xingyou.secuser.SecUserManagerImpl"/>
+	<bean id="secUserManager" class="com.xingyou.xingyou.secuser.SecUserCustomManagerImpl" parent="secUserManagerBase" ></bean>
+	
+	<bean id="userAppManagerBase" class="com.xingyou.xingyou.userapp.UserAppManagerImpl"/>
+	<bean id="userAppManager" class="com.xingyou.xingyou.userapp.UserAppCustomManagerImpl" parent="userAppManagerBase" ></bean>
+	
+	<bean id="quickLinkManagerBase" class="com.xingyou.xingyou.quicklink.QuickLinkManagerImpl"/>
+	<bean id="quickLinkManager" class="com.xingyou.xingyou.quicklink.QuickLinkManagerImpl" parent="quickLinkManagerBase" ></bean>
+	
+	<bean id="listAccessManagerBase" class="com.xingyou.xingyou.listaccess.ListAccessManagerImpl"/>
+	<bean id="listAccessManager" class="com.xingyou.xingyou.listaccess.ListAccessManagerImpl" parent="listAccessManagerBase" ></bean>
+	
+	<bean id="loginHistoryManagerBase" class="com.xingyou.xingyou.loginhistory.LoginHistoryManagerImpl"/>
+	<bean id="loginHistoryManager" class="com.xingyou.xingyou.loginhistory.LoginHistoryManagerImpl" parent="loginHistoryManagerBase" ></bean>
+	
+	<bean id="candidateContainerManagerBase" class="com.xingyou.xingyou.candidatecontainer.CandidateContainerManagerImpl"/>
+	<bean id="candidateContainerManager" class="com.xingyou.xingyou.candidatecontainer.CandidateContainerManagerImpl" parent="candidateContainerManagerBase" ></bean>
+	
+	<bean id="candidateElementManagerBase" class="com.xingyou.xingyou.candidateelement.CandidateElementManagerImpl"/>
+	<bean id="candidateElementManager" class="com.xingyou.xingyou.candidateelement.CandidateElementManagerImpl" parent="candidateElementManagerBase" ></bean>
+	
+	<bean id="wechatWorkappIdentifyManagerBase" class="com.xingyou.xingyou.wechatworkappidentify.WechatWorkappIdentifyManagerImpl"/>
+	<bean id="wechatWorkappIdentifyManager" class="com.xingyou.xingyou.wechatworkappidentify.WechatWorkappIdentifyManagerImpl" parent="wechatWorkappIdentifyManagerBase" ></bean>
+	
+	<bean id="wechatMiniappIdentifyManagerBase" class="com.xingyou.xingyou.wechatminiappidentify.WechatMiniappIdentifyManagerImpl"/>
+	<bean id="wechatMiniappIdentifyManager" class="com.xingyou.xingyou.wechatminiappidentify.WechatMiniappIdentifyManagerImpl" parent="wechatMiniappIdentifyManagerBase" ></bean>
+	
+	<bean id="keypairIdentifyManagerBase" class="com.xingyou.xingyou.keypairidentify.KeypairIdentifyManagerImpl"/>
+	<bean id="keypairIdentifyManager" class="com.xingyou.xingyou.keypairidentify.KeypairIdentifyManagerImpl" parent="keypairIdentifyManagerBase" ></bean>
+	
+	<bean id="publicKeyTypeManagerBase" class="com.xingyou.xingyou.publickeytype.PublicKeyTypeManagerImpl"/>
+	<bean id="publicKeyTypeManager" class="com.xingyou.xingyou.publickeytype.PublicKeyTypeManagerImpl" parent="publicKeyTypeManagerBase" ></bean>
+	
+	<bean id="treeNodeManagerBase" class="com.xingyou.xingyou.treenode.TreeNodeManagerImpl"/>
+	<bean id="treeNodeManager" class="com.xingyou.xingyou.treenode.TreeNodeCustomManagerImpl" parent="treeNodeManagerBase" ></bean>
+	
+
+	<bean id="managerGroupBase" class="com.xingyou.xingyou.ManagerGroup">
+		<property name="franchisedOutletProvinceCenterManager" ref="franchisedOutletProvinceCenterManager"/>
+		<property name="catalogManager" ref="catalogManager"/>
+		<property name="levelOneCategoryManager" ref="levelOneCategoryManager"/>
+		<property name="levelTwoCategoryManager" ref="levelTwoCategoryManager"/>
+		<property name="levelThreeCategoryManager" ref="levelThreeCategoryManager"/>
+		<property name="productManager" ref="productManager"/>
+		<property name="skuManager" ref="skuManager"/>
+		<property name="franchisedOutletCityCenterManager" ref="franchisedOutletCityCenterManager"/>
+		<property name="cityCenterDepartmentManager" ref="cityCenterDepartmentManager"/>
+		<property name="cityCenterEmployeeManager" ref="cityCenterEmployeeManager"/>
+		<property name="franchisedOutletCityServiceCenterManager" ref="franchisedOutletCityServiceCenterManager"/>
+		<property name="cityPartnerManager" ref="cityPartnerManager"/>
+		<property name="potentialCustomerManager" ref="potentialCustomerManager"/>
+		<property name="potentialCustomerContactPersonManager" ref="potentialCustomerContactPersonManager"/>
+		<property name="potentialCustomerContactManager" ref="potentialCustomerContactManager"/>
+		<property name="cityEventManager" ref="cityEventManager"/>
+		<property name="eventAttendanceManager" ref="eventAttendanceManager"/>
+		<property name="mobileAppManager" ref="mobileAppManager"/>
+		<property name="pageManager" ref="pageManager"/>
+		<property name="pageTypeManager" ref="pageTypeManager"/>
+		<property name="slideManager" ref="slideManager"/>
+		<property name="uiActionManager" ref="uiActionManager"/>
+		<property name="sectionManager" ref="sectionManager"/>
+		<property name="userDomainManager" ref="userDomainManager"/>
+		<property name="userWhiteListManager" ref="userWhiteListManager"/>
+		<property name="secUserManager" ref="secUserManager"/>
+		<property name="userAppManager" ref="userAppManager"/>
+		<property name="quickLinkManager" ref="quickLinkManager"/>
+		<property name="listAccessManager" ref="listAccessManager"/>
+		<property name="loginHistoryManager" ref="loginHistoryManager"/>
+		<property name="candidateContainerManager" ref="candidateContainerManager"/>
+		<property name="candidateElementManager" ref="candidateElementManager"/>
+		<property name="wechatWorkappIdentifyManager" ref="wechatWorkappIdentifyManager"/>
+		<property name="wechatMiniappIdentifyManager" ref="wechatMiniappIdentifyManager"/>
+		<property name="keypairIdentifyManager" ref="keypairIdentifyManager"/>
+		<property name="publicKeyTypeManager" ref="publicKeyTypeManager"/>
+		<property name="treeNodeManager" ref="treeNodeManager"/>
+	</bean>
+	<bean id="managerGroup" parent="managerGroupBase"></bean>
+	
+
+
+</beans>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
