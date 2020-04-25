@@ -113,7 +113,7 @@ class App extends Component {
     window: {
       backgroundTextStyle: 'light',
       navigationBarBackgroundColor: '#28aaff',
-      navigationBarTitleText: '油奔奔大后台系统',
+      navigationBarTitleText: '医生排班系统',
       navigationBarTextStyle: 'white',
       enablePullDownRefresh: true,
     },

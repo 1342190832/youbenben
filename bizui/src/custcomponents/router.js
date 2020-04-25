@@ -2,7 +2,7 @@
 
 import React from 'react'
 import { Router, Route, Switch } from 'dva/router'
-import { LocaleProvider } from 'antd'
+import { ConfigProvider } from 'antd'
 import zhCN from 'antd/lib/locale-provider/zh_CN'
 // import enUS from 'antd/lib/locale-provider/en_US'
 import Launcher from '../launcher/Launcher'
@@ -21,23 +21,35 @@ function RouterConfig({ history }) {
 	const {DepartmentBizApp} = GlobalComponents
 	const {DoctorAssignmentBizApp} = GlobalComponents
 	const {DoctorScheduleBizApp} = GlobalComponents
+	const {MobileAppBizApp} = GlobalComponents
+	const {PageBizApp} = GlobalComponents
+	const {PageTypeBizApp} = GlobalComponents
+	const {SlideBizApp} = GlobalComponents
+	const {UiActionBizApp} = GlobalComponents
+	const {SectionBizApp} = GlobalComponents
 	const {UserDomainBizApp} = GlobalComponents
 	const {UserWhiteListBizApp} = GlobalComponents
 	const {SecUserBizApp} = GlobalComponents
-	const {SecUserBlockingBizApp} = GlobalComponents
 	const {UserAppBizApp} = GlobalComponents
+	const {QuickLinkBizApp} = GlobalComponents
 	const {ListAccessBizApp} = GlobalComponents
-	const {ObjectAccessBizApp} = GlobalComponents
 	const {LoginHistoryBizApp} = GlobalComponents
+	const {CandidateContainerBizApp} = GlobalComponents
+	const {CandidateElementBizApp} = GlobalComponents
+	const {WechatWorkappIdentifyBizApp} = GlobalComponents
+	const {WechatMiniappIdentifyBizApp} = GlobalComponents
+	const {KeypairIdentifyBizApp} = GlobalComponents
+	const {PublicKeyTypeBizApp} = GlobalComponents
+	const {TreeNodeBizApp} = GlobalComponents
 
 
 
   return (
-    <LocaleProvider locale={zhCN}>
+    <ConfigProvider locale={zhCN}>
       <Router history={history}>
         <Switch>
-         <Route path="/home" component={Launcher} />
-         <Route path="/forgetpass" component={ForgetPasswordForm} />
+          <Route path="/home" component={Launcher} />
+          <Route path="/forgetpass" component={ForgetPasswordForm} />
           <Route path="/hospital/" component={HospitalBizApp} />
           <Route path="/expenseType/" component={ExpenseTypeBizApp} />
           <Route path="/period/" component={PeriodBizApp} />
@@ -46,18 +58,30 @@ function RouterConfig({ history }) {
           <Route path="/department/" component={DepartmentBizApp} />
           <Route path="/doctorAssignment/" component={DoctorAssignmentBizApp} />
           <Route path="/doctorSchedule/" component={DoctorScheduleBizApp} />
+          <Route path="/mobileApp/" component={MobileAppBizApp} />
+          <Route path="/page/" component={PageBizApp} />
+          <Route path="/pageType/" component={PageTypeBizApp} />
+          <Route path="/slide/" component={SlideBizApp} />
+          <Route path="/uiAction/" component={UiActionBizApp} />
+          <Route path="/section/" component={SectionBizApp} />
           <Route path="/userDomain/" component={UserDomainBizApp} />
           <Route path="/userWhiteList/" component={UserWhiteListBizApp} />
           <Route path="/secUser/" component={SecUserBizApp} />
-          <Route path="/secUserBlocking/" component={SecUserBlockingBizApp} />
           <Route path="/userApp/" component={UserAppBizApp} />
+          <Route path="/quickLink/" component={QuickLinkBizApp} />
           <Route path="/listAccess/" component={ListAccessBizApp} />
-          <Route path="/objectAccess/" component={ObjectAccessBizApp} />
           <Route path="/loginHistory/" component={LoginHistoryBizApp} />
-         <Route path="/" component={Launcher} />
+          <Route path="/candidateContainer/" component={CandidateContainerBizApp} />
+          <Route path="/candidateElement/" component={CandidateElementBizApp} />
+          <Route path="/wechatWorkappIdentify/" component={WechatWorkappIdentifyBizApp} />
+          <Route path="/wechatMiniappIdentify/" component={WechatMiniappIdentifyBizApp} />
+          <Route path="/keypairIdentify/" component={KeypairIdentifyBizApp} />
+          <Route path="/publicKeyType/" component={PublicKeyTypeBizApp} />
+          <Route path="/treeNode/" component={TreeNodeBizApp} />
+          <Route path="/" component={Launcher} />
         </Switch>
       </Router>
-    </LocaleProvider>
+    </ConfigProvider>
   )
 }
 

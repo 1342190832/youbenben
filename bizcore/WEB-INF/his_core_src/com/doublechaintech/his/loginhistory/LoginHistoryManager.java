@@ -1,0 +1,40 @@
+
+package com.doublechaintech.his.loginhistory;
+import java.math.BigDecimal;
+import java.util.Date;
+import java.util.Map;
+import com.terapico.caf.DateTime;
+import com.terapico.caf.Images;
+import com.doublechaintech.his.HisUserContext;
+import com.doublechaintech.his.BaseEntity;
+import com.doublechaintech.his.BaseManager;
+import com.doublechaintech.his.SmartList;
+
+public interface LoginHistoryManager extends BaseManager{
+
+		
+
+	public LoginHistory createLoginHistory(HisUserContext userContext, String fromIp,String description,String secUserId) throws Exception;
+	public LoginHistory updateLoginHistory(HisUserContext userContext,String loginHistoryId, int loginHistoryVersion, String property, String newValueExpr,String [] tokensExpr) throws Exception;
+	public LoginHistory loadLoginHistory(HisUserContext userContext, String loginHistoryId, String [] tokensExpr) throws Exception;
+	public LoginHistory internalSaveLoginHistory(HisUserContext userContext, LoginHistory loginHistory) throws Exception;
+	public LoginHistory internalSaveLoginHistory(HisUserContext userContext, LoginHistory loginHistory,Map<String,Object>option) throws Exception;
+
+	public LoginHistory transferToAnotherSecUser(HisUserContext userContext, String loginHistoryId, String anotherSecUserId)  throws Exception;
+ 
+
+	public void delete(HisUserContext userContext, String loginHistoryId, int version) throws Exception;
+	public int deleteAll(HisUserContext userContext, String secureCode ) throws Exception;
+	public void onNewInstanceCreated(HisUserContext userContext, LoginHistory newCreated)throws Exception;
+
+	/*======================================================DATA MAINTENANCE===========================================================*/
+
+
+
+	public Object listBySecUser(HisUserContext userContext,String secUserId) throws Exception;
+	public Object listPageBySecUser(HisUserContext userContext,String secUserId, int start, int count) throws Exception;
+  
+
+}
+
+

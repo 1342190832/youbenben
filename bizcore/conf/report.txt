@@ -1,741 +1,381 @@
 
-@warning sku.barcode: word 'barcode' seems not found in library
 @warning object definition: wechat_workapp_identify: word 'workapp' seems not found in library
 @warning object definition: wechat_miniapp_identify: word 'miniapp' seems not found in library
 @warning object definition: keypair_identify: word 'keypair' seems not found in library
 
 
 
-=================Execute Report (Model Time 700101T0800) @Sat Apr 25 14:45:44 CST 2020, 37 objects and 253 fields===========================
+=================Execute Report (Model Time 700101T0800) @Sat Apr 25 14:58:29 CST 2020, 28 objects and 191 fields===========================
 
 
 
- processing: franchised_outlet_province_center
+ processing: hospital
 
 
- processing: catalog
+ processing: expense_type
 
 
- processing: catalog.franchised_outlet_province_center.owner
+ processing: expense_type.hospital.hospital
 
-Info: Add virtual field [catalogs(es)] to <franchised_outlet_province_center>
-	catalog.owner
+Info: Add virtual field [expense_types(es)] to <hospital>
+	expense_type.hospital
 
 
- processing: level_one_category
+ processing: period
 
 
- processing: level_one_category.catalog.catalog
+ processing: period.hospital.hospital
 
-Info: Add virtual field [level_one_categorys(es)] to <catalog>
-	level_one_category.catalog
+Info: Add virtual field [periods(es)] to <hospital>
+	period.hospital
 
 
- processing: level_two_category
+ processing: expense_item
 
 
- processing: level_two_category.level_one_category.parent_category
+ processing: expense_item.expense_type.expense_type
 
-Info: Add virtual field [level_two_categorys(es)] to <level_one_category>
-	level_two_category.parent_category
+Info: Add virtual field [expense_items(es)] to <expense_type>
+	expense_item.expense_type
 
 
- processing: level_three_category
+ processing: expense_item.hospital.hospital
 
+Info: Add virtual field [expense_items(es)] to <hospital>
+	expense_item.hospital
 
- processing: level_three_category.level_two_category.parent_category
 
-Info: Add virtual field [level_three_categorys(es)] to <level_two_category>
-	level_three_category.parent_category
+ processing: doctor
 
 
- processing: product
+ processing: doctor.hospital.hospital
 
+Info: Add virtual field [doctors(es)] to <hospital>
+	doctor.hospital
 
- processing: product.level_three_category.parent_category
 
-Info: Add virtual field [products(es)] to <level_three_category>
-	product.parent_category
+ processing: department
 
 
- processing: sku
+ processing: department.hospital.hospital
 
+Info: Add virtual field [departments(es)] to <hospital>
+	department.hospital
 
- processing: sku.product.product
 
-Info: Add virtual field [skus(es)] to <product>
-	sku.product
+ processing: doctor_assignment
 
 
- processing: franchised_outlet_city_center
+ processing: doctor_assignment.doctor.doctor
 
+Info: Add virtual field [doctor_assignments(es)] to <doctor>
+	doctor_assignment.doctor
 
- processing: franchised_outlet_city_center.franchised_outlet_city_center.city
 
-Info: Add virtual field [franchised_outlet_city_centers(es)] to <franchised_outlet_city_center>
-	franchised_outlet_city_center.city
+ processing: doctor_assignment.department.department
 
+Info: Add virtual field [doctor_assignments(es)] to <department>
+	doctor_assignment.department
 
- processing: city_center_department
 
+ processing: doctor_schedule
 
- processing: city_center_department.franchised_outlet_city_center.city_center
 
-Info: Add virtual field [city_center_departments(es)] to <franchised_outlet_city_center>
-	city_center_department.city_center
+ processing: doctor_schedule.doctor.doctor
 
+Info: Add virtual field [doctor_schedules(es)] to <doctor>
+	doctor_schedule.doctor
 
- processing: city_center_employee
 
+ processing: doctor_schedule.period.period
 
- processing: city_center_employee.city_center_department.department
+Info: Add virtual field [doctor_schedules(es)] to <period>
+	doctor_schedule.period
 
-Info: Add virtual field [city_center_employees(es)] to <city_center_department>
-	city_center_employee.department
 
+ processing: doctor_schedule.department.department
 
- processing: city_center_employee.franchised_outlet_city_center.city_center
+Info: Add virtual field [doctor_schedules(es)] to <department>
+	doctor_schedule.department
 
-Info: Add virtual field [city_center_employees(es)] to <franchised_outlet_city_center>
-	city_center_employee.city_center
 
+ processing: doctor_schedule.expense_type.expense_type
 
- processing: franchised_outlet_city_service_center
+Info: Add virtual field [doctor_schedules(es)] to <expense_type>
+	doctor_schedule.expense_type
 
 
- processing: franchised_outlet_city_service_center.franchised_outlet_city_center.belongs_to
+ processing: doctor_schedule.hospital.hospital
 
-Info: Add virtual field [franchised_outlet_city_service_centers(es)] to <franchised_outlet_city_center>
-	franchised_outlet_city_service_center.belongs_to
-
-
- processing: city_partner
-
-
- processing: city_partner.franchised_outlet_city_service_center.town_service_center
-
-Info: Add virtual field [city_partners(es)] to <franchised_outlet_city_service_center>
-	city_partner.town_service_center
-
-
- processing: potential_customer
-
-
- processing: potential_customer.franchised_outlet_city_service_center.city_service_center
-
-Info: Add virtual field [potential_customers(es)] to <franchised_outlet_city_service_center>
-	potential_customer.city_service_center
-
-
- processing: potential_customer.city_partner.city_partner
-
-Info: Add virtual field [potential_customers(es)] to <city_partner>
-	potential_customer.city_partner
-
-
- processing: potential_customer_contact_person
-
-
- processing: potential_customer_contact_person.potential_customer.potential_customer
-
-Info: Add virtual field [potential_customer_contact_persons(es)] to <potential_customer>
-	potential_customer_contact_person.potential_customer
-
-
- processing: potential_customer_contact
-
-
- processing: potential_customer_contact.potential_customer.potential_customer
-
-Info: Add virtual field [potential_customer_contacts(es)] to <potential_customer>
-	potential_customer_contact.potential_customer
-
-
- processing: potential_customer_contact.city_partner.city_partner
-
-Info: Add virtual field [potential_customer_contacts(es)] to <city_partner>
-	potential_customer_contact.city_partner
-
-
- processing: potential_customer_contact.potential_customer_contact_person.contact_to
-
-Info: Add virtual field [potential_customer_contacts(es)] to <potential_customer_contact_person>
-	potential_customer_contact.contact_to
-
-
- processing: city_event
-
-
- processing: city_event.franchised_outlet_city_service_center.city_service_center
-
-Info: Add virtual field [city_events(es)] to <franchised_outlet_city_service_center>
-	city_event.city_service_center
-
-
- processing: event_attendance
-
-
- processing: event_attendance.potential_customer.potential_customer
-
-Info: Add virtual field [event_attendances(es)] to <potential_customer>
-	event_attendance.potential_customer
-
-
- processing: event_attendance.city_event.city_event
-
-Info: Add virtual field [event_attendances(es)] to <city_event>
-	event_attendance.city_event
+Info: Add virtual field [doctor_schedules(es)] to <hospital>
+	doctor_schedule.hospital
 
 
 **************************************************
 
-meta{name=franchised_outlet_province_center}
-franchised_outlet_province_center{
-	fields(10){
+meta{name=hospital}
+hospital{
+	fields(5){
 		string	id('AB'), verb: false, required: true,type:id;
-		string	name('油奔奔山东运营中心|油奔奔北京运营中心|油奔奔河北运营中心|油奔奔天津运营中心'), verb: false, required: true,type:string;
-		string	service_number('133-3518-3886'), verb: false, required: true,type:string;
-		date_past	founded('past()'), verb: false, required: true,type:date_past;
-		string_url	web_site('https://www.youbenben.com/'), verb: false, required: true,type:string_url;
-		string	address('山东省济南市英雄山路祥泰广场'), verb: false, required: true,type:string;
-		string	operated_by('兴油网络科技'), verb: false, required: true,type:string;
-		string	legal_representative('蔡兴志|蔡兴志'), verb: false, required: true,type:string;
-		string	description('山东运营中心正式成立，恭喜恭喜'), verb: false, required: true,type:string;
+		string	name('上和医院'), verb: false, required: true,type:string;
+		string	address('毕升路22号'), verb: false, required: true,type:string;
+		string	telephone('028-9123123'), verb: false, required: true,type:string;
 		int	version('2147483647'), verb: false, required: true,type:int;
 	}
-	references field(1){
-		catalogList	owner(产品管理)--owner;
+	references field(6){
+		expenseTypeList	hospital(__no_group)--hospital;
+		periodList	hospital(__no_group)--hospital;
+		expenseItemList	hospital(__no_group)--hospital;
+		doctorList	hospital(__no_group)--hospital;
+		departmentList	hospital(__no_group)--hospital;
+		doctorScheduleList	hospital(__no_group)--hospital;
 	}
 } depth=0; isRoot = true
 
-meta{name=catalog, vg4owner=产品管理}
-catalog{
-	fields(6){
-		string	id('AB'), verb: false, required: true,type:id;
-		string	name('饲料|柴油|其他'), verb: false, required: true,type:string;
-		franchised_outlet_province_center	owner('$(object)'), verb: false, required: true, referenceBy: catalogList,type:franchised_outlet_province_center;
-		int	sub_count('3'), verb: false, required: true,type:int;
-		money	amount('$10.11'), verb: false, required: true,type:money;
-		int	version('2147483647'), verb: false, required: true,type:int;
-	}
-	references field(1){
-		levelOneCategoryList	catalog(__no_group)--catalog;
-	}
-} depth=1; isRoot = false
-
-meta{name=level_one_category}
-level_one_category{
-	fields(4){
-		string	id('AB'), verb: false, required: true,type:id;
-		catalog	catalog('$(object)'), verb: false, required: true, referenceBy: levelOneCategoryList,type:catalog;
-		string	name('饲料|柴油'), verb: false, required: true,type:string;
-		int	version('2147483647'), verb: false, required: true,type:int;
-	}
-	references field(1){
-		levelTwoCategoryList	parent_category(__no_group)--parent_category;
-	}
-} depth=2; isRoot = false
-
-meta{name=level_two_category}
-level_two_category{
-	fields(4){
-		string	id('AB'), verb: false, required: true,type:id;
-		level_one_category	parent_category('$(object)'), verb: false, required: true, referenceBy: levelTwoCategoryList,type:level_one_category;
-		string	name('饲料|柴油'), verb: false, required: true,type:string;
-		int	version('2147483647'), verb: false, required: true,type:int;
-	}
-	references field(1){
-		levelThreeCategoryList	parent_category(__no_group)--parent_category;
-	}
-} depth=3; isRoot = false
-
-meta{name=level_three_category}
-level_three_category{
-	fields(4){
-		string	id('AB'), verb: false, required: true,type:id;
-		level_two_category	parent_category('$(object)'), verb: false, required: true, referenceBy: levelThreeCategoryList,type:level_two_category;
-		string	name('饲料|柴油'), verb: false, required: true,type:string;
-		int	version('2147483647'), verb: false, required: true,type:int;
-	}
-	references field(1){
-		productList	parent_category(__no_group)--parent_category;
-	}
-} depth=4; isRoot = false
-
-meta{name=product}
-product{
-	fields(9){
-		string	id('AB'), verb: false, required: true,type:id;
-		string	name('饲料|柴油|怡宝矿泉水|其他'), verb: false, required: true,type:string;
-		level_three_category	parent_category('$(object)'), verb: false, required: true, referenceBy: productList,type:level_three_category;
-		string	origin('山东|广东|江苏|安徽'), verb: false, required: true,type:string;
-		string	remark('怡宝矿泉水，销售百年的水，获得了全世界的青睐'), verb: false, required: true,type:string;
-		string	brand('怡宝|油奔奔|中石油|中石化'), verb: false, required: true,type:string;
-		string_image	picture('this is a looooooooooog.jpg'), verb: false, required: true,type:string_image;
-		date_time_update	last_update_time('updateTime()'), verb: false, required: true,type:date_time_update;
-		int	version('2147483647'), verb: false, required: true,type:int;
-	}
-	references field(1){
-		skuList	product(__no_group)--product;
-	}
-} depth=5; isRoot = false
-
-meta{name=sku}
-sku{
-	fields(10){
-		string	id('AB'), verb: false, required: true,type:id;
-		string	name('矿泉水-大罐的'), verb: false, required: true,type:string;
-		string	size('大|中|小'), verb: false, required: true,type:string;
-		product	product('$(object)'), verb: false, required: true, referenceBy: skuList,type:product;
-		string	barcode('TM00000000001'), verb: false, required: true,type:string;
-		string	package_type('包装类型'), verb: false, required: true,type:string;
-		string	net_content('包装数量等信息,包装数量等信息,包装数量等信息'), verb: false, required: true,type:string;
-		money	price('$1323.33'), verb: false, required: true,type:money;
-		string_image	picture('coco.jpg'), verb: false, required: true,type:string_image;
-		int	version('2147483647'), verb: false, required: true,type:int;
-	}
-	references field(0){
-	}
-} depth=6; isRoot = false
-
-meta{name=franchised_outlet_city_center, vg4country=组织机构}
-franchised_outlet_city_center{
-	fields(6){
-		string	id('AB'), verb: false, required: true,type:id;
-		string	name('油奔奔济南市运营中心|油奔奔菏泽市运营中心'), verb: false, required: true,type:string;
-		date_past	founded('past()'), verb: false, required: true,type:date_past;
-		franchised_outlet_city_center	city('$(object)'), verb: false, required: true, referenceBy: franchisedOutletCityCenterList,type:franchised_outlet_city_center;
-		date_time_update	last_update_time('updateTime()'), verb: false, required: true,type:date_time_update;
-		int	version('2147483647'), verb: false, required: true,type:int;
-	}
-	references field(4){
-		franchisedOutletCityCenterList	city(__no_group)--city;
-		cityCenterDepartmentList	city_center(__no_group)--city_center;
-		cityCenterEmployeeList	city_center(__no_group)--city_center;
-		franchisedOutletCityServiceCenterList	belongs_to(__no_group)--belongs_to;
-	}
-} depth=-1; isRoot = false
-
-meta{name=city_center_department, features=setting}
-city_center_department{
-	fields(6){
-		string	id('AB'), verb: false, required: true,type:id;
-		string	name('供应链部|采购部|管理部|财务部|法务部|市场部|人力资源部'), verb: false, required: true,type:string;
-		date_past	founded('past()'), verb: false, required: true,type:date_past;
-		franchised_outlet_city_center	city_center('$(object)'), verb: false, required: true, referenceBy: cityCenterDepartmentList,type:franchised_outlet_city_center;
-		string	manager('张三|李四'), verb: false, required: true,type:string;
-		int	version('2147483647'), verb: false, required: true,type:int;
-	}
-	references field(1){
-		cityCenterEmployeeList	department(__no_group)--department;
-	}
-} depth=-1; isRoot = false
-
-meta{name=city_center_employee}
-city_center_employee{
+meta{name=expense_type, features=setting}
+expense_type{
 	fields(8){
 		string	id('AB'), verb: false, required: true,type:id;
-		string	name('张三|李四'), verb: false, required: true,type:string;
-		string_china_mobile_phone	mobile('13999998888'), verb: false, required: true,type:string_china_mobile_phone;
-		string_email	email('zhangsan@youbenben.cn|lisi@youbenben.cn'), verb: false, required: true,type:string_email;
-		date_past	founded('past()'), verb: false, required: true,type:date_past;
-		city_center_department	department('$(object)'), verb: false, required: true, referenceBy: cityCenterEmployeeList,type:city_center_department;
-		franchised_outlet_city_center	city_center('$(object)'), verb: false, required: true, referenceBy: cityCenterEmployeeList,type:franchised_outlet_city_center;
-		int	version('2147483647'), verb: false, required: true,type:int;
-	}
-	references field(0){
-	}
-} depth=-1; isRoot = false
-
-meta{name=franchised_outlet_city_service_center}
-franchised_outlet_city_service_center{
-	fields(6){
-		string	id('AB'), verb: false, required: true,type:id;
-		string	name('油奔奔济南|油奔奔菏泽'), verb: false, required: true,type:string;
-		date_past	founded('past()'), verb: false, required: true,type:date_past;
-		franchised_outlet_city_center	belongs_to('$(object)'), verb: false, required: true, referenceBy: franchisedOutletCityServiceCenterList,type:franchised_outlet_city_center;
-		date_time_update	last_update_time('updateTime()'), verb: false, required: true,type:date_time_update;
-		int	version('2147483647'), verb: false, required: true,type:int;
-	}
-	references field(3){
-		cityPartnerList	town_service_center(__no_group)--town_service_center;
-		potentialCustomerList	city_service_center(__no_group)--city_service_center;
-		cityEventList	city_service_center(__no_group)--city_service_center;
-	}
-} depth=-1; isRoot = false
-
-meta{name=city_partner}
-city_partner{
-	fields(7){
-		string	id('AB'), verb: false, required: true,type:id;
-		string	name('曾倩|黄风格|郭超'), verb: false, required: true,type:string;
-		string_china_mobile_phone	mobile('13677778888'), verb: false, required: true,type:string_china_mobile_phone;
-		franchised_outlet_city_service_center	town_service_center('$(object)'), verb: false, required: true, referenceBy: cityPartnerList,type:franchised_outlet_city_service_center;
-		string	description('负责开拓市场，具有极强的开拓能力'), verb: false, required: true,type:string;
-		date_time_update	last_update_time('updateTime()'), verb: false, required: true,type:date_time_update;
+		string	name('诊疗费|治疗费|检查费'), verb: false, required: true,type:string;
+		string	helper_chars('zlf|zlf|jcf'), verb: false, required: true,type:string;
+		string	status('正常|停用'), verb: false, required: true,type:string;
+		hospital	hospital('$(object)'), verb: false, required: true, referenceBy: expenseTypeList,type:hospital;
+		string_longtext	description('text()'), verb: false, required: true,type:string_longtext;
+		date_time_update	update_time('updateTime()'), verb: false, required: true,type:date_time_update;
 		int	version('2147483647'), verb: false, required: true,type:int;
 	}
 	references field(2){
-		potentialCustomerList	city_partner(__no_group)--city_partner;
-		potentialCustomerContactList	city_partner(__no_group)--city_partner;
+		expenseItemList	expense_type(__no_group)--expense_type;
+		doctorScheduleList	expense_type(__no_group)--expense_type;
 	}
-} depth=-1; isRoot = false
+} depth=1; isRoot = false
 
-meta{name=potential_customer}
-potential_customer{
-	fields(8){
+meta{name=period, identified_by=code, features=status}
+period{
+	fields(5){
 		string	id('AB'), verb: false, required: true,type:id;
-		string	name('曾倩|黄风格|郭超'), verb: false, required: true,type:string;
-		string_china_mobile_phone	mobile('13677778888'), verb: false, required: true,type:string_china_mobile_phone;
-		franchised_outlet_city_service_center	city_service_center('$(object)'), verb: false, required: true, referenceBy: potentialCustomerList,type:franchised_outlet_city_service_center;
-		city_partner	city_partner('$(object)'), verb: false, required: true, referenceBy: potentialCustomerList,type:city_partner;
-		string	description('负责开拓市场，具有极强的开拓能力'), verb: false, required: true,type:string;
-		date_time_update	last_update_time('updateTime()'), verb: false, required: true,type:date_time_update;
-		int	version('2147483647'), verb: false, required: true,type:int;
-	}
-	references field(3){
-		potentialCustomerContactPersonList	potential_customer(__no_group)--potential_customer;
-		potentialCustomerContactList	potential_customer(__no_group)--potential_customer;
-		eventAttendanceList	potential_customer(__no_group)--potential_customer;
-	}
-} depth=-1; isRoot = false
-
-meta{name=potential_customer_contact_person}
-potential_customer_contact_person{
-	fields(6){
-		string	id('AB'), verb: false, required: true,type:id;
-		string	name('赵先生'), verb: false, required: true,type:string;
-		string_china_mobile_phone	mobile('13677778888'), verb: false, required: true,type:string_china_mobile_phone;
-		potential_customer	potential_customer('$(object)'), verb: false, required: true, referenceBy: potentialCustomerContactPersonList,type:potential_customer;
-		string	description('这人在决策中战友较大的权重，密切观察中.....'), verb: false, required: true,type:string;
+		string	name('上午|下午|夜班'), verb: false, required: true,type:string;
+		string	code('MORNING|AFTERNOON|NIGHT'), verb: false, required: true,type:string;
+		hospital	hospital('$(object)'), verb: false, required: true, referenceBy: periodList,type:hospital;
 		int	version('2147483647'), verb: false, required: true,type:int;
 	}
 	references field(1){
-		potentialCustomerContactList	contact_to(__no_group)--contact_to;
+		doctorScheduleList	period(__no_group)--period;
 	}
-} depth=-1; isRoot = false
+} depth=1; isRoot = false
 
-meta{name=potential_customer_contact}
-potential_customer_contact{
-	fields(10){
-		string	id('AB'), verb: false, required: true,type:id;
-		string	name('和连载客户的联系记录'), verb: false, required: true,type:string;
-		date	contact_date('2016-09-09'), verb: false, required: true,type:date;
-		string	contact_method('电话|短信|登门拜访|活动聊天'), verb: false, required: true,type:string;
-		potential_customer	potential_customer('$(object)'), verb: false, required: true, referenceBy: potentialCustomerContactList,type:potential_customer;
-		city_partner	city_partner('$(object)'), verb: false, required: true, referenceBy: potentialCustomerContactList,type:city_partner;
-		potential_customer_contact_person	contact_to('$(object)'), verb: false, required: true, referenceBy: potentialCustomerContactList,type:potential_customer_contact_person;
-		string	description('转化希望很大'), verb: false, required: true,type:string;
-		date_time_update	last_update_time('updateTime()'), verb: false, required: true,type:date_time_update;
-		int	version('2147483647'), verb: false, required: true,type:int;
-	}
-	references field(0){
-	}
-} depth=-1; isRoot = false
-
-meta{name=city_event}
-city_event{
+meta{name=expense_item, features=setting}
+expense_item{
 	fields(7){
 		string	id('AB'), verb: false, required: true,type:id;
-		string	name('油奔奔见面会|油奔奔说明会'), verb: false, required: true,type:string;
-		string_china_mobile_phone	mobile('13677778888'), verb: false, required: true,type:string_china_mobile_phone;
-		franchised_outlet_city_service_center	city_service_center('$(object)'), verb: false, required: true, referenceBy: cityEventList,type:franchised_outlet_city_service_center;
-		string	description('给大家讲解油奔奔的发展蓝图'), verb: false, required: true,type:string;
-		date_time_update	last_update_time('updateTime()'), verb: false, required: true,type:date_time_update;
-		int	version('2147483647'), verb: false, required: true,type:int;
-	}
-	references field(1){
-		eventAttendanceList	city_event(__no_group)--city_event;
-	}
-} depth=-1; isRoot = false
-
-meta{name=event_attendance}
-event_attendance{
-	fields(6){
-		string	id('AB'), verb: false, required: true,type:id;
-		string	name('油奔奔见面会参加信息'), verb: false, required: true,type:string;
-		potential_customer	potential_customer('$(object)'), verb: false, required: true, referenceBy: eventAttendanceList,type:potential_customer;
-		city_event	city_event('$(object)'), verb: false, required: true, referenceBy: eventAttendanceList,type:city_event;
-		string	description('体会不错，考虑加盟'), verb: false, required: true,type:string;
+		string	name('专家诊疗费|血常规|煎药费'), verb: false, required: true,type:string;
+		money	price('$99999999999.00'), verb: false, required: true,type:money;
+		expense_type	expense_type('$(object)'), verb: false, required: true, referenceBy: expenseItemList,type:expense_type;
+		hospital	hospital('$(object)'), verb: false, required: true, referenceBy: expenseItemList,type:hospital;
+		date_time_update	update_time('updateTime()'), verb: false, required: true,type:date_time_update;
 		int	version('2147483647'), verb: false, required: true,type:int;
 	}
 	references field(0){
 	}
-} depth=-1; isRoot = false
+} depth=2; isRoot = false
 
-meta{name=franchised_outlet_province_center}
-franchised_outlet_province_center{
-	fields(10){
+meta{name=doctor}
+doctor{
+	fields(6){
 		string	id('AB'), verb: false, required: true,type:id;
-		string	name('油奔奔山东运营中心|油奔奔北京运营中心|油奔奔河北运营中心|油奔奔天津运营中心'), verb: false, required: true,type:string;
-		string	service_number('133-3518-3886'), verb: false, required: true,type:string;
-		date_past	founded('past()'), verb: false, required: true,type:date_past;
-		string_url	web_site('https://www.youbenben.com/'), verb: false, required: true,type:string_url;
-		string	address('山东省济南市英雄山路祥泰广场'), verb: false, required: true,type:string;
-		string	operated_by('兴油网络科技'), verb: false, required: true,type:string;
-		string	legal_representative('蔡兴志|蔡兴志'), verb: false, required: true,type:string;
-		string	description('山东运营中心正式成立，恭喜恭喜'), verb: false, required: true,type:string;
+		string	name('魏松全'), verb: false, required: true,type:string;
+		string_image	shot_image('snap.shot-400-300-red.jpg'), verb: false, required: true,type:string_image;
+		hospital	hospital('$(object)'), verb: false, required: true, referenceBy: doctorList,type:hospital;
+		date_time_update	update_time('updateTime()'), verb: false, required: true,type:date_time_update;
 		int	version('2147483647'), verb: false, required: true,type:int;
 	}
-	references field(1){
-		catalogList	owner(产品管理)--owner;
+	references field(2){
+		doctorAssignmentList	doctor(__no_group)--doctor;
+		doctorScheduleList	doctor(__no_group)--doctor;
+	}
+} depth=1; isRoot = false
+
+meta{name=department, features=setting}
+department{
+	fields(5){
+		string	id('AB'), verb: false, required: true,type:id;
+		string	name('放射科'), verb: false, required: true,type:string;
+		hospital	hospital('$(object)'), verb: false, required: true, referenceBy: departmentList,type:hospital;
+		date_time_update	update_time('updateTime()'), verb: false, required: true,type:date_time_update;
+		int	version('2147483647'), verb: false, required: true,type:int;
+	}
+	references field(2){
+		doctorAssignmentList	department(__no_group)--department;
+		doctorScheduleList	department(__no_group)--department;
+	}
+} depth=1; isRoot = false
+
+meta{name=doctor_assignment, features=setting}
+doctor_assignment{
+	fields(6){
+		string	id('AB'), verb: false, required: true,type:id;
+		string	name('魏松全在内分泌科室上'), verb: false, required: true,type:string;
+		doctor	doctor('$(object)'), verb: false, required: true, referenceBy: doctorAssignmentList,type:doctor;
+		department	department('$(object)'), verb: false, required: true, referenceBy: doctorAssignmentList,type:department;
+		date_time_update	update_time('updateTime()'), verb: false, required: true,type:date_time_update;
+		int	version('2147483647'), verb: false, required: true,type:int;
+	}
+	references field(0){
+	}
+} depth=2; isRoot = false
+
+meta{name=doctor_schedule}
+doctor_schedule{
+	fields(13){
+		string	id('AB'), verb: false, required: true,type:id;
+		string	name('2019年3月11日魏松全在内分泌科坐班收诊疗费,每个10'), verb: false, required: true,type:string;
+		doctor	doctor('$(object)'), verb: false, required: true, referenceBy: doctorScheduleList,type:doctor;
+		date	schedule_date('2019-3-11'), verb: false, required: true,type:date;
+		period	period('$(object)'), verb: false, required: true, referenceBy: doctorScheduleList,type:period;
+		department	department('$(object)'), verb: false, required: true, referenceBy: doctorScheduleList,type:department;
+		int	available('20'), verb: false, required: true,type:int;
+		money	price('$123.99'), verb: false, required: true,type:money;
+		expense_type	expense_type('$(object)'), verb: false, required: true, referenceBy: doctorScheduleList,type:expense_type;
+		date_time_create	create_time('createTime()'), verb: false, required: true,type:date_time_create;
+		date_time_update	update_time('updateTime()'), verb: false, required: true,type:date_time_update;
+		hospital	hospital('$(object)'), verb: false, required: true, referenceBy: doctorScheduleList,type:hospital;
+		int	version('2147483647'), verb: false, required: true,type:int;
+	}
+	references field(0){
+	}
+} depth=2; isRoot = false
+
+meta{name=hospital}
+hospital{
+	fields(5){
+		string	id('AB'), verb: false, required: true,type:id;
+		string	name('上和医院'), verb: false, required: true,type:string;
+		string	address('毕升路22号'), verb: false, required: true,type:string;
+		string	telephone('028-9123123'), verb: false, required: true,type:string;
+		int	version('2147483647'), verb: false, required: true,type:int;
+	}
+	references field(6){
+		expenseTypeList	hospital(__no_group)--hospital;
+		periodList	hospital(__no_group)--hospital;
+		expenseItemList	hospital(__no_group)--hospital;
+		doctorList	hospital(__no_group)--hospital;
+		departmentList	hospital(__no_group)--hospital;
+		doctorScheduleList	hospital(__no_group)--hospital;
 	}
 } depth=0; isRoot = true
 
-meta{name=catalog, vg4owner=产品管理}
-catalog{
-	fields(6){
-		string	id('AB'), verb: false, required: true,type:id;
-		string	name('饲料|柴油|其他'), verb: false, required: true,type:string;
-		franchised_outlet_province_center	owner('$(object)'), verb: false, required: true, referenceBy: catalogList,type:franchised_outlet_province_center;
-		int	sub_count('3'), verb: false, required: true,type:int;
-		money	amount('$10.11'), verb: false, required: true,type:money;
-		int	version('2147483647'), verb: false, required: true,type:int;
-	}
-	references field(1){
-		levelOneCategoryList	catalog(__no_group)--catalog;
-	}
-} depth=1; isRoot = false
-
-meta{name=level_one_category}
-level_one_category{
-	fields(4){
-		string	id('AB'), verb: false, required: true,type:id;
-		catalog	catalog('$(object)'), verb: false, required: true, referenceBy: levelOneCategoryList,type:catalog;
-		string	name('饲料|柴油'), verb: false, required: true,type:string;
-		int	version('2147483647'), verb: false, required: true,type:int;
-	}
-	references field(1){
-		levelTwoCategoryList	parent_category(__no_group)--parent_category;
-	}
-} depth=2; isRoot = false
-
-meta{name=level_two_category}
-level_two_category{
-	fields(4){
-		string	id('AB'), verb: false, required: true,type:id;
-		level_one_category	parent_category('$(object)'), verb: false, required: true, referenceBy: levelTwoCategoryList,type:level_one_category;
-		string	name('饲料|柴油'), verb: false, required: true,type:string;
-		int	version('2147483647'), verb: false, required: true,type:int;
-	}
-	references field(1){
-		levelThreeCategoryList	parent_category(__no_group)--parent_category;
-	}
-} depth=3; isRoot = false
-
-meta{name=level_three_category}
-level_three_category{
-	fields(4){
-		string	id('AB'), verb: false, required: true,type:id;
-		level_two_category	parent_category('$(object)'), verb: false, required: true, referenceBy: levelThreeCategoryList,type:level_two_category;
-		string	name('饲料|柴油'), verb: false, required: true,type:string;
-		int	version('2147483647'), verb: false, required: true,type:int;
-	}
-	references field(1){
-		productList	parent_category(__no_group)--parent_category;
-	}
-} depth=4; isRoot = false
-
-meta{name=product}
-product{
-	fields(9){
-		string	id('AB'), verb: false, required: true,type:id;
-		string	name('饲料|柴油|怡宝矿泉水|其他'), verb: false, required: true,type:string;
-		level_three_category	parent_category('$(object)'), verb: false, required: true, referenceBy: productList,type:level_three_category;
-		string	origin('山东|广东|江苏|安徽'), verb: false, required: true,type:string;
-		string	remark('怡宝矿泉水，销售百年的水，获得了全世界的青睐'), verb: false, required: true,type:string;
-		string	brand('怡宝|油奔奔|中石油|中石化'), verb: false, required: true,type:string;
-		string_image	picture('this is a looooooooooog.jpg'), verb: false, required: true,type:string_image;
-		date_time_update	last_update_time('updateTime()'), verb: false, required: true,type:date_time_update;
-		int	version('2147483647'), verb: false, required: true,type:int;
-	}
-	references field(1){
-		skuList	product(__no_group)--product;
-	}
-} depth=5; isRoot = false
-
-meta{name=sku}
-sku{
-	fields(10){
-		string	id('AB'), verb: false, required: true,type:id;
-		string	name('矿泉水-大罐的'), verb: false, required: true,type:string;
-		string	size('大|中|小'), verb: false, required: true,type:string;
-		product	product('$(object)'), verb: false, required: true, referenceBy: skuList,type:product;
-		string	barcode('TM00000000001'), verb: false, required: true,type:string;
-		string	package_type('包装类型'), verb: false, required: true,type:string;
-		string	net_content('包装数量等信息,包装数量等信息,包装数量等信息'), verb: false, required: true,type:string;
-		money	price('$1323.33'), verb: false, required: true,type:money;
-		string_image	picture('coco.jpg'), verb: false, required: true,type:string_image;
-		int	version('2147483647'), verb: false, required: true,type:int;
-	}
-	references field(0){
-	}
-} depth=6; isRoot = false
-
-meta{name=franchised_outlet_city_center, vg4country=组织机构}
-franchised_outlet_city_center{
-	fields(6){
-		string	id('AB'), verb: false, required: true,type:id;
-		string	name('油奔奔济南市运营中心|油奔奔菏泽市运营中心'), verb: false, required: true,type:string;
-		date_past	founded('past()'), verb: false, required: true,type:date_past;
-		franchised_outlet_city_center	city('$(object)'), verb: false, required: true, referenceBy: franchisedOutletCityCenterList,type:franchised_outlet_city_center;
-		date_time_update	last_update_time('updateTime()'), verb: false, required: true,type:date_time_update;
-		int	version('2147483647'), verb: false, required: true,type:int;
-	}
-	references field(4){
-		franchisedOutletCityCenterList	city(__no_group)--city;
-		cityCenterDepartmentList	city_center(__no_group)--city_center;
-		cityCenterEmployeeList	city_center(__no_group)--city_center;
-		franchisedOutletCityServiceCenterList	belongs_to(__no_group)--belongs_to;
-	}
-} depth=-1; isRoot = false
-
-meta{name=city_center_department, features=setting}
-city_center_department{
-	fields(6){
-		string	id('AB'), verb: false, required: true,type:id;
-		string	name('供应链部|采购部|管理部|财务部|法务部|市场部|人力资源部'), verb: false, required: true,type:string;
-		date_past	founded('past()'), verb: false, required: true,type:date_past;
-		franchised_outlet_city_center	city_center('$(object)'), verb: false, required: true, referenceBy: cityCenterDepartmentList,type:franchised_outlet_city_center;
-		string	manager('张三|李四'), verb: false, required: true,type:string;
-		int	version('2147483647'), verb: false, required: true,type:int;
-	}
-	references field(1){
-		cityCenterEmployeeList	department(__no_group)--department;
-	}
-} depth=-1; isRoot = false
-
-meta{name=city_center_employee}
-city_center_employee{
+meta{name=expense_type, features=setting}
+expense_type{
 	fields(8){
 		string	id('AB'), verb: false, required: true,type:id;
-		string	name('张三|李四'), verb: false, required: true,type:string;
-		string_china_mobile_phone	mobile('13999998888'), verb: false, required: true,type:string_china_mobile_phone;
-		string_email	email('zhangsan@youbenben.cn|lisi@youbenben.cn'), verb: false, required: true,type:string_email;
-		date_past	founded('past()'), verb: false, required: true,type:date_past;
-		city_center_department	department('$(object)'), verb: false, required: true, referenceBy: cityCenterEmployeeList,type:city_center_department;
-		franchised_outlet_city_center	city_center('$(object)'), verb: false, required: true, referenceBy: cityCenterEmployeeList,type:franchised_outlet_city_center;
-		int	version('2147483647'), verb: false, required: true,type:int;
-	}
-	references field(0){
-	}
-} depth=-1; isRoot = false
-
-meta{name=franchised_outlet_city_service_center}
-franchised_outlet_city_service_center{
-	fields(6){
-		string	id('AB'), verb: false, required: true,type:id;
-		string	name('油奔奔济南|油奔奔菏泽'), verb: false, required: true,type:string;
-		date_past	founded('past()'), verb: false, required: true,type:date_past;
-		franchised_outlet_city_center	belongs_to('$(object)'), verb: false, required: true, referenceBy: franchisedOutletCityServiceCenterList,type:franchised_outlet_city_center;
-		date_time_update	last_update_time('updateTime()'), verb: false, required: true,type:date_time_update;
-		int	version('2147483647'), verb: false, required: true,type:int;
-	}
-	references field(3){
-		cityPartnerList	town_service_center(__no_group)--town_service_center;
-		potentialCustomerList	city_service_center(__no_group)--city_service_center;
-		cityEventList	city_service_center(__no_group)--city_service_center;
-	}
-} depth=-1; isRoot = false
-
-meta{name=city_partner}
-city_partner{
-	fields(7){
-		string	id('AB'), verb: false, required: true,type:id;
-		string	name('曾倩|黄风格|郭超'), verb: false, required: true,type:string;
-		string_china_mobile_phone	mobile('13677778888'), verb: false, required: true,type:string_china_mobile_phone;
-		franchised_outlet_city_service_center	town_service_center('$(object)'), verb: false, required: true, referenceBy: cityPartnerList,type:franchised_outlet_city_service_center;
-		string	description('负责开拓市场，具有极强的开拓能力'), verb: false, required: true,type:string;
-		date_time_update	last_update_time('updateTime()'), verb: false, required: true,type:date_time_update;
+		string	name('诊疗费|治疗费|检查费'), verb: false, required: true,type:string;
+		string	helper_chars('zlf|zlf|jcf'), verb: false, required: true,type:string;
+		string	status('正常|停用'), verb: false, required: true,type:string;
+		hospital	hospital('$(object)'), verb: false, required: true, referenceBy: expenseTypeList,type:hospital;
+		string_longtext	description('text()'), verb: false, required: true,type:string_longtext;
+		date_time_update	update_time('updateTime()'), verb: false, required: true,type:date_time_update;
 		int	version('2147483647'), verb: false, required: true,type:int;
 	}
 	references field(2){
-		potentialCustomerList	city_partner(__no_group)--city_partner;
-		potentialCustomerContactList	city_partner(__no_group)--city_partner;
+		expenseItemList	expense_type(__no_group)--expense_type;
+		doctorScheduleList	expense_type(__no_group)--expense_type;
 	}
-} depth=-1; isRoot = false
+} depth=1; isRoot = false
 
-meta{name=potential_customer}
-potential_customer{
-	fields(8){
+meta{name=period, identified_by=code, features=status}
+period{
+	fields(5){
 		string	id('AB'), verb: false, required: true,type:id;
-		string	name('曾倩|黄风格|郭超'), verb: false, required: true,type:string;
-		string_china_mobile_phone	mobile('13677778888'), verb: false, required: true,type:string_china_mobile_phone;
-		franchised_outlet_city_service_center	city_service_center('$(object)'), verb: false, required: true, referenceBy: potentialCustomerList,type:franchised_outlet_city_service_center;
-		city_partner	city_partner('$(object)'), verb: false, required: true, referenceBy: potentialCustomerList,type:city_partner;
-		string	description('负责开拓市场，具有极强的开拓能力'), verb: false, required: true,type:string;
-		date_time_update	last_update_time('updateTime()'), verb: false, required: true,type:date_time_update;
-		int	version('2147483647'), verb: false, required: true,type:int;
-	}
-	references field(3){
-		potentialCustomerContactPersonList	potential_customer(__no_group)--potential_customer;
-		potentialCustomerContactList	potential_customer(__no_group)--potential_customer;
-		eventAttendanceList	potential_customer(__no_group)--potential_customer;
-	}
-} depth=-1; isRoot = false
-
-meta{name=potential_customer_contact_person}
-potential_customer_contact_person{
-	fields(6){
-		string	id('AB'), verb: false, required: true,type:id;
-		string	name('赵先生'), verb: false, required: true,type:string;
-		string_china_mobile_phone	mobile('13677778888'), verb: false, required: true,type:string_china_mobile_phone;
-		potential_customer	potential_customer('$(object)'), verb: false, required: true, referenceBy: potentialCustomerContactPersonList,type:potential_customer;
-		string	description('这人在决策中战友较大的权重，密切观察中.....'), verb: false, required: true,type:string;
+		string	name('上午|下午|夜班'), verb: false, required: true,type:string;
+		string	code('MORNING|AFTERNOON|NIGHT'), verb: false, required: true,type:string;
+		hospital	hospital('$(object)'), verb: false, required: true, referenceBy: periodList,type:hospital;
 		int	version('2147483647'), verb: false, required: true,type:int;
 	}
 	references field(1){
-		potentialCustomerContactList	contact_to(__no_group)--contact_to;
+		doctorScheduleList	period(__no_group)--period;
 	}
-} depth=-1; isRoot = false
+} depth=1; isRoot = false
 
-meta{name=potential_customer_contact}
-potential_customer_contact{
-	fields(10){
-		string	id('AB'), verb: false, required: true,type:id;
-		string	name('和连载客户的联系记录'), verb: false, required: true,type:string;
-		date	contact_date('2016-09-09'), verb: false, required: true,type:date;
-		string	contact_method('电话|短信|登门拜访|活动聊天'), verb: false, required: true,type:string;
-		potential_customer	potential_customer('$(object)'), verb: false, required: true, referenceBy: potentialCustomerContactList,type:potential_customer;
-		city_partner	city_partner('$(object)'), verb: false, required: true, referenceBy: potentialCustomerContactList,type:city_partner;
-		potential_customer_contact_person	contact_to('$(object)'), verb: false, required: true, referenceBy: potentialCustomerContactList,type:potential_customer_contact_person;
-		string	description('转化希望很大'), verb: false, required: true,type:string;
-		date_time_update	last_update_time('updateTime()'), verb: false, required: true,type:date_time_update;
-		int	version('2147483647'), verb: false, required: true,type:int;
-	}
-	references field(0){
-	}
-} depth=-1; isRoot = false
-
-meta{name=city_event}
-city_event{
+meta{name=expense_item, features=setting}
+expense_item{
 	fields(7){
 		string	id('AB'), verb: false, required: true,type:id;
-		string	name('油奔奔见面会|油奔奔说明会'), verb: false, required: true,type:string;
-		string_china_mobile_phone	mobile('13677778888'), verb: false, required: true,type:string_china_mobile_phone;
-		franchised_outlet_city_service_center	city_service_center('$(object)'), verb: false, required: true, referenceBy: cityEventList,type:franchised_outlet_city_service_center;
-		string	description('给大家讲解油奔奔的发展蓝图'), verb: false, required: true,type:string;
-		date_time_update	last_update_time('updateTime()'), verb: false, required: true,type:date_time_update;
-		int	version('2147483647'), verb: false, required: true,type:int;
-	}
-	references field(1){
-		eventAttendanceList	city_event(__no_group)--city_event;
-	}
-} depth=-1; isRoot = false
-
-meta{name=event_attendance}
-event_attendance{
-	fields(6){
-		string	id('AB'), verb: false, required: true,type:id;
-		string	name('油奔奔见面会参加信息'), verb: false, required: true,type:string;
-		potential_customer	potential_customer('$(object)'), verb: false, required: true, referenceBy: eventAttendanceList,type:potential_customer;
-		city_event	city_event('$(object)'), verb: false, required: true, referenceBy: eventAttendanceList,type:city_event;
-		string	description('体会不错，考虑加盟'), verb: false, required: true,type:string;
+		string	name('专家诊疗费|血常规|煎药费'), verb: false, required: true,type:string;
+		money	price('$99999999999.00'), verb: false, required: true,type:money;
+		expense_type	expense_type('$(object)'), verb: false, required: true, referenceBy: expenseItemList,type:expense_type;
+		hospital	hospital('$(object)'), verb: false, required: true, referenceBy: expenseItemList,type:hospital;
+		date_time_update	update_time('updateTime()'), verb: false, required: true,type:date_time_update;
 		int	version('2147483647'), verb: false, required: true,type:int;
 	}
 	references field(0){
 	}
-} depth=-1; isRoot = false
+} depth=2; isRoot = false
+
+meta{name=doctor}
+doctor{
+	fields(6){
+		string	id('AB'), verb: false, required: true,type:id;
+		string	name('魏松全'), verb: false, required: true,type:string;
+		string_image	shot_image('snap.shot-400-300-red.jpg'), verb: false, required: true,type:string_image;
+		hospital	hospital('$(object)'), verb: false, required: true, referenceBy: doctorList,type:hospital;
+		date_time_update	update_time('updateTime()'), verb: false, required: true,type:date_time_update;
+		int	version('2147483647'), verb: false, required: true,type:int;
+	}
+	references field(2){
+		doctorAssignmentList	doctor(__no_group)--doctor;
+		doctorScheduleList	doctor(__no_group)--doctor;
+	}
+} depth=1; isRoot = false
+
+meta{name=department, features=setting}
+department{
+	fields(5){
+		string	id('AB'), verb: false, required: true,type:id;
+		string	name('放射科'), verb: false, required: true,type:string;
+		hospital	hospital('$(object)'), verb: false, required: true, referenceBy: departmentList,type:hospital;
+		date_time_update	update_time('updateTime()'), verb: false, required: true,type:date_time_update;
+		int	version('2147483647'), verb: false, required: true,type:int;
+	}
+	references field(2){
+		doctorAssignmentList	department(__no_group)--department;
+		doctorScheduleList	department(__no_group)--department;
+	}
+} depth=1; isRoot = false
+
+meta{name=doctor_assignment, features=setting}
+doctor_assignment{
+	fields(6){
+		string	id('AB'), verb: false, required: true,type:id;
+		string	name('魏松全在内分泌科室上'), verb: false, required: true,type:string;
+		doctor	doctor('$(object)'), verb: false, required: true, referenceBy: doctorAssignmentList,type:doctor;
+		department	department('$(object)'), verb: false, required: true, referenceBy: doctorAssignmentList,type:department;
+		date_time_update	update_time('updateTime()'), verb: false, required: true,type:date_time_update;
+		int	version('2147483647'), verb: false, required: true,type:int;
+	}
+	references field(0){
+	}
+} depth=2; isRoot = false
+
+meta{name=doctor_schedule}
+doctor_schedule{
+	fields(13){
+		string	id('AB'), verb: false, required: true,type:id;
+		string	name('2019年3月11日魏松全在内分泌科坐班收诊疗费,每个10'), verb: false, required: true,type:string;
+		doctor	doctor('$(object)'), verb: false, required: true, referenceBy: doctorScheduleList,type:doctor;
+		date	schedule_date('2019-3-11'), verb: false, required: true,type:date;
+		period	period('$(object)'), verb: false, required: true, referenceBy: doctorScheduleList,type:period;
+		department	department('$(object)'), verb: false, required: true, referenceBy: doctorScheduleList,type:department;
+		int	available('20'), verb: false, required: true,type:int;
+		money	price('$123.99'), verb: false, required: true,type:money;
+		expense_type	expense_type('$(object)'), verb: false, required: true, referenceBy: doctorScheduleList,type:expense_type;
+		date_time_create	create_time('createTime()'), verb: false, required: true,type:date_time_create;
+		date_time_update	update_time('updateTime()'), verb: false, required: true,type:date_time_update;
+		hospital	hospital('$(object)'), verb: false, required: true, referenceBy: doctorScheduleList,type:hospital;
+		int	version('2147483647'), verb: false, required: true,type:int;
+	}
+	references field(0){
+	}
+} depth=2; isRoot = false
 
 meta{name=mobile_app}
 mobile_app{
