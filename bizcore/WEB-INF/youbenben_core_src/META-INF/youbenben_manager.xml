@@ -1,0 +1,181 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:context="http://www.springframework.org/schema/context"
+	xmlns:tx="http://www.springframework.org/schema/tx"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd
+		http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context-4.0.xsd
+		http://www.springframework.org/schema/tx http://www.springframework.org/schema/tx/spring-tx-4.0.xsd">
+
+	<bean id="checker" class="com.youbenben.youbenben.YoubenbenObjectChecker" scope="prototype"></bean>
+
+	<bean id="franchisedOutletProvinceCenterManagerBase" class="com.youbenben.youbenben.franchisedoutletprovincecenter.FranchisedOutletProvinceCenterManagerImpl"/>
+	<bean id="franchisedOutletProvinceCenterManager" class="com.youbenben.youbenben.franchisedoutletprovincecenter.FranchisedOutletProvinceCenterCustomManagerImpl" parent="franchisedOutletProvinceCenterManagerBase" ></bean>
+	
+	<bean id="catalogManagerBase" class="com.youbenben.youbenben.catalog.CatalogManagerImpl"/>
+	<bean id="catalogManager" class="com.youbenben.youbenben.catalog.CatalogManagerImpl" parent="catalogManagerBase" ></bean>
+	
+	<bean id="levelOneCategoryManagerBase" class="com.youbenben.youbenben.levelonecategory.LevelOneCategoryManagerImpl"/>
+	<bean id="levelOneCategoryManager" class="com.youbenben.youbenben.levelonecategory.LevelOneCategoryManagerImpl" parent="levelOneCategoryManagerBase" ></bean>
+	
+	<bean id="levelTwoCategoryManagerBase" class="com.youbenben.youbenben.leveltwocategory.LevelTwoCategoryManagerImpl"/>
+	<bean id="levelTwoCategoryManager" class="com.youbenben.youbenben.leveltwocategory.LevelTwoCategoryManagerImpl" parent="levelTwoCategoryManagerBase" ></bean>
+	
+	<bean id="levelThreeCategoryManagerBase" class="com.youbenben.youbenben.levelthreecategory.LevelThreeCategoryManagerImpl"/>
+	<bean id="levelThreeCategoryManager" class="com.youbenben.youbenben.levelthreecategory.LevelThreeCategoryManagerImpl" parent="levelThreeCategoryManagerBase" ></bean>
+	
+	<bean id="productManagerBase" class="com.youbenben.youbenben.product.ProductManagerImpl"/>
+	<bean id="productManager" class="com.youbenben.youbenben.product.ProductManagerImpl" parent="productManagerBase" ></bean>
+	
+	<bean id="skuManagerBase" class="com.youbenben.youbenben.sku.SkuManagerImpl"/>
+	<bean id="skuManager" class="com.youbenben.youbenben.sku.SkuManagerImpl" parent="skuManagerBase" ></bean>
+	
+	<bean id="franchisedOutletCityCenterManagerBase" class="com.youbenben.youbenben.franchisedoutletcitycenter.FranchisedOutletCityCenterManagerImpl"/>
+	<bean id="franchisedOutletCityCenterManager" class="com.youbenben.youbenben.franchisedoutletcitycenter.FranchisedOutletCityCenterCustomManagerImpl" parent="franchisedOutletCityCenterManagerBase" ></bean>
+	
+	<bean id="cityCenterDepartmentManagerBase" class="com.youbenben.youbenben.citycenterdepartment.CityCenterDepartmentManagerImpl"/>
+	<bean id="cityCenterDepartmentManager" class="com.youbenben.youbenben.citycenterdepartment.CityCenterDepartmentManagerImpl" parent="cityCenterDepartmentManagerBase" ></bean>
+	
+	<bean id="cityCenterEmployeeManagerBase" class="com.youbenben.youbenben.citycenteremployee.CityCenterEmployeeManagerImpl"/>
+	<bean id="cityCenterEmployeeManager" class="com.youbenben.youbenben.citycenteremployee.CityCenterEmployeeManagerImpl" parent="cityCenterEmployeeManagerBase" ></bean>
+	
+	<bean id="franchisedOutletCityServiceCenterManagerBase" class="com.youbenben.youbenben.franchisedoutletcityservicecenter.FranchisedOutletCityServiceCenterManagerImpl"/>
+	<bean id="franchisedOutletCityServiceCenterManager" class="com.youbenben.youbenben.franchisedoutletcityservicecenter.FranchisedOutletCityServiceCenterCustomManagerImpl" parent="franchisedOutletCityServiceCenterManagerBase" ></bean>
+	
+	<bean id="cityPartnerManagerBase" class="com.youbenben.youbenben.citypartner.CityPartnerManagerImpl"/>
+	<bean id="cityPartnerManager" class="com.youbenben.youbenben.citypartner.CityPartnerCustomManagerImpl" parent="cityPartnerManagerBase" ></bean>
+	
+	<bean id="potentialCustomerManagerBase" class="com.youbenben.youbenben.potentialcustomer.PotentialCustomerManagerImpl"/>
+	<bean id="potentialCustomerManager" class="com.youbenben.youbenben.potentialcustomer.PotentialCustomerCustomManagerImpl" parent="potentialCustomerManagerBase" ></bean>
+	
+	<bean id="potentialCustomerContactPersonManagerBase" class="com.youbenben.youbenben.potentialcustomercontactperson.PotentialCustomerContactPersonManagerImpl"/>
+	<bean id="potentialCustomerContactPersonManager" class="com.youbenben.youbenben.potentialcustomercontactperson.PotentialCustomerContactPersonManagerImpl" parent="potentialCustomerContactPersonManagerBase" ></bean>
+	
+	<bean id="potentialCustomerContactManagerBase" class="com.youbenben.youbenben.potentialcustomercontact.PotentialCustomerContactManagerImpl"/>
+	<bean id="potentialCustomerContactManager" class="com.youbenben.youbenben.potentialcustomercontact.PotentialCustomerContactManagerImpl" parent="potentialCustomerContactManagerBase" ></bean>
+	
+	<bean id="cityEventManagerBase" class="com.youbenben.youbenben.cityevent.CityEventManagerImpl"/>
+	<bean id="cityEventManager" class="com.youbenben.youbenben.cityevent.CityEventManagerImpl" parent="cityEventManagerBase" ></bean>
+	
+	<bean id="eventAttendanceManagerBase" class="com.youbenben.youbenben.eventattendance.EventAttendanceManagerImpl"/>
+	<bean id="eventAttendanceManager" class="com.youbenben.youbenben.eventattendance.EventAttendanceManagerImpl" parent="eventAttendanceManagerBase" ></bean>
+	
+	<bean id="mobileAppManagerBase" class="com.youbenben.youbenben.mobileapp.MobileAppManagerImpl"/>
+	<bean id="mobileAppManager" class="com.youbenben.youbenben.mobileapp.MobileAppCustomManagerImpl" parent="mobileAppManagerBase" ></bean>
+	
+	<bean id="pageManagerBase" class="com.youbenben.youbenben.page.PageManagerImpl"/>
+	<bean id="pageManager" class="com.youbenben.youbenben.page.PageCustomManagerImpl" parent="pageManagerBase" ></bean>
+	
+	<bean id="pageTypeManagerBase" class="com.youbenben.youbenben.pagetype.PageTypeManagerImpl"/>
+	<bean id="pageTypeManager" class="com.youbenben.youbenben.pagetype.PageTypeManagerImpl" parent="pageTypeManagerBase" ></bean>
+	
+	<bean id="slideManagerBase" class="com.youbenben.youbenben.slide.SlideManagerImpl"/>
+	<bean id="slideManager" class="com.youbenben.youbenben.slide.SlideManagerImpl" parent="slideManagerBase" ></bean>
+	
+	<bean id="uiActionManagerBase" class="com.youbenben.youbenben.uiaction.UiActionManagerImpl"/>
+	<bean id="uiActionManager" class="com.youbenben.youbenben.uiaction.UiActionManagerImpl" parent="uiActionManagerBase" ></bean>
+	
+	<bean id="sectionManagerBase" class="com.youbenben.youbenben.section.SectionManagerImpl"/>
+	<bean id="sectionManager" class="com.youbenben.youbenben.section.SectionManagerImpl" parent="sectionManagerBase" ></bean>
+	
+	<bean id="userDomainManagerBase" class="com.youbenben.youbenben.userdomain.UserDomainManagerImpl"/>
+	<bean id="userDomainManager" class="com.youbenben.youbenben.userdomain.UserDomainCustomManagerImpl" parent="userDomainManagerBase" ></bean>
+	
+	<bean id="userWhiteListManagerBase" class="com.youbenben.youbenben.userwhitelist.UserWhiteListManagerImpl"/>
+	<bean id="userWhiteListManager" class="com.youbenben.youbenben.userwhitelist.UserWhiteListManagerImpl" parent="userWhiteListManagerBase" ></bean>
+	
+	<bean id="secUserManagerBase" class="com.youbenben.youbenben.secuser.SecUserManagerImpl"/>
+	<bean id="secUserManager" class="com.youbenben.youbenben.secuser.SecUserCustomManagerImpl" parent="secUserManagerBase" ></bean>
+	
+	<bean id="userAppManagerBase" class="com.youbenben.youbenben.userapp.UserAppManagerImpl"/>
+	<bean id="userAppManager" class="com.youbenben.youbenben.userapp.UserAppCustomManagerImpl" parent="userAppManagerBase" ></bean>
+	
+	<bean id="quickLinkManagerBase" class="com.youbenben.youbenben.quicklink.QuickLinkManagerImpl"/>
+	<bean id="quickLinkManager" class="com.youbenben.youbenben.quicklink.QuickLinkManagerImpl" parent="quickLinkManagerBase" ></bean>
+	
+	<bean id="listAccessManagerBase" class="com.youbenben.youbenben.listaccess.ListAccessManagerImpl"/>
+	<bean id="listAccessManager" class="com.youbenben.youbenben.listaccess.ListAccessManagerImpl" parent="listAccessManagerBase" ></bean>
+	
+	<bean id="loginHistoryManagerBase" class="com.youbenben.youbenben.loginhistory.LoginHistoryManagerImpl"/>
+	<bean id="loginHistoryManager" class="com.youbenben.youbenben.loginhistory.LoginHistoryManagerImpl" parent="loginHistoryManagerBase" ></bean>
+	
+	<bean id="candidateContainerManagerBase" class="com.youbenben.youbenben.candidatecontainer.CandidateContainerManagerImpl"/>
+	<bean id="candidateContainerManager" class="com.youbenben.youbenben.candidatecontainer.CandidateContainerManagerImpl" parent="candidateContainerManagerBase" ></bean>
+	
+	<bean id="candidateElementManagerBase" class="com.youbenben.youbenben.candidateelement.CandidateElementManagerImpl"/>
+	<bean id="candidateElementManager" class="com.youbenben.youbenben.candidateelement.CandidateElementManagerImpl" parent="candidateElementManagerBase" ></bean>
+	
+	<bean id="wechatWorkappIdentifyManagerBase" class="com.youbenben.youbenben.wechatworkappidentify.WechatWorkappIdentifyManagerImpl"/>
+	<bean id="wechatWorkappIdentifyManager" class="com.youbenben.youbenben.wechatworkappidentify.WechatWorkappIdentifyManagerImpl" parent="wechatWorkappIdentifyManagerBase" ></bean>
+	
+	<bean id="wechatMiniappIdentifyManagerBase" class="com.youbenben.youbenben.wechatminiappidentify.WechatMiniappIdentifyManagerImpl"/>
+	<bean id="wechatMiniappIdentifyManager" class="com.youbenben.youbenben.wechatminiappidentify.WechatMiniappIdentifyManagerImpl" parent="wechatMiniappIdentifyManagerBase" ></bean>
+	
+	<bean id="keypairIdentifyManagerBase" class="com.youbenben.youbenben.keypairidentify.KeypairIdentifyManagerImpl"/>
+	<bean id="keypairIdentifyManager" class="com.youbenben.youbenben.keypairidentify.KeypairIdentifyManagerImpl" parent="keypairIdentifyManagerBase" ></bean>
+	
+	<bean id="publicKeyTypeManagerBase" class="com.youbenben.youbenben.publickeytype.PublicKeyTypeManagerImpl"/>
+	<bean id="publicKeyTypeManager" class="com.youbenben.youbenben.publickeytype.PublicKeyTypeManagerImpl" parent="publicKeyTypeManagerBase" ></bean>
+	
+	<bean id="treeNodeManagerBase" class="com.youbenben.youbenben.treenode.TreeNodeManagerImpl"/>
+	<bean id="treeNodeManager" class="com.youbenben.youbenben.treenode.TreeNodeCustomManagerImpl" parent="treeNodeManagerBase" ></bean>
+	
+
+	<bean id="managerGroupBase" class="com.youbenben.youbenben.ManagerGroup">
+		<property name="franchisedOutletProvinceCenterManager" ref="franchisedOutletProvinceCenterManager"/>
+		<property name="catalogManager" ref="catalogManager"/>
+		<property name="levelOneCategoryManager" ref="levelOneCategoryManager"/>
+		<property name="levelTwoCategoryManager" ref="levelTwoCategoryManager"/>
+		<property name="levelThreeCategoryManager" ref="levelThreeCategoryManager"/>
+		<property name="productManager" ref="productManager"/>
+		<property name="skuManager" ref="skuManager"/>
+		<property name="franchisedOutletCityCenterManager" ref="franchisedOutletCityCenterManager"/>
+		<property name="cityCenterDepartmentManager" ref="cityCenterDepartmentManager"/>
+		<property name="cityCenterEmployeeManager" ref="cityCenterEmployeeManager"/>
+		<property name="franchisedOutletCityServiceCenterManager" ref="franchisedOutletCityServiceCenterManager"/>
+		<property name="cityPartnerManager" ref="cityPartnerManager"/>
+		<property name="potentialCustomerManager" ref="potentialCustomerManager"/>
+		<property name="potentialCustomerContactPersonManager" ref="potentialCustomerContactPersonManager"/>
+		<property name="potentialCustomerContactManager" ref="potentialCustomerContactManager"/>
+		<property name="cityEventManager" ref="cityEventManager"/>
+		<property name="eventAttendanceManager" ref="eventAttendanceManager"/>
+		<property name="mobileAppManager" ref="mobileAppManager"/>
+		<property name="pageManager" ref="pageManager"/>
+		<property name="pageTypeManager" ref="pageTypeManager"/>
+		<property name="slideManager" ref="slideManager"/>
+		<property name="uiActionManager" ref="uiActionManager"/>
+		<property name="sectionManager" ref="sectionManager"/>
+		<property name="userDomainManager" ref="userDomainManager"/>
+		<property name="userWhiteListManager" ref="userWhiteListManager"/>
+		<property name="secUserManager" ref="secUserManager"/>
+		<property name="userAppManager" ref="userAppManager"/>
+		<property name="quickLinkManager" ref="quickLinkManager"/>
+		<property name="listAccessManager" ref="listAccessManager"/>
+		<property name="loginHistoryManager" ref="loginHistoryManager"/>
+		<property name="candidateContainerManager" ref="candidateContainerManager"/>
+		<property name="candidateElementManager" ref="candidateElementManager"/>
+		<property name="wechatWorkappIdentifyManager" ref="wechatWorkappIdentifyManager"/>
+		<property name="wechatMiniappIdentifyManager" ref="wechatMiniappIdentifyManager"/>
+		<property name="keypairIdentifyManager" ref="keypairIdentifyManager"/>
+		<property name="publicKeyTypeManager" ref="publicKeyTypeManager"/>
+		<property name="treeNodeManager" ref="treeNodeManager"/>
+	</bean>
+	<bean id="managerGroup" parent="managerGroupBase"></bean>
+	
+
+
+</beans>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

@@ -1,0 +1,42 @@
+@import '~taro-ui/dist/style/mixins/libs/hairline';
+@import '../../styles/theme';
+
+.detail-page {
+  @extend %page;
+
+  .common-props {
+    background-color: $white;
+    margin: 20px;
+    padding-top: 20px;
+    padding-bottom: 40px;
+    border-radius: 20px;
+    min-height: 60vh;
+
+    @extend %flex-column;
+
+    &-item {
+      padding: 20px 0;
+      margin: 0 20px;
+      @include hairline-bottom($under-line-color);
+
+      &-label {
+        min-width: 150px;
+        padding-bottom: 10px;
+        padding-right: 10px;
+      }
+    }
+
+    &-item.inline {
+      @extend %flex-row;
+    }
+  }
+
+  .common-props.hasSection {
+    min-height: unset;
+  }
+
+  .section-list {
+    display: block;
+    padding: 20px 20px 0 20px;
+  }
+}

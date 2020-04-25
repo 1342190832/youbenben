@@ -1,0 +1,97 @@
+@import './theme';
+@import './iconfont';
+// 修改switch样式
+.wx-switch-input {
+  width: 82px !important;
+  height: 20px !important;
+  background-color: $primary-color !important;
+}
+
+// false样式
+.wx-switch-input::before {
+  width: 82px !important;
+  height: 20px !important;
+  background: $text-color-lighter !important;
+}
+
+// true样式
+.wx-switch-input::after {
+  width: 40px !important;
+  height: 40px !important;
+  margin-top: -10px !important;
+  background-color: $primary-color !important;
+}
+
+.at-input {
+  margin-left: 0;
+}
+
+.content-inner__img {
+  width: 20px;
+}
+
+.at-steps__title {
+  font-size: 28px;
+  color: $text-color;
+}
+
+// text
+//$text-sizes: 18, 20, 22, 24, 26, 28, 30, 32, 34, 36, 38, 40, 42;
+//@each $size in $text-sizes {
+//  .f#{$size} {
+//    font-size: #{$size}px;
+//    color: $text-color;
+//  }
+//}
+
+.note {
+  font-size: 22px;
+  color: $text-color-light;
+}
+
+.red-tag {
+  color: $red-color;
+  border-color: $red-color;
+  height: 35px;
+  line-height: 36px;
+}
+
+.red-tag-tiny {
+  @extend .red-tag;
+  line-height: 32px;
+  padding: 2px 5px;
+  margin-left: 10px;
+}
+
+.footer-button {
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  @extend %flex-center;
+  padding: 40px 60px;
+
+  &-btn {
+    width: 100%;
+    padding: 0 20px;
+  }
+}
+
+.transparent-btn {
+  background-color: transparent;
+  border: none;
+  padding: 0;
+  display: block;
+  height: unset;
+  color: unset;
+  line-height: unset;
+  text-align: unset;
+}
+
+.transparent-btn.at-button--disabled {
+  opacity: 1;
+}
+
+.hidden {
+  display: none;
+}

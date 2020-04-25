@@ -1,0 +1,30 @@
+{
+	"miniprogramRoot": "dist/",
+	"projectname": "nice-router-taro",
+	"description": "base on nice-router-taro, for DaaS developer!",
+	"appid": "wxffe4c48a31d36507",
+	"setting": {
+		"urlCheck": false,
+		"es6": false,
+		"enhance": false,
+		"postcss": false,
+		"minified": false,
+		"newFeature": true,
+		"coverView": true,
+		"autoAudits": false,
+		"showShadowRootInWxmlPanel": false,
+		"checkInvalidKey": true,
+		"checkSiteMap": true,
+		"uploadWithSourceMap": true,
+		"babelSetting": {
+			"ignore": [],
+			"disablePlugins": [],
+			"outputPath": ""
+		}
+	},
+	"compileType": "miniprogram",
+	"simulatorType": "wechat",
+	"libVersion": "2.10.3",
+	"simulatorPluginLibVersion": {},
+	"condition": {}
+}

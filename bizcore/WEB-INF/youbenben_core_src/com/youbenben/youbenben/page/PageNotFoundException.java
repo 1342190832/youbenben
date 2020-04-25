@@ -1,0 +1,11 @@
+
+package com.youbenben.youbenben.page;
+import com.youbenben.youbenben.EntityNotFoundException;
+public class PageNotFoundException extends EntityNotFoundException {
+	private static final long serialVersionUID = 1L;
+	public PageNotFoundException(String string) {
+		super(string);
+	}
+
+}
+

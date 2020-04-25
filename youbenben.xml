@@ -1,0 +1,163 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<root org="youbenben"
+      chinese_name="油奔奔大后台系统"
+      english_name="Youbenben Large Background System"
+>
+<!--加盟商的拥有者-->
+<franchised_outlet_province_center
+        name='油奔奔山东运营中心|油奔奔北京运营中心|油奔奔河北运营中心|油奔奔天津运营中心'
+        service_number='133-3518-3886'
+        founded="past()"
+        web_site='https://www.youbenben.com/'
+        address="山东省济南市英雄山路祥泰广场"
+        operated_by="兴油网络科技"
+        legal_representative="蔡兴志|蔡兴志"
+        description='山东运营中心正式成立，恭喜恭喜'
+/>
+    <!--加盟商的拥有者会有自己的产品分类，这样就可以保证订货和供货之间不存在不一致的情况-->
+    <catalog
+            name="饲料|柴油|其他"
+            owner="$(franchised_outlet_province_center)" _vg4owner="产品管理"
+            sub_count="3"
+            amount="$10.11"
+    />
+
+    <level_one_category catalog="$(catalog)"
+                        name="饲料|柴油"/>
+    <level_two_category parent_category="$(level_one_category)"
+                        name="饲料|柴油"/>
+    <level_three_category parent_category="$(level_two_category)"
+                          name="饲料|柴油"/>
+
+
+<!--  加盟商的拥有者会有自己的产品分类，这样就可以保证订货和供货之间不存在不一致的情况
+
+    brand   varchar(96),  品牌
+    pic   varchar(254),  图片
+
+    -->
+
+
+    <product name="饲料|柴油|怡宝矿泉水|其他" parent_category="$(level_three_category)"
+
+             origin="山东|广东|江苏|安徽"
+             remark="怡宝矿泉水，销售百年的水，获得了全世界的青睐"
+             brand="怡宝|油奔奔|中石油|中石化"
+             picture="this is a looooooooooog.jpg"
+             last_update_time="updateTime()"
+    />
+
+    <sku name="矿泉水-大罐的" size="大|中|小" product="$(product)"
+         barcode="TM00000000001"
+
+         package_type="包装类型"
+         net_content="包装数量等信息,包装数量等信息,包装数量等信息"
+         price="$1323.33"
+         picture="coco.jpg"
+
+    />
+                <!-- barcode varchar(72),  条码
+            packagetype   varchar(50),   包装类型
+            netcontent  varchar(254),   包装数量等信息
+            price  DECIMAL(10,2), 价格
+            pic   varchar(254),   图片 -->
+
+
+
+    <franchised_outlet_city_center
+            name='油奔奔济南市运营中心|油奔奔菏泽市运营中心'
+            founded="past()"
+            city="$(franchised_outlet_city_center)" _vg4country="组织机构"
+            last_update_time="updateTime()"
+
+    />
+
+    <city_center_department
+            name='供应链部|采购部|管理部|财务部|法务部|市场部|人力资源部'
+            founded="past()"
+            city_center="$(franchised_outlet_city_center)"
+            manager='张三|李四'
+            _features="setting"
+    />
+
+    <city_center_employee
+            name='张三|李四'
+            mobile='13999998888'
+            email='zhangsan@youbenben.cn|lisi@youbenben.cn'
+            founded="past()"
+            department="$(city_center_department)"
+            city_center="$(franchised_outlet_city_center)"
+    />
+
+
+    <franchised_outlet_city_service_center
+            name='油奔奔济南|油奔奔菏泽'
+            founded="past()"
+            belongs_to="$(franchised_outlet_city_center)"
+            last_update_time="updateTime()"
+
+    />
+    <!--
+        每个城市都有城市合伙人， 参考http://bbs.rednet.cn/thread-46710672-1-1.html
+    -->
+    <city_partner
+            name='曾倩|黄风格|郭超'
+            mobile="13677778888"
+            town_service_center="$(franchised_outlet_city_service_center)"
+
+            description="负责开拓市场，具有极强的开拓能力"
+            last_update_time="updateTime()"
+    />
+    <!--
+        每个城市都有潜在客户，每个潜在客户由一个城市合伙人负责
+    -->
+    <potential_customer
+            name='曾倩|黄风格|郭超'
+            mobile="13677778888"
+            city_service_center="$(franchised_outlet_city_service_center)"
+            city_partner="$(city_partner)"
+            description="负责开拓市场，具有极强的开拓能力"
+            last_update_time="updateTime()"
+    />
+
+    <potential_customer_contact_person
+            name='赵先生'
+            mobile="13677778888"
+            potential_customer="$(potential_customer)"
+            description="这人在决策中战友较大的权重，密切观察中....."
+    />
+    <potential_customer_contact
+            name='和连载客户的联系记录'
+            contact_date="2016-09-09"
+            contact_method="电话|短信|登门拜访|活动聊天"
+            potential_customer="$(potential_customer)"
+            city_partner="$(city_partner)"
+            contact_to="$(potential_customer_contact_person)"
+            description="转化希望很大"
+            last_update_time="updateTime()"
+    />
+
+    <!--
+        每个城市开展一些活动，让潜在的客户参加，增加转化率
+    -->
+    <city_event
+            name='油奔奔见面会|油奔奔说明会'
+            mobile="13677778888"
+            city_service_center="$(franchised_outlet_city_service_center)"
+            description="给大家讲解油奔奔的发展蓝图"
+            last_update_time="updateTime()"
+    />
+
+    <event_attendance
+            name='油奔奔见面会参加信息'
+            potential_customer="$(potential_customer)"
+            city_event="$(city_event)"
+            description="体会不错，考虑加盟"
+    />
+    <!--
+        以上为油奔奔运营内部组织结构。
+        下面开始油奔奔模式的结构
+    -->
+
+
+</root>
