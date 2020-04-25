@@ -1,11 +1,11 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <root org="xingyou"
       chinese_name="油奔奔大后台系统"
-      english_name="Youbenben Large Background System"
+      english_name="Xing You Large Background System"
 >
 <!--加盟商的拥有者-->
-<franchised_outlet_province_center
-        name='油奔奔山东运营中心|油奔奔北京运营中心|油奔奔河北运营中心|油奔奔天津运营中心'
+<franchised_outlet_country_center
+        name='油奔奔中国运营中心|油奔奔美国运营中心'
         service_number='133-3518-3886'
         founded="past()"
         web_site='https://www.youbenben.com/'
@@ -17,7 +17,7 @@
     <!--加盟商的拥有者会有自己的产品分类，这样就可以保证订货和供货之间不存在不一致的情况-->
     <catalog
             name="饲料|柴油|其他"
-            owner="$(franchised_outlet_province_center)" _vg4owner="产品管理"
+            owner="$(franchised_outlet_country_center)" _vg4owner="产品管理"
             sub_count="3"
             amount="$10.11"
     />
@@ -64,36 +64,36 @@
 
 
 
-    <franchised_outlet_city_center
+    <franchised_outlet_province_center
             name='油奔奔济南市运营中心|油奔奔菏泽市运营中心'
             founded="past()"
-            city="$(franchised_outlet_city_center)" _vg4country="组织机构"
+            city="$(franchised_outlet_province_center)" _vg4country="组织机构"
             last_update_time="updateTime()"
 
     />
 
-    <city_center_department
+    <province_center_department
             name='供应链部|采购部|管理部|财务部|法务部|市场部|人力资源部'
             founded="past()"
-            city_center="$(franchised_outlet_city_center)"
+            city_center="$(franchised_outlet_province_center)"
             manager='张三|李四'
             _features="setting"
     />
 
-    <city_center_employee
+    <province_center_employee
             name='张三|李四'
             mobile='13999998888'
             email='zhangsan@youbenben.cn|lisi@youbenben.cn'
             founded="past()"
-            department="$(city_center_department)"
-            city_center="$(franchised_outlet_city_center)"
+            department="$(province_center_department)"
+            province_center="$(franchised_outlet_province_center)"
     />
 
 
-    <franchised_outlet_city_service_center
-            name='油奔奔济南|油奔奔菏泽'
+    <franchised_outlet_province_service_center
+            name='油奔奔山东|油奔奔北京'
             founded="past()"
-            belongs_to="$(franchised_outlet_city_center)"
+            belongs_to="$(franchised_outlet_province_center)"
             last_update_time="updateTime()"
 
     />
@@ -104,7 +104,6 @@
             name='曾倩|黄风格|郭超'
             mobile="13677778888"
             town_service_center="$(franchised_outlet_city_service_center)"
-
             description="负责开拓市场，具有极强的开拓能力"
             last_update_time="updateTime()"
     />

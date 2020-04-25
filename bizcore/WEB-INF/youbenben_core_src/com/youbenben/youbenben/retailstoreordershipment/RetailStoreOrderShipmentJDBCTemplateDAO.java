@@ -1,0 +1,1126 @@
+
+package com.youbenben.youbenben.retailstoreordershipment;
+
+import java.util.List;
+import java.util.ArrayList;
+import java.util.Set;
+import java.util.stream.Collectors;
+import java.util.Map;
+import java.util.HashMap;
+import java.math.BigDecimal;
+
+import com.terapico.caf.baseelement.CandidateQuery;
+import com.terapico.utils.TextUtil;
+
+import com.youbenben.youbenben.YoubenbenBaseDAOImpl;
+import com.youbenben.youbenben.BaseEntity;
+import com.youbenben.youbenben.SmartList;
+import com.youbenben.youbenben.AccessKey;
+import com.youbenben.youbenben.DateKey;
+import com.youbenben.youbenben.StatsInfo;
+import com.youbenben.youbenben.StatsItem;
+
+import com.youbenben.youbenben.MultipleAccessKey;
+import com.youbenben.youbenben.YoubenbenUserContext;
+
+
+import com.youbenben.youbenben.retailstoreorder.RetailStoreOrder;
+
+import com.youbenben.youbenben.retailstoreorder.RetailStoreOrderDAO;
+
+
+
+import org.springframework.dao.DataAccessException;
+import org.springframework.dao.EmptyResultDataAccessException;
+import org.springframework.jdbc.core.RowCallbackHandler;
+
+
+public class RetailStoreOrderShipmentJDBCTemplateDAO extends YoubenbenBaseDAOImpl implements RetailStoreOrderShipmentDAO{
+
+	protected RetailStoreOrderDAO retailStoreOrderDAO;
+	public void setRetailStoreOrderDAO(RetailStoreOrderDAO retailStoreOrderDAO){
+ 	
+ 		if(retailStoreOrderDAO == null){
+ 			throw new IllegalStateException("Do not try to set retailStoreOrderDAO to null.");
+ 		}
+	 	this.retailStoreOrderDAO = retailStoreOrderDAO;
+ 	}
+ 	public RetailStoreOrderDAO getRetailStoreOrderDAO(){
+ 		if(this.retailStoreOrderDAO == null){
+ 			throw new IllegalStateException("The retailStoreOrderDAO is not configured yet, please config it some where.");
+ 		}
+ 		
+	 	return this.retailStoreOrderDAO;
+ 	}	
+
+	
+	/*
+	protected RetailStoreOrderShipment load(AccessKey accessKey,Map<String,Object> options) throws Exception{
+		return loadInternalRetailStoreOrderShipment(accessKey, options);
+	}
+	*/
+	
+	public SmartList<RetailStoreOrderShipment> loadAll() {
+	    return this.loadAll(getRetailStoreOrderShipmentMapper());
+	}
+	
+	
+	protected String getIdFormat()
+	{
+		return getShortName(this.getName())+"%06d";
+	}
+	
+	public RetailStoreOrderShipment load(String id,Map<String,Object> options) throws Exception{
+		return loadInternalRetailStoreOrderShipment(RetailStoreOrderShipmentTable.withId(id), options);
+	}
+	
+	
+	
+	public RetailStoreOrderShipment save(RetailStoreOrderShipment retailStoreOrderShipment,Map<String,Object> options){
+		
+		String methodName="save(RetailStoreOrderShipment retailStoreOrderShipment,Map<String,Object> options)";
+		
+		assertMethodArgumentNotNull(retailStoreOrderShipment, methodName, "retailStoreOrderShipment");
+		assertMethodArgumentNotNull(options, methodName, "options");
+		
+		return saveInternalRetailStoreOrderShipment(retailStoreOrderShipment,options);
+	}
+	public RetailStoreOrderShipment clone(String retailStoreOrderShipmentId, Map<String,Object> options) throws Exception{
+	
+		return clone(RetailStoreOrderShipmentTable.withId(retailStoreOrderShipmentId),options);
+	}
+	
+	protected RetailStoreOrderShipment clone(AccessKey accessKey, Map<String,Object> options) throws Exception{
+	
+		String methodName="clone(String retailStoreOrderShipmentId,Map<String,Object> options)";
+		
+		assertMethodArgumentNotNull(accessKey, methodName, "accessKey");
+		assertMethodArgumentNotNull(options, methodName, "options");
+		
+		RetailStoreOrderShipment newRetailStoreOrderShipment = loadInternalRetailStoreOrderShipment(accessKey, options);
+		newRetailStoreOrderShipment.setVersion(0);
+		
+		
+ 		
+ 		if(isSaveRetailStoreOrderListEnabled(options)){
+ 			for(RetailStoreOrder item: newRetailStoreOrderShipment.getRetailStoreOrderList()){
+ 				item.setVersion(0);
+ 			}
+ 		}
+		
+
+		
+		saveInternalRetailStoreOrderShipment(newRetailStoreOrderShipment,options);
+		
+		return newRetailStoreOrderShipment;
+	}
+	
+	
+	
+	
+
+	protected void throwIfHasException(String retailStoreOrderShipmentId,int version,int count) throws Exception{
+		if (count == 1) {
+			throw new RetailStoreOrderShipmentVersionChangedException(
+					"The object version has been changed, please reload to delete");
+		}
+		if (count < 1) {
+			throw new RetailStoreOrderShipmentNotFoundException(
+					"The " + this.getTableName() + "(" + retailStoreOrderShipmentId + ") has already been deleted.");
+		}
+		if (count > 1) {
+			throw new IllegalStateException(
+					"The table '" + this.getTableName() + "' PRIMARY KEY constraint has been damaged, please fix it.");
+		}
+	}
+	
+	
+	public void delete(String retailStoreOrderShipmentId, int version) throws Exception{
+	
+		String methodName="delete(String retailStoreOrderShipmentId, int version)";
+		assertMethodArgumentNotNull(retailStoreOrderShipmentId, methodName, "retailStoreOrderShipmentId");
+		assertMethodIntArgumentGreaterThan(version,0, methodName, "options");
+		
+	
+		String SQL=this.getDeleteSQL();
+		Object [] parameters=new Object[]{retailStoreOrderShipmentId,version};
+		int affectedNumber = singleUpdate(SQL,parameters);
+		if(affectedNumber == 1){
+			return ; //Delete successfully
+		}
+		if(affectedNumber == 0){
+			handleDeleteOneError(retailStoreOrderShipmentId,version);
+		}
+		
+	
+	}
+	
+	
+	
+	
+	
+
+	public RetailStoreOrderShipment disconnectFromAll(String retailStoreOrderShipmentId, int version) throws Exception{
+	
+		
+		RetailStoreOrderShipment retailStoreOrderShipment = loadInternalRetailStoreOrderShipment(RetailStoreOrderShipmentTable.withId(retailStoreOrderShipmentId), emptyOptions());
+		retailStoreOrderShipment.clearFromAll();
+		this.saveRetailStoreOrderShipment(retailStoreOrderShipment);
+		return retailStoreOrderShipment;
+		
+	
+	}
+	
+	@Override
+	protected String[] getNormalColumnNames() {
+
+		return RetailStoreOrderShipmentTable.NORMAL_CLOUMNS;
+	}
+	@Override
+	protected String getName() {
+		
+		return "retail_store_order_shipment";
+	}
+	@Override
+	protected String getBeanName() {
+		
+		return "retailStoreOrderShipment";
+	}
+	
+	
+	
+	
+	
+	protected boolean checkOptions(Map<String,Object> options, String optionToCheck){
+	
+ 		return RetailStoreOrderShipmentTokens.checkOptions(options, optionToCheck);
+	
+	}
+
+
+		
+	
+	protected boolean isExtractRetailStoreOrderListEnabled(Map<String,Object> options){		
+ 		return checkOptions(options,RetailStoreOrderShipmentTokens.RETAIL_STORE_ORDER_LIST);
+ 	}
+ 	protected boolean isAnalyzeRetailStoreOrderListEnabled(Map<String,Object> options){		 		
+ 		return RetailStoreOrderShipmentTokens.of(options).analyzeRetailStoreOrderListEnabled();
+ 	}
+	
+	protected boolean isSaveRetailStoreOrderListEnabled(Map<String,Object> options){
+		return checkOptions(options, RetailStoreOrderShipmentTokens.RETAIL_STORE_ORDER_LIST);
+		
+ 	}
+ 	
+		
+
+	
+
+	protected RetailStoreOrderShipmentMapper getRetailStoreOrderShipmentMapper(){
+		return new RetailStoreOrderShipmentMapper();
+	}
+
+	
+	
+	protected RetailStoreOrderShipment extractRetailStoreOrderShipment(AccessKey accessKey, Map<String,Object> loadOptions) throws Exception{
+		try{
+			RetailStoreOrderShipment retailStoreOrderShipment = loadSingleObject(accessKey, getRetailStoreOrderShipmentMapper());
+			return retailStoreOrderShipment;
+		}catch(EmptyResultDataAccessException e){
+			throw new RetailStoreOrderShipmentNotFoundException("RetailStoreOrderShipment("+accessKey+") is not found!");
+		}
+
+	}
+
+	
+	
+
+	protected RetailStoreOrderShipment loadInternalRetailStoreOrderShipment(AccessKey accessKey, Map<String,Object> loadOptions) throws Exception{
+		
+		RetailStoreOrderShipment retailStoreOrderShipment = extractRetailStoreOrderShipment(accessKey, loadOptions);
+
+		
+		if(isExtractRetailStoreOrderListEnabled(loadOptions)){
+	 		extractRetailStoreOrderList(retailStoreOrderShipment, loadOptions);
+ 		}	
+ 		
+ 		
+ 		if(isAnalyzeRetailStoreOrderListEnabled(loadOptions)){
+	 		analyzeRetailStoreOrderList(retailStoreOrderShipment, loadOptions);
+ 		}
+ 		
+		
+		return retailStoreOrderShipment;
+		
+	}
+
+	
+		
+	protected void enhanceRetailStoreOrderList(SmartList<RetailStoreOrder> retailStoreOrderList,Map<String,Object> options){
+		//extract multiple list from difference sources
+		//Trying to use a single SQL to extract all data from database and do the work in java side, java is easier to scale to N ndoes;
+	}
+	
+	protected RetailStoreOrderShipment extractRetailStoreOrderList(RetailStoreOrderShipment retailStoreOrderShipment, Map<String,Object> options){
+		
+		
+		if(retailStoreOrderShipment == null){
+			return null;
+		}
+		if(retailStoreOrderShipment.getId() == null){
+			return retailStoreOrderShipment;
+		}
+
+		
+		
+		SmartList<RetailStoreOrder> retailStoreOrderList = getRetailStoreOrderDAO().findRetailStoreOrderByShipment(retailStoreOrderShipment.getId(),options);
+		if(retailStoreOrderList != null){
+			enhanceRetailStoreOrderList(retailStoreOrderList,options);
+			retailStoreOrderShipment.setRetailStoreOrderList(retailStoreOrderList);
+		}
+		
+		return retailStoreOrderShipment;
+	
+	}	
+	
+	protected RetailStoreOrderShipment analyzeRetailStoreOrderList(RetailStoreOrderShipment retailStoreOrderShipment, Map<String,Object> options){
+		
+		
+		if(retailStoreOrderShipment == null){
+			return null;
+		}
+		if(retailStoreOrderShipment.getId() == null){
+			return retailStoreOrderShipment;
+		}
+
+		
+		
+		SmartList<RetailStoreOrder> retailStoreOrderList = retailStoreOrderShipment.getRetailStoreOrderList();
+		if(retailStoreOrderList != null){
+			getRetailStoreOrderDAO().analyzeRetailStoreOrderByShipment(retailStoreOrderList, retailStoreOrderShipment.getId(), options);
+			
+		}
+		
+		return retailStoreOrderShipment;
+	
+	}	
+	
+		
+		
+ 	
+		
+		
+		
+
+	
+
+	protected RetailStoreOrderShipment saveRetailStoreOrderShipment(RetailStoreOrderShipment  retailStoreOrderShipment){
+		
+		if(!retailStoreOrderShipment.isChanged()){
+			return retailStoreOrderShipment;
+		}
+		
+		
+		String SQL=this.getSaveRetailStoreOrderShipmentSQL(retailStoreOrderShipment);
+		//FIXME: how about when an item has been updated more than MAX_INT?
+		Object [] parameters = getSaveRetailStoreOrderShipmentParameters(retailStoreOrderShipment);
+		int affectedNumber = singleUpdate(SQL,parameters);
+		if(affectedNumber != 1){
+			throw new IllegalStateException("The save operation should return value = 1, while the value = "
+				+ affectedNumber +"If the value = 0, that mean the target record has been updated by someone else!");
+		}
+		
+		retailStoreOrderShipment.incVersion();
+		return retailStoreOrderShipment;
+	
+	}
+	public SmartList<RetailStoreOrderShipment> saveRetailStoreOrderShipmentList(SmartList<RetailStoreOrderShipment> retailStoreOrderShipmentList,Map<String,Object> options){
+		//assuming here are big amount objects to be updated.
+		//First step is split into two groups, one group for update and another group for create
+		Object [] lists=splitRetailStoreOrderShipmentList(retailStoreOrderShipmentList);
+		
+		batchRetailStoreOrderShipmentCreate((List<RetailStoreOrderShipment>)lists[CREATE_LIST_INDEX]);
+		
+		batchRetailStoreOrderShipmentUpdate((List<RetailStoreOrderShipment>)lists[UPDATE_LIST_INDEX]);
+		
+		
+		//update version after the list successfully saved to database;
+		for(RetailStoreOrderShipment retailStoreOrderShipment:retailStoreOrderShipmentList){
+			if(retailStoreOrderShipment.isChanged()){
+				retailStoreOrderShipment.incVersion();
+			}
+			
+		
+		}
+		
+		
+		return retailStoreOrderShipmentList;
+	}
+
+	public SmartList<RetailStoreOrderShipment> removeRetailStoreOrderShipmentList(SmartList<RetailStoreOrderShipment> retailStoreOrderShipmentList,Map<String,Object> options){
+		
+		
+		super.removeList(retailStoreOrderShipmentList, options);
+		
+		return retailStoreOrderShipmentList;
+		
+		
+	}
+	
+	protected List<Object[]> prepareRetailStoreOrderShipmentBatchCreateArgs(List<RetailStoreOrderShipment> retailStoreOrderShipmentList){
+		
+		List<Object[]> parametersList=new ArrayList<Object[]>();
+		for(RetailStoreOrderShipment retailStoreOrderShipment:retailStoreOrderShipmentList ){
+			Object [] parameters = prepareRetailStoreOrderShipmentCreateParameters(retailStoreOrderShipment);
+			parametersList.add(parameters);
+		
+		}
+		return parametersList;
+		
+	}
+	protected List<Object[]> prepareRetailStoreOrderShipmentBatchUpdateArgs(List<RetailStoreOrderShipment> retailStoreOrderShipmentList){
+		
+		List<Object[]> parametersList=new ArrayList<Object[]>();
+		for(RetailStoreOrderShipment retailStoreOrderShipment:retailStoreOrderShipmentList ){
+			if(!retailStoreOrderShipment.isChanged()){
+				continue;
+			}
+			Object [] parameters = prepareRetailStoreOrderShipmentUpdateParameters(retailStoreOrderShipment);
+			parametersList.add(parameters);
+		
+		}
+		return parametersList;
+		
+	}
+	protected void batchRetailStoreOrderShipmentCreate(List<RetailStoreOrderShipment> retailStoreOrderShipmentList){
+		String SQL=getCreateSQL();
+		List<Object[]> args=prepareRetailStoreOrderShipmentBatchCreateArgs(retailStoreOrderShipmentList);
+		
+		int affectedNumbers[] = batchUpdate(SQL, args);
+		
+	}
+	
+	
+	protected void batchRetailStoreOrderShipmentUpdate(List<RetailStoreOrderShipment> retailStoreOrderShipmentList){
+		String SQL=getUpdateSQL();
+		List<Object[]> args=prepareRetailStoreOrderShipmentBatchUpdateArgs(retailStoreOrderShipmentList);
+		
+		int affectedNumbers[] = batchUpdate(SQL, args);
+		
+		
+		
+	}
+	
+	
+	
+	static final int CREATE_LIST_INDEX=0;
+	static final int UPDATE_LIST_INDEX=1;
+	
+	protected Object[] splitRetailStoreOrderShipmentList(List<RetailStoreOrderShipment> retailStoreOrderShipmentList){
+		
+		List<RetailStoreOrderShipment> retailStoreOrderShipmentCreateList=new ArrayList<RetailStoreOrderShipment>();
+		List<RetailStoreOrderShipment> retailStoreOrderShipmentUpdateList=new ArrayList<RetailStoreOrderShipment>();
+		
+		for(RetailStoreOrderShipment retailStoreOrderShipment: retailStoreOrderShipmentList){
+			if(isUpdateRequest(retailStoreOrderShipment)){
+				retailStoreOrderShipmentUpdateList.add( retailStoreOrderShipment);
+				continue;
+			}
+			retailStoreOrderShipmentCreateList.add(retailStoreOrderShipment);
+		}
+		
+		return new Object[]{retailStoreOrderShipmentCreateList,retailStoreOrderShipmentUpdateList};
+	}
+	
+	protected boolean isUpdateRequest(RetailStoreOrderShipment retailStoreOrderShipment){
+ 		return retailStoreOrderShipment.getVersion() > 0;
+ 	}
+ 	protected String getSaveRetailStoreOrderShipmentSQL(RetailStoreOrderShipment retailStoreOrderShipment){
+ 		if(isUpdateRequest(retailStoreOrderShipment)){
+ 			return getUpdateSQL();
+ 		}
+ 		return getCreateSQL();
+ 	}
+ 	
+ 	protected Object[] getSaveRetailStoreOrderShipmentParameters(RetailStoreOrderShipment retailStoreOrderShipment){
+ 		if(isUpdateRequest(retailStoreOrderShipment) ){
+ 			return prepareRetailStoreOrderShipmentUpdateParameters(retailStoreOrderShipment);
+ 		}
+ 		return prepareRetailStoreOrderShipmentCreateParameters(retailStoreOrderShipment);
+ 	}
+ 	protected Object[] prepareRetailStoreOrderShipmentUpdateParameters(RetailStoreOrderShipment retailStoreOrderShipment){
+ 		Object[] parameters = new Object[5];
+ 
+ 		
+ 		parameters[0] = retailStoreOrderShipment.getWho();
+ 		
+ 		
+ 		parameters[1] = retailStoreOrderShipment.getShipTime();
+ 				
+ 		parameters[2] = retailStoreOrderShipment.nextVersion();
+ 		parameters[3] = retailStoreOrderShipment.getId();
+ 		parameters[4] = retailStoreOrderShipment.getVersion();
+ 				
+ 		return parameters;
+ 	}
+ 	protected Object[] prepareRetailStoreOrderShipmentCreateParameters(RetailStoreOrderShipment retailStoreOrderShipment){
+		Object[] parameters = new Object[3];
+		String newRetailStoreOrderShipmentId=getNextId();
+		retailStoreOrderShipment.setId(newRetailStoreOrderShipmentId);
+		parameters[0] =  retailStoreOrderShipment.getId();
+ 
+ 		
+ 		parameters[1] = retailStoreOrderShipment.getWho();
+ 		
+ 		
+ 		parameters[2] = retailStoreOrderShipment.getShipTime();
+ 				
+ 				
+ 		return parameters;
+ 	}
+ 	
+	protected RetailStoreOrderShipment saveInternalRetailStoreOrderShipment(RetailStoreOrderShipment retailStoreOrderShipment, Map<String,Object> options){
+		
+		saveRetailStoreOrderShipment(retailStoreOrderShipment);
+
+		
+		if(isSaveRetailStoreOrderListEnabled(options)){
+	 		saveRetailStoreOrderList(retailStoreOrderShipment, options);
+	 		//removeRetailStoreOrderList(retailStoreOrderShipment, options);
+	 		//Not delete the record
+	 		
+ 		}		
+		
+		return retailStoreOrderShipment;
+		
+	}
+	
+	
+	
+	//======================================================================================
+	
+
+	
+	public RetailStoreOrderShipment planToRemoveRetailStoreOrderList(RetailStoreOrderShipment retailStoreOrderShipment, String retailStoreOrderIds[], Map<String,Object> options)throws Exception{
+	
+		MultipleAccessKey key = new MultipleAccessKey();
+		key.put(RetailStoreOrder.SHIPMENT_PROPERTY, retailStoreOrderShipment.getId());
+		key.put(RetailStoreOrder.ID_PROPERTY, retailStoreOrderIds);
+		
+		SmartList<RetailStoreOrder> externalRetailStoreOrderList = getRetailStoreOrderDAO().
+				findRetailStoreOrderWithKey(key, options);
+		if(externalRetailStoreOrderList == null){
+			return retailStoreOrderShipment;
+		}
+		if(externalRetailStoreOrderList.isEmpty()){
+			return retailStoreOrderShipment;
+		}
+		
+		for(RetailStoreOrder retailStoreOrderItem: externalRetailStoreOrderList){
+
+			retailStoreOrderItem.clearFromAll();
+		}
+		
+		
+		SmartList<RetailStoreOrder> retailStoreOrderList = retailStoreOrderShipment.getRetailStoreOrderList();		
+		retailStoreOrderList.addAllToRemoveList(externalRetailStoreOrderList);
+		return retailStoreOrderShipment;	
+	
+	}
+
+
+	//disconnect RetailStoreOrderShipment with buyer in RetailStoreOrder
+	public RetailStoreOrderShipment planToRemoveRetailStoreOrderListWithBuyer(RetailStoreOrderShipment retailStoreOrderShipment, String buyerId, Map<String,Object> options)throws Exception{
+				//SmartList<ThreadLike> toRemoveThreadLikeList = threadLikeList.getToRemoveList();
+		//the list will not be null here, empty, maybe
+		//getThreadLikeDAO().removeThreadLikeList(toRemoveThreadLikeList,options);
+		
+		MultipleAccessKey key = new MultipleAccessKey();
+		key.put(RetailStoreOrder.SHIPMENT_PROPERTY, retailStoreOrderShipment.getId());
+		key.put(RetailStoreOrder.BUYER_PROPERTY, buyerId);
+		
+		SmartList<RetailStoreOrder> externalRetailStoreOrderList = getRetailStoreOrderDAO().
+				findRetailStoreOrderWithKey(key, options);
+		if(externalRetailStoreOrderList == null){
+			return retailStoreOrderShipment;
+		}
+		if(externalRetailStoreOrderList.isEmpty()){
+			return retailStoreOrderShipment;
+		}
+		
+		for(RetailStoreOrder retailStoreOrderItem: externalRetailStoreOrderList){
+			retailStoreOrderItem.clearBuyer();
+			retailStoreOrderItem.clearShipment();
+			
+		}
+		
+		
+		SmartList<RetailStoreOrder> retailStoreOrderList = retailStoreOrderShipment.getRetailStoreOrderList();		
+		retailStoreOrderList.addAllToRemoveList(externalRetailStoreOrderList);
+		return retailStoreOrderShipment;
+	}
+	
+	public int countRetailStoreOrderListWithBuyer(String retailStoreOrderShipmentId, String buyerId, Map<String,Object> options)throws Exception{
+				//SmartList<ThreadLike> toRemoveThreadLikeList = threadLikeList.getToRemoveList();
+		//the list will not be null here, empty, maybe
+		//getThreadLikeDAO().removeThreadLikeList(toRemoveThreadLikeList,options);
+
+		MultipleAccessKey key = new MultipleAccessKey();
+		key.put(RetailStoreOrder.SHIPMENT_PROPERTY, retailStoreOrderShipmentId);
+		key.put(RetailStoreOrder.BUYER_PROPERTY, buyerId);
+		
+		int count = getRetailStoreOrderDAO().countRetailStoreOrderWithKey(key, options);
+		return count;
+	}
+	
+	//disconnect RetailStoreOrderShipment with seller in RetailStoreOrder
+	public RetailStoreOrderShipment planToRemoveRetailStoreOrderListWithSeller(RetailStoreOrderShipment retailStoreOrderShipment, String sellerId, Map<String,Object> options)throws Exception{
+				//SmartList<ThreadLike> toRemoveThreadLikeList = threadLikeList.getToRemoveList();
+		//the list will not be null here, empty, maybe
+		//getThreadLikeDAO().removeThreadLikeList(toRemoveThreadLikeList,options);
+		
+		MultipleAccessKey key = new MultipleAccessKey();
+		key.put(RetailStoreOrder.SHIPMENT_PROPERTY, retailStoreOrderShipment.getId());
+		key.put(RetailStoreOrder.SELLER_PROPERTY, sellerId);
+		
+		SmartList<RetailStoreOrder> externalRetailStoreOrderList = getRetailStoreOrderDAO().
+				findRetailStoreOrderWithKey(key, options);
+		if(externalRetailStoreOrderList == null){
+			return retailStoreOrderShipment;
+		}
+		if(externalRetailStoreOrderList.isEmpty()){
+			return retailStoreOrderShipment;
+		}
+		
+		for(RetailStoreOrder retailStoreOrderItem: externalRetailStoreOrderList){
+			retailStoreOrderItem.clearSeller();
+			retailStoreOrderItem.clearShipment();
+			
+		}
+		
+		
+		SmartList<RetailStoreOrder> retailStoreOrderList = retailStoreOrderShipment.getRetailStoreOrderList();		
+		retailStoreOrderList.addAllToRemoveList(externalRetailStoreOrderList);
+		return retailStoreOrderShipment;
+	}
+	
+	public int countRetailStoreOrderListWithSeller(String retailStoreOrderShipmentId, String sellerId, Map<String,Object> options)throws Exception{
+				//SmartList<ThreadLike> toRemoveThreadLikeList = threadLikeList.getToRemoveList();
+		//the list will not be null here, empty, maybe
+		//getThreadLikeDAO().removeThreadLikeList(toRemoveThreadLikeList,options);
+
+		MultipleAccessKey key = new MultipleAccessKey();
+		key.put(RetailStoreOrder.SHIPMENT_PROPERTY, retailStoreOrderShipmentId);
+		key.put(RetailStoreOrder.SELLER_PROPERTY, sellerId);
+		
+		int count = getRetailStoreOrderDAO().countRetailStoreOrderWithKey(key, options);
+		return count;
+	}
+	
+	//disconnect RetailStoreOrderShipment with confirmation in RetailStoreOrder
+	public RetailStoreOrderShipment planToRemoveRetailStoreOrderListWithConfirmation(RetailStoreOrderShipment retailStoreOrderShipment, String confirmationId, Map<String,Object> options)throws Exception{
+				//SmartList<ThreadLike> toRemoveThreadLikeList = threadLikeList.getToRemoveList();
+		//the list will not be null here, empty, maybe
+		//getThreadLikeDAO().removeThreadLikeList(toRemoveThreadLikeList,options);
+		
+		MultipleAccessKey key = new MultipleAccessKey();
+		key.put(RetailStoreOrder.SHIPMENT_PROPERTY, retailStoreOrderShipment.getId());
+		key.put(RetailStoreOrder.CONFIRMATION_PROPERTY, confirmationId);
+		
+		SmartList<RetailStoreOrder> externalRetailStoreOrderList = getRetailStoreOrderDAO().
+				findRetailStoreOrderWithKey(key, options);
+		if(externalRetailStoreOrderList == null){
+			return retailStoreOrderShipment;
+		}
+		if(externalRetailStoreOrderList.isEmpty()){
+			return retailStoreOrderShipment;
+		}
+		
+		for(RetailStoreOrder retailStoreOrderItem: externalRetailStoreOrderList){
+			retailStoreOrderItem.clearConfirmation();
+			retailStoreOrderItem.clearShipment();
+			
+		}
+		
+		
+		SmartList<RetailStoreOrder> retailStoreOrderList = retailStoreOrderShipment.getRetailStoreOrderList();		
+		retailStoreOrderList.addAllToRemoveList(externalRetailStoreOrderList);
+		return retailStoreOrderShipment;
+	}
+	
+	public int countRetailStoreOrderListWithConfirmation(String retailStoreOrderShipmentId, String confirmationId, Map<String,Object> options)throws Exception{
+				//SmartList<ThreadLike> toRemoveThreadLikeList = threadLikeList.getToRemoveList();
+		//the list will not be null here, empty, maybe
+		//getThreadLikeDAO().removeThreadLikeList(toRemoveThreadLikeList,options);
+
+		MultipleAccessKey key = new MultipleAccessKey();
+		key.put(RetailStoreOrder.SHIPMENT_PROPERTY, retailStoreOrderShipmentId);
+		key.put(RetailStoreOrder.CONFIRMATION_PROPERTY, confirmationId);
+		
+		int count = getRetailStoreOrderDAO().countRetailStoreOrderWithKey(key, options);
+		return count;
+	}
+	
+	//disconnect RetailStoreOrderShipment with approval in RetailStoreOrder
+	public RetailStoreOrderShipment planToRemoveRetailStoreOrderListWithApproval(RetailStoreOrderShipment retailStoreOrderShipment, String approvalId, Map<String,Object> options)throws Exception{
+				//SmartList<ThreadLike> toRemoveThreadLikeList = threadLikeList.getToRemoveList();
+		//the list will not be null here, empty, maybe
+		//getThreadLikeDAO().removeThreadLikeList(toRemoveThreadLikeList,options);
+		
+		MultipleAccessKey key = new MultipleAccessKey();
+		key.put(RetailStoreOrder.SHIPMENT_PROPERTY, retailStoreOrderShipment.getId());
+		key.put(RetailStoreOrder.APPROVAL_PROPERTY, approvalId);
+		
+		SmartList<RetailStoreOrder> externalRetailStoreOrderList = getRetailStoreOrderDAO().
+				findRetailStoreOrderWithKey(key, options);
+		if(externalRetailStoreOrderList == null){
+			return retailStoreOrderShipment;
+		}
+		if(externalRetailStoreOrderList.isEmpty()){
+			return retailStoreOrderShipment;
+		}
+		
+		for(RetailStoreOrder retailStoreOrderItem: externalRetailStoreOrderList){
+			retailStoreOrderItem.clearApproval();
+			retailStoreOrderItem.clearShipment();
+			
+		}
+		
+		
+		SmartList<RetailStoreOrder> retailStoreOrderList = retailStoreOrderShipment.getRetailStoreOrderList();		
+		retailStoreOrderList.addAllToRemoveList(externalRetailStoreOrderList);
+		return retailStoreOrderShipment;
+	}
+	
+	public int countRetailStoreOrderListWithApproval(String retailStoreOrderShipmentId, String approvalId, Map<String,Object> options)throws Exception{
+				//SmartList<ThreadLike> toRemoveThreadLikeList = threadLikeList.getToRemoveList();
+		//the list will not be null here, empty, maybe
+		//getThreadLikeDAO().removeThreadLikeList(toRemoveThreadLikeList,options);
+
+		MultipleAccessKey key = new MultipleAccessKey();
+		key.put(RetailStoreOrder.SHIPMENT_PROPERTY, retailStoreOrderShipmentId);
+		key.put(RetailStoreOrder.APPROVAL_PROPERTY, approvalId);
+		
+		int count = getRetailStoreOrderDAO().countRetailStoreOrderWithKey(key, options);
+		return count;
+	}
+	
+	//disconnect RetailStoreOrderShipment with processing in RetailStoreOrder
+	public RetailStoreOrderShipment planToRemoveRetailStoreOrderListWithProcessing(RetailStoreOrderShipment retailStoreOrderShipment, String processingId, Map<String,Object> options)throws Exception{
+				//SmartList<ThreadLike> toRemoveThreadLikeList = threadLikeList.getToRemoveList();
+		//the list will not be null here, empty, maybe
+		//getThreadLikeDAO().removeThreadLikeList(toRemoveThreadLikeList,options);
+		
+		MultipleAccessKey key = new MultipleAccessKey();
+		key.put(RetailStoreOrder.SHIPMENT_PROPERTY, retailStoreOrderShipment.getId());
+		key.put(RetailStoreOrder.PROCESSING_PROPERTY, processingId);
+		
+		SmartList<RetailStoreOrder> externalRetailStoreOrderList = getRetailStoreOrderDAO().
+				findRetailStoreOrderWithKey(key, options);
+		if(externalRetailStoreOrderList == null){
+			return retailStoreOrderShipment;
+		}
+		if(externalRetailStoreOrderList.isEmpty()){
+			return retailStoreOrderShipment;
+		}
+		
+		for(RetailStoreOrder retailStoreOrderItem: externalRetailStoreOrderList){
+			retailStoreOrderItem.clearProcessing();
+			retailStoreOrderItem.clearShipment();
+			
+		}
+		
+		
+		SmartList<RetailStoreOrder> retailStoreOrderList = retailStoreOrderShipment.getRetailStoreOrderList();		
+		retailStoreOrderList.addAllToRemoveList(externalRetailStoreOrderList);
+		return retailStoreOrderShipment;
+	}
+	
+	public int countRetailStoreOrderListWithProcessing(String retailStoreOrderShipmentId, String processingId, Map<String,Object> options)throws Exception{
+				//SmartList<ThreadLike> toRemoveThreadLikeList = threadLikeList.getToRemoveList();
+		//the list will not be null here, empty, maybe
+		//getThreadLikeDAO().removeThreadLikeList(toRemoveThreadLikeList,options);
+
+		MultipleAccessKey key = new MultipleAccessKey();
+		key.put(RetailStoreOrder.SHIPMENT_PROPERTY, retailStoreOrderShipmentId);
+		key.put(RetailStoreOrder.PROCESSING_PROPERTY, processingId);
+		
+		int count = getRetailStoreOrderDAO().countRetailStoreOrderWithKey(key, options);
+		return count;
+	}
+	
+	//disconnect RetailStoreOrderShipment with picking in RetailStoreOrder
+	public RetailStoreOrderShipment planToRemoveRetailStoreOrderListWithPicking(RetailStoreOrderShipment retailStoreOrderShipment, String pickingId, Map<String,Object> options)throws Exception{
+				//SmartList<ThreadLike> toRemoveThreadLikeList = threadLikeList.getToRemoveList();
+		//the list will not be null here, empty, maybe
+		//getThreadLikeDAO().removeThreadLikeList(toRemoveThreadLikeList,options);
+		
+		MultipleAccessKey key = new MultipleAccessKey();
+		key.put(RetailStoreOrder.SHIPMENT_PROPERTY, retailStoreOrderShipment.getId());
+		key.put(RetailStoreOrder.PICKING_PROPERTY, pickingId);
+		
+		SmartList<RetailStoreOrder> externalRetailStoreOrderList = getRetailStoreOrderDAO().
+				findRetailStoreOrderWithKey(key, options);
+		if(externalRetailStoreOrderList == null){
+			return retailStoreOrderShipment;
+		}
+		if(externalRetailStoreOrderList.isEmpty()){
+			return retailStoreOrderShipment;
+		}
+		
+		for(RetailStoreOrder retailStoreOrderItem: externalRetailStoreOrderList){
+			retailStoreOrderItem.clearPicking();
+			retailStoreOrderItem.clearShipment();
+			
+		}
+		
+		
+		SmartList<RetailStoreOrder> retailStoreOrderList = retailStoreOrderShipment.getRetailStoreOrderList();		
+		retailStoreOrderList.addAllToRemoveList(externalRetailStoreOrderList);
+		return retailStoreOrderShipment;
+	}
+	
+	public int countRetailStoreOrderListWithPicking(String retailStoreOrderShipmentId, String pickingId, Map<String,Object> options)throws Exception{
+				//SmartList<ThreadLike> toRemoveThreadLikeList = threadLikeList.getToRemoveList();
+		//the list will not be null here, empty, maybe
+		//getThreadLikeDAO().removeThreadLikeList(toRemoveThreadLikeList,options);
+
+		MultipleAccessKey key = new MultipleAccessKey();
+		key.put(RetailStoreOrder.SHIPMENT_PROPERTY, retailStoreOrderShipmentId);
+		key.put(RetailStoreOrder.PICKING_PROPERTY, pickingId);
+		
+		int count = getRetailStoreOrderDAO().countRetailStoreOrderWithKey(key, options);
+		return count;
+	}
+	
+	//disconnect RetailStoreOrderShipment with delivery in RetailStoreOrder
+	public RetailStoreOrderShipment planToRemoveRetailStoreOrderListWithDelivery(RetailStoreOrderShipment retailStoreOrderShipment, String deliveryId, Map<String,Object> options)throws Exception{
+				//SmartList<ThreadLike> toRemoveThreadLikeList = threadLikeList.getToRemoveList();
+		//the list will not be null here, empty, maybe
+		//getThreadLikeDAO().removeThreadLikeList(toRemoveThreadLikeList,options);
+		
+		MultipleAccessKey key = new MultipleAccessKey();
+		key.put(RetailStoreOrder.SHIPMENT_PROPERTY, retailStoreOrderShipment.getId());
+		key.put(RetailStoreOrder.DELIVERY_PROPERTY, deliveryId);
+		
+		SmartList<RetailStoreOrder> externalRetailStoreOrderList = getRetailStoreOrderDAO().
+				findRetailStoreOrderWithKey(key, options);
+		if(externalRetailStoreOrderList == null){
+			return retailStoreOrderShipment;
+		}
+		if(externalRetailStoreOrderList.isEmpty()){
+			return retailStoreOrderShipment;
+		}
+		
+		for(RetailStoreOrder retailStoreOrderItem: externalRetailStoreOrderList){
+			retailStoreOrderItem.clearDelivery();
+			retailStoreOrderItem.clearShipment();
+			
+		}
+		
+		
+		SmartList<RetailStoreOrder> retailStoreOrderList = retailStoreOrderShipment.getRetailStoreOrderList();		
+		retailStoreOrderList.addAllToRemoveList(externalRetailStoreOrderList);
+		return retailStoreOrderShipment;
+	}
+	
+	public int countRetailStoreOrderListWithDelivery(String retailStoreOrderShipmentId, String deliveryId, Map<String,Object> options)throws Exception{
+				//SmartList<ThreadLike> toRemoveThreadLikeList = threadLikeList.getToRemoveList();
+		//the list will not be null here, empty, maybe
+		//getThreadLikeDAO().removeThreadLikeList(toRemoveThreadLikeList,options);
+
+		MultipleAccessKey key = new MultipleAccessKey();
+		key.put(RetailStoreOrder.SHIPMENT_PROPERTY, retailStoreOrderShipmentId);
+		key.put(RetailStoreOrder.DELIVERY_PROPERTY, deliveryId);
+		
+		int count = getRetailStoreOrderDAO().countRetailStoreOrderWithKey(key, options);
+		return count;
+	}
+	
+
+		
+	protected RetailStoreOrderShipment saveRetailStoreOrderList(RetailStoreOrderShipment retailStoreOrderShipment, Map<String,Object> options){
+		
+		
+		
+		
+		SmartList<RetailStoreOrder> retailStoreOrderList = retailStoreOrderShipment.getRetailStoreOrderList();
+		if(retailStoreOrderList == null){
+			//null list means nothing
+			return retailStoreOrderShipment;
+		}
+		SmartList<RetailStoreOrder> mergedUpdateRetailStoreOrderList = new SmartList<RetailStoreOrder>();
+		
+		
+		mergedUpdateRetailStoreOrderList.addAll(retailStoreOrderList); 
+		if(retailStoreOrderList.getToRemoveList() != null){
+			//ensures the toRemoveList is not null
+			mergedUpdateRetailStoreOrderList.addAll(retailStoreOrderList.getToRemoveList());
+			retailStoreOrderList.removeAll(retailStoreOrderList.getToRemoveList());
+			//OK for now, need fix later
+		}
+
+		//adding new size can improve performance
+	
+		getRetailStoreOrderDAO().saveRetailStoreOrderList(mergedUpdateRetailStoreOrderList,options);
+		
+		if(retailStoreOrderList.getToRemoveList() != null){
+			retailStoreOrderList.removeAll(retailStoreOrderList.getToRemoveList());
+		}
+		
+		
+		return retailStoreOrderShipment;
+	
+	}
+	
+	protected RetailStoreOrderShipment removeRetailStoreOrderList(RetailStoreOrderShipment retailStoreOrderShipment, Map<String,Object> options){
+	
+	
+		SmartList<RetailStoreOrder> retailStoreOrderList = retailStoreOrderShipment.getRetailStoreOrderList();
+		if(retailStoreOrderList == null){
+			return retailStoreOrderShipment;
+		}	
+	
+		SmartList<RetailStoreOrder> toRemoveRetailStoreOrderList = retailStoreOrderList.getToRemoveList();
+		
+		if(toRemoveRetailStoreOrderList == null){
+			return retailStoreOrderShipment;
+		}
+		if(toRemoveRetailStoreOrderList.isEmpty()){
+			return retailStoreOrderShipment;// Does this mean delete all from the parent object?
+		}
+		//Call DAO to remove the list
+		
+		getRetailStoreOrderDAO().removeRetailStoreOrderList(toRemoveRetailStoreOrderList,options);
+		
+		return retailStoreOrderShipment;
+	
+	}
+	
+	
+
+ 	
+ 	
+	
+	
+	
+		
+
+	public RetailStoreOrderShipment present(RetailStoreOrderShipment retailStoreOrderShipment,Map<String, Object> options){
+	
+		presentRetailStoreOrderList(retailStoreOrderShipment,options);
+
+		return retailStoreOrderShipment;
+	
+	}
+		
+	//Using java8 feature to reduce the code significantly
+ 	protected RetailStoreOrderShipment presentRetailStoreOrderList(
+			RetailStoreOrderShipment retailStoreOrderShipment,
+			Map<String, Object> options) {
+
+		SmartList<RetailStoreOrder> retailStoreOrderList = retailStoreOrderShipment.getRetailStoreOrderList();		
+				SmartList<RetailStoreOrder> newList= presentSubList(retailStoreOrderShipment.getId(),
+				retailStoreOrderList,
+				options,
+				getRetailStoreOrderDAO()::countRetailStoreOrderByShipment,
+				getRetailStoreOrderDAO()::findRetailStoreOrderByShipment
+				);
+
+		
+		retailStoreOrderShipment.setRetailStoreOrderList(newList);
+		
+
+		return retailStoreOrderShipment;
+	}			
+		
+
+	
+    public SmartList<RetailStoreOrderShipment> requestCandidateRetailStoreOrderShipmentForRetailStoreOrder(YoubenbenUserContext userContext, String ownerClass, String id, String filterKey, int pageNo, int pageSize) throws Exception {
+        // NOTE: by default, ignore owner info, just return all by filter key.
+		// You need override this method if you have different candidate-logic
+		return findAllCandidateByFilter(RetailStoreOrderShipmentTable.COLUMN_WHO, null, filterKey, pageNo, pageSize, getRetailStoreOrderShipmentMapper());
+    }
+		
+
+	protected String getTableName(){
+		return RetailStoreOrderShipmentTable.TABLE_NAME;
+	}
+	
+	
+	
+	public void enhanceList(List<RetailStoreOrderShipment> retailStoreOrderShipmentList) {		
+		this.enhanceListInternal(retailStoreOrderShipmentList, this.getRetailStoreOrderShipmentMapper());
+	}
+	
+	
+	// 需要一个加载引用我的对象的enhance方法:RetailStoreOrder的shipment的RetailStoreOrderList
+	public SmartList<RetailStoreOrder> loadOurRetailStoreOrderList(YoubenbenUserContext userContext, List<RetailStoreOrderShipment> us, Map<String,Object> options) throws Exception{
+		if (us == null || us.isEmpty()){
+			return new SmartList<>();
+		}
+		Set<String> ids = us.stream().map(it->it.getId()).collect(Collectors.toSet());
+		MultipleAccessKey key = new MultipleAccessKey();
+		key.put(RetailStoreOrder.SHIPMENT_PROPERTY, ids.toArray(new String[ids.size()]));
+		SmartList<RetailStoreOrder> loadedObjs = userContext.getDAOGroup().getRetailStoreOrderDAO().findRetailStoreOrderWithKey(key, options);
+		Map<String, List<RetailStoreOrder>> loadedMap = loadedObjs.stream().collect(Collectors.groupingBy(it->it.getShipment().getId()));
+		us.forEach(it->{
+			String id = it.getId();
+			List<RetailStoreOrder> loadedList = loadedMap.get(id);
+			if (loadedList == null || loadedList.isEmpty()) {
+				return;
+			}
+			SmartList<RetailStoreOrder> loadedSmartList = new SmartList<>();
+			loadedSmartList.addAll(loadedList);
+			it.setRetailStoreOrderList(loadedSmartList);
+		});
+		return loadedObjs;
+	}
+	
+	
+	@Override
+	public void collectAndEnhance(BaseEntity ownerEntity) {
+		List<RetailStoreOrderShipment> retailStoreOrderShipmentList = ownerEntity.collectRefsWithType(RetailStoreOrderShipment.INTERNAL_TYPE);
+		this.enhanceList(retailStoreOrderShipmentList);
+		
+	}
+	
+	@Override
+	public SmartList<RetailStoreOrderShipment> findRetailStoreOrderShipmentWithKey(MultipleAccessKey key,
+			Map<String, Object> options) {
+		
+  		return queryWith(key, options, getRetailStoreOrderShipmentMapper());
+
+	}
+	@Override
+	public int countRetailStoreOrderShipmentWithKey(MultipleAccessKey key,
+			Map<String, Object> options) {
+		
+  		return countWith(key, options);
+
+	}
+	public Map<String, Integer> countRetailStoreOrderShipmentWithGroupKey(String groupKey, MultipleAccessKey filterKey,
+			Map<String, Object> options) {
+			
+  		return countWithGroup(groupKey, filterKey, options);
+
+	}
+	
+	@Override
+	public SmartList<RetailStoreOrderShipment> queryList(String sql, Object... parameters) {
+	    return this.queryForList(sql, parameters, this.getRetailStoreOrderShipmentMapper());
+	}
+	@Override
+	public int count(String sql, Object... parameters) {
+	    return queryInt(sql, parameters);
+	}
+	@Override
+	public CandidateRetailStoreOrderShipment executeCandidatesQuery(CandidateQuery query, String sql, Object ... parmeters) throws Exception {
+
+		CandidateRetailStoreOrderShipment result = new CandidateRetailStoreOrderShipment();
+		int pageNo = Math.max(1, query.getPageNo());
+		result.setOwnerClass(TextUtil.toCamelCase(query.getOwnerType()));
+		result.setOwnerId(query.getOwnerId());
+		result.setFilterKey(query.getFilterKey());
+		result.setPageNo(pageNo);
+		result.setValueFieldName("id");
+		result.setDisplayFieldName(TextUtil.uncapFirstChar(TextUtil.toCamelCase("displayName")));
+		result.setGroupByFieldName(TextUtil.uncapFirstChar(TextUtil.toCamelCase(query.getGroupBy())));
+
+		SmartList candidateList = queryList(sql, parmeters);
+		this.alias(candidateList);
+		result.setCandidates(candidateList);
+		int offSet = (pageNo - 1 ) * query.getPageSize();
+		if (candidateList.size() > query.getPageSize()) {
+			result.setTotalPage(pageNo+1);
+		}else {
+			result.setTotalPage(pageNo);
+		}
+		return result;
+	}
+	
+	
+    
+	public Map<String, Integer> countBySql(String sql, Object[] params) {
+		if (params == null || params.length == 0) {
+			return new HashMap<>();
+		}
+		List<Map<String, Object>> result = this.getJdbcTemplateObject().queryForList(sql, params);
+		if (result == null || result.isEmpty()) {
+			return new HashMap<>();
+		}
+		Map<String, Integer> cntMap = new HashMap<>();
+		for (Map<String, Object> data : result) {
+			String key = (String) data.get("id");
+			Number value = (Number) data.get("count");
+			cntMap.put(key, value.intValue());
+		}
+		this.logSQLAndParameters("countBySql", sql, params, cntMap.size() + " Counts");
+		return cntMap;
+	}
+
+	public Integer singleCountBySql(String sql, Object[] params) {
+		Integer cnt = this.getJdbcTemplateObject().queryForObject(sql, params, Integer.class);
+		logSQLAndParameters("singleCountBySql", sql, params, cnt + "");
+		return cnt;
+	}
+
+	public BigDecimal summaryBySql(String sql, Object[] params) {
+		BigDecimal cnt = this.getJdbcTemplateObject().queryForObject(sql, params, BigDecimal.class);
+		logSQLAndParameters("summaryBySql", sql, params, cnt + "");
+		return cnt == null ? BigDecimal.ZERO : cnt;
+	}
+
+	public <T> List<T> queryForList(String sql, Object[] params, Class<T> claxx) {
+		List<T> result = this.getJdbcTemplateObject().queryForList(sql, params, claxx);
+		logSQLAndParameters("queryForList", sql, params, result.size() + " items");
+		return result;
+	}
+
+	public Map<String, Object> queryForMap(String sql, Object[] params) throws DataAccessException {
+		Map<String, Object> result = null;
+		try {
+			result = this.getJdbcTemplateObject().queryForMap(sql, params);
+		} catch (org.springframework.dao.EmptyResultDataAccessException e) {
+			// 空结果，返回null
+		}
+		logSQLAndParameters("queryForObject", sql, params, result == null ? "not found" : String.valueOf(result));
+		return result;
+	}
+
+	public <T> T queryForObject(String sql, Object[] params, Class<T> claxx) throws DataAccessException {
+		T result = null;
+		try {
+			result = this.getJdbcTemplateObject().queryForObject(sql, params, claxx);
+		} catch (org.springframework.dao.EmptyResultDataAccessException e) {
+			// 空结果，返回null
+		}
+		logSQLAndParameters("queryForObject", sql, params, result == null ? "not found" : String.valueOf(result));
+		return result;
+	}
+
+	public List<Map<String, Object>> queryAsMapList(String sql, Object[] params) {
+		List<Map<String, Object>> result = getJdbcTemplateObject().queryForList(sql, params);
+		logSQLAndParameters("queryAsMapList", sql, params, result.size() + " items");
+		return result;
+	}
+
+	public synchronized int updateBySql(String sql, Object[] params) {
+		int result = getJdbcTemplateObject().update(sql, params);
+		logSQLAndParameters("updateBySql", sql, params, result + " items");
+		return result;
+	}
+
+	public void execSqlWithRowCallback(String sql, Object[] args, RowCallbackHandler callback) {
+		getJdbcTemplateObject().query(sql, args, callback);
+	}
+
+	public void executeSql(String sql) {
+		logSQLAndParameters("executeSql", sql, new Object[] {}, "");
+		getJdbcTemplateObject().execute(sql);
+	}
+
+
+}
+
+

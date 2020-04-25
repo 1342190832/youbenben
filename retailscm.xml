@@ -198,13 +198,13 @@ pic   varchar(254),   图片 -->
 	-->	
 
 
-	
-	<retail_store 
-		name='中和社区小超|华阳社区小超|大源社区小超' 
+
+	<retail_store
+		name='中和社区小超|华阳社区小超|大源社区小超'
 		telephone="02887654321"
 		owner="吕刚"
 		retail_store_country_center="$(retail_store_country_center)" _vg4retail_store_country_center="加盟管理"
-		city_service_center="$(retail_store_city_service_center)" 
+		city_service_center="$(retail_store_city_service_center)"
 		creation="$(retail_store_creation)"
 		investment_invitation="$(retail_store_investment_invitation)"
 		franchising="$(retail_store_franchising)"
@@ -214,7 +214,7 @@ pic   varchar(254),   图片 -->
 		founded="past()"
 		latitude="40.776877"
 		longitude="130.273647"
-		
+
 		description="啤酒饮料矿泉水，香肠瓜子方便面, 请让一让"
 		last_update_time="updateTime()"
 		/>
@@ -227,32 +227,32 @@ pic   varchar(254),   图片 -->
 	<retail_store_decoration comment="装修"/>
 	<retail_store_opening comment="装修"/>
 	<retail_store_closing comment="关闭"/>
-	
-	
 
-	<retail_store_member 
-		name='李亚青'  
+
+
+	<retail_store_member
+		name='李亚青'
 		mobile_phone="18099887766"
 		owner="$(retail_store_country_center)"  _vg4owner="会员管理"
 
 		/>
-	
-	
+
+
 
 		<!--
 		会员订单的辅助对象到这里开始
 	-->
-	<consumer_order 
+	<consumer_order
 		title="消费订单"
 		consumer="$(retail_store_member)"
-		confirmation="$(supply_order_confirmation)" 
-		approval="$(supply_order_approval)" 
-		processing="$(supply_order_processing)" 
-		shipment="$(supply_order_shipment)" 
+		confirmation="$(supply_order_confirmation)"
+		approval="$(supply_order_approval)"
+		processing="$(supply_order_processing)"
+		shipment="$(supply_order_shipment)"
 		delivery="$(supply_order_delivery)"
 		store="$(retail_store)"
 		last_update_time="updateTime()"
-		
+
 	/>
 
 
@@ -261,171 +261,171 @@ pic   varchar(254),   图片 -->
 	<consumer_order_processing who="处理者" process_time="2018-07-09"/>
 	<consumer_order_shipment who="运货者" ship_time="2018-07-09"/>
 	<consumer_order_delivery who="送货者" delivery_time="2018-07-09"/>
-	
 
 
-	<consumer_order_line_item 
-		biz_order="$(consumer_order)" 
-		sku_id="SKU" 
-		sku_name="大瓶可乐" 
-		price="$5.97" 
-		quantity="1000.00" 
+
+	<consumer_order_line_item
+		biz_order="$(consumer_order)"
+		sku_id="SKU"
+		sku_name="大瓶可乐"
+		price="$5.97"
+		quantity="1000.00"
 		amount="$9999.99"
 		last_update_time="updateTime()"
 		/>
-	<consumer_order_shipping_group 
-		name="送货到刘强家" 
-		biz_order="$(consumer_order)"  
+	<consumer_order_shipping_group
+		name="送货到刘强家"
+		biz_order="$(consumer_order)"
 		amount="$599.99"/>
-	<consumer_order_payment_group 
+	<consumer_order_payment_group
 		name="信用卡|支付宝|微信支付"
-		 biz_order="$(consumer_order)" 
-		 card_number="4111 1111 1111 - " 
+		 biz_order="$(consumer_order)"
+		 card_number="4111 1111 1111 - "
 		 />
-	<consumer_order_price_adjustment 
-		name="端午促销" 
-		biz_order="$(consumer_order)"  
+	<consumer_order_price_adjustment
+		name="端午促销"
+		biz_order="$(consumer_order)"
 		amount="$599.99"
 		provider="供货商|小超老板|广告赞助"/>
-	
+
 	<!--
 		会员订单的辅助对象到这里结束
 	-->
-	
+
 
 	<retail_store_member_coupon
-		name='优惠券'  
+		name='优惠券'
 		owner="$(retail_store_member)"
-		number="CP00001" 
+		number="CP00001"
 		last_update_time="updateTime()"
 		/>
 	<member_wishlist
-		name='每周购买清单|每月购买清单'  
+		name='每周购买清单|每月购买清单'
 		owner="$(retail_store_member)"
 		/>
-	
+
 	<member_reward_point
-		name='购买积分|每月购买清单'  
+		name='购买积分|每月购买清单'
 		point="20"
 		owner="$(retail_store_member)"
 		/>
 	<member_reward_point_redemption
-		name='积分换锅|积分换刀'  
+		name='积分换锅|积分换刀'
 		point="20"
 		owner="$(retail_store_member)"
 		/>
-	
+
 
 	<member_wishlist_product
-		name='农夫山泉|利箭口香糖'  
+		name='农夫山泉|利箭口香糖'
 		owner="$(member_wishlist)"
-		
-		/>
-	
-	<retail_store_member_address
-		name='家里|办公室|出差临时地址'  
-		owner="$(retail_store_member)"
-		mobile_phone="18099887766" 
-		address="四川省成都市科学城北路33号" 
 
 		/>
-	
+
+	<retail_store_member_address
+		name='家里|办公室|出差临时地址'
+		owner="$(retail_store_member)"
+		mobile_phone="18099887766"
+		address="四川省成都市科学城北路33号"
+
+		/>
+
 
 	<retail_store_member_gift_card
-		name='礼品卡'  
+		name='礼品卡'
 		owner="$(retail_store_member)"
-		number="CP00001" 
+		number="CP00001"
 		remain="$213.99"
-		
+
 		/>
 	<retail_store_member_gift_card_consume_record
-		occure_time='past()'  
+		occure_time='past()'
 		owner="$(retail_store_member_gift_card)"
 		biz_order="$(consumer_order)"
-		number="GF00001" 
+		number="GF00001"
 		amount="$20.99"
-		
+
 		/>
 
-	
+
 <!--
 		供货商，每个供货商都有自己的账户，每个账户都可以变动
 	-->
 
-	<goods_supplier 
-		name="宝洁|中粮|福临门" 
-		supply_product="洗护用品|食品|植物油" 
+	<goods_supplier
+		name="宝洁|中粮|福临门"
+		supply_product="洗护用品|食品|植物油"
 		belong_to="$(retail_store_country_center)"  _vg4belong_to="供应管理"
 		contact_number="18677889999"
 		description="啤酒饮料矿泉水，香肠瓜子方便面都提供"
 		last_update_time="updateTime()"
 		/>
-	
-		
 
-	
+
+
+
 
 	<!--
 		供货商，都有自己提供的产品列表，每项都有供货周期
 	-->
 
-	<supplier_product 
+	<supplier_product
 		product_name="黑人牙膏"
 		product_description="最好的黑人牙膏，只卖3块喽"
 		product_unit="件|公斤|米"
-		supplier="$(goods_supplier)" 
-	
+		supplier="$(goods_supplier)"
+
 	/>
 
 	<product_supply_duration
 		quantity="100|200|500"
 		duration="现货|两天|三天|一周"
 		price="$9999.99"
-		product="$(supplier_product)" 
-	
+		product="$(supplier_product)"
+
 	/>
-	
 
 
-		
-	
-	<supply_order 
+
+
+
+	<supply_order
 		buyer="$(retail_store_country_center)" _vg4buyer="供应管理"
-		seller="$(goods_supplier)" 
+		seller="$(goods_supplier)"
 		title="双链给供货商下的订单"
-		
-		
-		total_amount="$3000000000.88"  
-		confirmation="$(supply_order_confirmation)" 
-		approval="$(supply_order_approval)" 
-		processing="$(supply_order_processing)" 
+
+
+		total_amount="$3000000000.88"
+		confirmation="$(supply_order_confirmation)"
+		approval="$(supply_order_approval)"
+		processing="$(supply_order_processing)"
 		picking="$(supply_order_picking)"
-		shipment="$(supply_order_shipment)" 
+		shipment="$(supply_order_shipment)"
 		delivery="$(supply_order_delivery)"
 		last_update_time="updateTime()"
-		
-		
+
+
 	/>
-	
+
 
 	<supply_order_confirmation who="确认者" confirm_time="2018-07-09"/>
 	<supply_order_approval who="批准者" approve_time="2018-07-09"/>
 	<supply_order_processing who="处理者" process_time="2018-07-09"/>
 	<supply_order_picking who="处理者" process_time="2018-07-09"/>
-	
+
 	<supply_order_shipment who="运货者" ship_time="2018-07-09"/>
 	<supply_order_delivery who="送货者" delivery_time="2018-07-09"/>
-	
 
 
-	<supply_order_line_item biz_order="$(supply_order)" 
+
+	<supply_order_line_item biz_order="$(supply_order)"
 		sku_id="SKU" sku_name="大瓶可乐" amount="$5.97" quantity="10000" unit_of_measurement="件|公斤|米"/>
-	<supply_order_shipping_group name="送货到双链成都2号仓" 
+	<supply_order_shipping_group name="送货到双链成都2号仓"
 		biz_order="$(supply_order)"  amount="$5.99"/>
 	<supply_order_payment_group name="付款办法"
-		 biz_order="$(supply_order)" card_number="4111 1111 1111 - " 
+		 biz_order="$(supply_order)" card_number="4111 1111 1111 - "
 		 />
-	
+
 
 
 	<!--
@@ -436,50 +436,50 @@ pic   varchar(254),   图片 -->
 
 
 	<!--
-		
+
 
 		小超市发出的订单
 	-->
 
-	<retail_store_order 
+	<retail_store_order
 		buyer="$(retail_store)"
 		seller="$(retail_store_country_center)" _vg4seller="销售管理"
 		title="双链小超给双链供应链下的订单"
-		total_amount="$3000000000.88"  
-		confirmation="$(retail_store_order_confirmation)" 
-		approval="$(retail_store_order_approval)" 
-		processing="$(retail_store_order_processing)" 
+		total_amount="$3000000000.88"
+		confirmation="$(retail_store_order_confirmation)"
+		approval="$(retail_store_order_approval)"
+		processing="$(retail_store_order_processing)"
 		picking="$(retail_store_order_picking)"
-		shipment="$(retail_store_order_shipment)" 
+		shipment="$(retail_store_order_shipment)"
 		delivery="$(retail_store_order_delivery)"
 		last_update_time="updateTime()"
-		
-		
+
+
 	/>
-	
+
 
 	<retail_store_order_confirmation who="确认者" confirm_time="2018-07-09"/>
 	<retail_store_order_approval who="批准者" approve_time="2018-07-09"/>
 	<retail_store_order_processing who="处理者" process_time="2018-07-09"/>
 	<retail_store_order_picking who="处理者" process_time="2018-07-09"/>
-	
+
 	<retail_store_order_shipment who="运货者" ship_time="2018-07-09"/>
 	<retail_store_order_delivery who="送货者" delivery_time="2018-07-09"/>
-	
 
 
-	<retail_store_order_line_item biz_order="$(retail_store_order)" 
+
+	<retail_store_order_line_item biz_order="$(retail_store_order)"
 		sku_id="SKU" sku_name="大瓶可乐" amount="$3.97" quantity="10000" unit_of_measurement="件|公斤|米"/>
-	<retail_store_order_shipping_group name="送货到双链中和社区店" 
+	<retail_store_order_shipping_group name="送货到双链中和社区店"
 		biz_order="$(retail_store_order)"  amount="$5.99"/>
 	<retail_store_order_payment_group name="付款办法"
-		 biz_order="$(retail_store_order)" card_number="4111 1111 1111 - " 
+		 biz_order="$(retail_store_order)" card_number="4111 1111 1111 - "
 		 />
-	
 
-	
+
+
 	<!--
-		
+
 
 		仓库管理
 
@@ -493,7 +493,7 @@ pic   varchar(254),   图片 -->
 		latitude="40.776877"
 		longitude="130.273647"
 		last_update_time="updateTime()"
-		
+
 
 	/>
 
@@ -505,18 +505,18 @@ pic   varchar(254),   图片 -->
 		latitude="40.776877"
 		longitude="130.273647"
 		last_update_time="updateTime()"
-		
+
 
 	/>
 	<!-- 每个货架都可以在不同区域移动，这样使得从从供货商那里，不同区域移动,或者整个货架都移动到报废区 -->
-	
+
 	<smart_pallet
 		location="成都龙泉驿飞鹤路20号移动区域，比如过道，货运通道等"
 		contact_number="02887654321"
 		total_area="1876平方米"
 		latitude="40.776877"
 		longitude="130.273647"
-		
+
 		warehouse="$(warehouse)"
 		last_update_time="updateTime()"
 
@@ -528,7 +528,7 @@ pic   varchar(254),   图片 -->
 		supplier_space="$(supplier_space)"
 		damage_space="$(damage_space)"
 		last_update_time="updateTime()"
-		
+
 
 	/>
 	<!-- 每个货架都有盘点记录 -->
@@ -537,7 +537,7 @@ pic   varchar(254),   图片 -->
 		count_time="2017-04-01"
 		summary="使用先进的rfid技术，没有任何错误"
 		shelf="$(goods_shelf)"
-		
+
 	/>
 	<!-- 每个货架都有盘点记录,盘点出错之后要修正记录 -->
 	<stock_count_issue_track
@@ -545,18 +545,18 @@ pic   varchar(254),   图片 -->
 		count_time="2017-04-01"
 		summary="发现错误已经修正完成"
 		stock_count="$(goods_shelf_stock_count)"
-		
+
 	/>
 	<!-- 每个货位上有很多货物, 货位是固定的货架上的或者在执行任务的车上， 每个卸货区或者发货区也会有不同的货位（如果有传送带可以暂时不需要) -->
-	
+
 	<goods_allocation
 		location="成都龙泉驿飞鹤路20号存货区货架20号货位"
 		latitude="40.776877"
 		longitude="130.273647"
-		
+
 		goods_shelf="$(goods_shelf)"
-		
-		
+
+
 	/>
 	<!-- 每个货位上有很多货物, 货物可以在卡车，收货区，发货区，卸货区，供货商区，小超市移动 -->
 	<goods
@@ -566,29 +566,29 @@ pic   varchar(254),   图片 -->
 		max_package="10"
 		expire_time="2019-09-09"
 		sku="$(sku)"
-		
+
 		receiving_space="$(receiving_space)"
 		goods_allocation="$(goods_allocation)"
 		smart_pallet="$(smart_pallet)"
 		shipping_space="$(shipping_space)"
-		transport_task="$(transport_task)"		
+		transport_task="$(transport_task)"
 		retail_store="$(retail_store)"
 		biz_order="$(supply_order)"
 		retail_store_order="$(retail_store_order)"
 		packaging="$(goods_packaging)"
 
-		
+
 	/>
-	
-	
-	<goods_packaging 
+
+
+	<goods_packaging
 		package_name="王煜东"
 		rfid="RF99192"
 		package_time="2017-09-09"
 		description="打包完成，准备起运"
-		
+
 	/>
-	
+
 	<!-- 跟踪货物移动 -->
 	<goods_movement
 		move_time="2017-08-09T09:09:09"
@@ -599,10 +599,10 @@ pic   varchar(254),   图片 -->
 		session_id="FTYUIOLJYT^*(PLKJYT)"
 		latitude="40.776877"
 		longitude="130.273647"
-		
+
 		goods="$(goods)"
 	/>
-	
+
 	<supplier_space
 		location="成都龙泉驿飞鹤路20号供货商独立管理区"
 		contact_number="02887654321"
@@ -661,7 +661,7 @@ pic   varchar(254),   图片 -->
 	<transport_fleet
 		name="双链先锋号车队"
 		contact_number="02887654321"
-		
+
 		owner="$(retail_store_country_center)" _vg4owner="仓配运一体化"
 		last_update_time="updateTime()"
 
@@ -684,7 +684,7 @@ pic   varchar(254),   图片 -->
 		name="运货卡车司机"
 		driver_license_number="51099887733"
 		contact_number="18777778888"
-		
+
 		belongs_to="$(transport_fleet)"
 
 	/>
@@ -696,9 +696,9 @@ pic   varchar(254),   图片 -->
 		begin_time="past()"
 		end="$(retail_store)"
 		driver="$(truck_driver)"
-		
+
 		truck="$(transport_truck)"
-		
+
 		belongs_to="$(transport_fleet)"
 		latitude="40.776877"
 		longitude="130.273647"
@@ -706,11 +706,11 @@ pic   varchar(254),   图片 -->
 	/>
 
 	<transport_task_track
-		
+
 		track_time="past()"
 		latitude="30.912929"
 		longitude="104.121232"
-		
+
 		movement="$(transport_task)"
 
 	/>
@@ -725,11 +725,11 @@ pic   varchar(254),   图片 -->
 开户行：bank
 产品大类：product category
 产品子类：subclass product
-起息日：value date 
+起息日：value date
 到期日：maturity code
 存折号：passbook number
 货币号：currency
-交易日：trading date 
+交易日：trading date
 交易类别：trade classes
 网点：outlets
 对方账号：currency account（RMB)当时楼至就不明白对方账户啥意思，
@@ -744,19 +744,19 @@ pic   varchar(254),   图片 -->
 交易余额：transaction amount
 柜员：cabinet
 摘要：summary
-交易名称：the trade name 
+交易名称：the trade name
 无折转客账户:ATM CARD deposit
 ATM取款：ATM withdrawal
 无折现金存款：ATM CARD deposit
 无存折现金取款：ATM CARD withdrawal
-应付利息结息：interest settlement of payable interest 
+应付利息结息：interest settlement of payable interest
 这是我父母的账户记录，没有太多的专有名词，因为是工资卡……希望能帮到需要的同学
 	http://www.geocities.jp/ps_dictionary/cedic3/kuaiji.htm
 	-->
-	
+
 	<!-- 为每个小超设定应收和应付账目
 	<account_payable
-		
+
 		title="为不同供货商和小超设定的应付账户"
 		thirty_days_limit="$1231239.98"
 		sixty_days_limit="$231239.98"
@@ -765,11 +765,11 @@ ATM取款：ATM withdrawal
 		sixty_days_remain="$31239.98"
 		ninety_days_remain="$1239.98"
 		account_payer="$(retail_store_country_center)"
-		
-	
+
+
 	/>
 	<account_receivable
-		
+
 		title="为不同供货商和小超设定的应收账户"
 		thirty_days_limit="$1231239.98"
 		sixty_days_limit="$231239.98"
@@ -778,13 +778,13 @@ ATM取款：ATM withdrawal
 		sixty_days_remain="$31239.98"
 		ninety_days_remain="$1239.98"
 		account_receiver="$(retail_store_country_center)"
-		
-	
+
+
 	/>
 	 -->
 	<!-- 账务系统，每个账套有很多期，还有科目设置，财政部每年都会更新新的科目 -->
-	<account_set 
-		name="账套2017|账套2018|账套2019" 
+	<account_set
+		name="账套2017|账套2018|账套2019"
 		year_set="2017年|2018年|2019年"
 		effective_date="2017-05-28"
 		accounting_system="企业会计制度|小企业会计制度|合伙制会计制度"
@@ -792,18 +792,18 @@ ATM取款：ATM withdrawal
 		domestic_currency_name="人民币|美元"
 		opening_bank="招商银行|工商银行"
 		account_number="33265805054885"
-		country_center="$(retail_store_country_center)" 
+		country_center="$(retail_store_country_center)"
 		_vg4country_center="财务管理"
 		retail_store="$(retail_store)"
 		goods_supplier="$(goods_supplier)"
 		last_update_time="updateTime()"
-		
+
 		/>
 	<!-- 每家账套可以设定自己需要的科目，每年才搞一次
-	
+
 	original voucher
 	系统还提供了复制功能，不会太麻烦的-->
-	
+
 	<accounting_subject
 		accounting_subject_code="AS9999"
 		accounting_subject_name="银行存款"
@@ -816,11 +816,11 @@ ATM取款：ATM withdrawal
 		name="2017年1月|2017年2月|2017年3月|2017年4月|2017年5月|2017年6月|2017年7月|2017年8月|2017年9月|2017年10月|2017年11月|2017年12月"
 		start_date="2017-01-09"
 		end_date="2017-01-09"
-		
+
 		account_set="$(account_set)"
 	/>
-	
-	
+
+
 	<accounting_document_type
 		name="记账凭证|收款凭证|付款凭证"
 		description="又称记账凭单，是会计人员根据审核无误的原始凭证按照经济业务事项的内容加以分类，并据以确定会计分录后所填制的会计凭证。它是登记账簿的直接依据。"
@@ -841,7 +841,7 @@ ATM取款：ATM withdrawal
 		comments="确认提交"
 		make_date="2017-09-09"
 	/>
-	
+
 	<accounting_document_confirmation
 		who="财务会计"
 		comments="确认通过"
@@ -852,14 +852,14 @@ ATM取款：ATM withdrawal
 		comments="审核通过，要都审核过了才通过哦"
 		make_date="2017-09-09"
 	/>
-	
+
 	<accounting_document_posting
 		who="财务会计"
 		comments="审核通过，要都审核过了才通过哦"
 		make_date="2017-09-09"
 	/>
 
-	
+
 	<original_voucher
 		title="这是手写的发票"
 		made_by="李亚青"
@@ -867,19 +867,19 @@ ATM取款：ATM withdrawal
 		voucher_type="原始凭证|发票|出库单|入库单|存款回执|验收证明|借款凭证"
 		voucher_image="goodthing.jpg"
 		belongs_to="$(accounting_document)"
-		
+
 		creation="$(original_voucher_creation)"
 		confirmation="$(original_voucher_confirmation)"
 		auditing="$(original_voucher_auditing)"
 
 	/>
-	
+
 	<original_voucher_creation
 		who="财务会计"
 		comments="确认提交"
 		make_date="2017-09-09"
 	/>
-	
+
 	<original_voucher_confirmation
 		who="财务会计"
 		comments="确认通过"
@@ -890,7 +890,7 @@ ATM取款：ATM withdrawal
 		comments="审核通过，要都审核过了才通过哦"
 		make_date="2017-09-09"
 	/>
-	
+
 	<accounting_document_line
 		name="收到存款"
 		code="AS9999"
@@ -899,13 +899,13 @@ ATM取款：ATM withdrawal
 		belongs_to="$(accounting_document)"
 		accounting_subject="$(accounting_subject)"
 	/>
-	
-	
 
-	
-	
 
-	
+
+
+
+
+
 	<level_one_department
         belongs_to="$(retail_store_country_center)" _vg4belongs_to="组织机构"
         name="供应链部|采购部|管理部|财务部|信息技术部|法务部|市场部|人力资源部"
@@ -937,11 +937,11 @@ ATM取款：ATM withdrawal
 工作面试类型
 培训课程类型
 公众假日
-    
+
 
 
     -->
-    
+
     <!--技能类型-->
     <skill_type
         code="S0000"
@@ -1016,14 +1016,14 @@ ATM取款：ATM withdrawal
          _features="setting"
     />
     <!--公共假期
-    
-    <termination 
+
+    <termination
         reason="$(termination_reason)"
         type="$(termination_type)"
         comment="员工离职"
     />
-    
-    
+
+
     -->
     <public_holiday
         code="PH00"
@@ -1033,7 +1033,7 @@ ATM取款：ATM withdrawal
          _features="setting"
     />
 
-    <termination 
+    <termination
         reason="$(termination_reason)"
         type="$(termination_type)"
         comment="员工离职"
@@ -1051,14 +1051,14 @@ ATM取款：ATM withdrawal
         address="学院路234号"
         cell_phone="18677778888"
         occupation="$(occupation_type)"
-        
+
         responsible_for="$(responsibility_type)"
         current_salary_grade="$(salary_grade)"
         salary_account="6226 7788 9908 "
 
 
         job_application="$(job_application)"
-        profession_interview="$(profession_interview)" 
+        profession_interview="$(profession_interview)"
         hr_interview="$(hr_interview)"
         offer_approval="$(offer_approval)"
         offer_acceptance="$(offer_acceptance)"
@@ -1071,7 +1071,7 @@ ATM取款：ATM withdrawal
         who="申请者本人"
         comments="我觉得我符合职位要求，请给我一个机会为公司发展做出贡献，谢谢！"
     />
-    <profession_interview 
+    <profession_interview
         who="技术部"
         interview_time="2018-03-04"
         comments="能力各方面表现不错，进入下一轮"
@@ -1081,7 +1081,7 @@ ATM取款：ATM withdrawal
         interview_time="2018-03-04"
         comments="软技能，责任感，气质不错啊"
     />
-   
+
     <offer_approval
         who="总经理"
         approve_time="2018-03-04"
@@ -1117,8 +1117,8 @@ ATM取款：ATM withdrawal
         duration_hours="3"
         last_update_time="updateTime()"
     />
-    <scoring 
-        
+    <scoring
+
         scored_by="王志文"
         score="100"
         comment="这个题做的真不错啊"
@@ -1136,7 +1136,7 @@ ATM取款：ATM withdrawal
     <employee_performance
         employee="$(employee)"
         performance_comment="绩效大大的不错"
-        
+
     />
     <employee_work_experience
         employee="$(employee)"
@@ -1145,7 +1145,7 @@ ATM取款：ATM withdrawal
         company="丝芙兰化妆品公司"
         description="在此期间取得非常好的绩效，赢得了客户的信赖"
     />
-    
+
     <employee_leave
         who="$(employee)"
         type="$(leave_type)"
@@ -1197,16 +1197,16 @@ ATM取款：ATM withdrawal
         housing_found="$1222.99"
         job_insurance="$8.88"
         paying_off="$(paying_off)"
-        
-        
+
+
     />
-    <paying_off 
+    <paying_off
         who="出纳"
         paid_for="$(employee)"
         paid_time="2018-01-19"
         amount="$5223.88"
     />
-	
-   
- 
+
+
+
 </root>

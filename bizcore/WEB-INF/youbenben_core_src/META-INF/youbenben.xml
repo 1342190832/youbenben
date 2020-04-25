@@ -1,0 +1,1651 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:context="http://www.springframework.org/schema/context"
+	xmlns:tx="http://www.springframework.org/schema/tx"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd
+		http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context-4.0.xsd
+		http://www.springframework.org/schema/tx http://www.springframework.org/schema/tx/spring-tx-4.0.xsd">
+
+	<!-- Enable Annotation based Declarative Transaction Management -->
+
+  <bean id="modelService" class="com.youbenben.youbenben.ModelService"/>
+	<bean id="hikariConfig" class="com.zaxxer.hikari.HikariConfig">
+  	  <property name="poolName" value="youbenben_connection_pool" />
+  	  <property name="dataSourceClassName" value="${app.database.dataSourceClassName}"/>
+  	  <property name="maximumPoolSize" value="10" />
+  	  <property name="maxLifetime" value="60000" />
+  	  <property name="idleTimeout" value="30000" />
+  	  <property name="dataSourceProperties">
+  	   <props>
+  	     <prop key="url">${app.database.jdbcURL}</prop>
+  	     <prop key="user">${app.database.username}</prop>
+  	     <prop key="password">${app.database.password}</prop>
+  	   </props>
+  	  </property>
+  	</bean>
+
+
+	<!-- dbcp 2.6 https://commons.apache.org/proper/commons-dbcp/configuration.html
+	<bean id="hikariConfig" class="com.zaxxer.hikari.HikariConfig">
+	  <property name="poolName" value="youbenben_connection_pool" />
+	  <property name="dataSourceClassName" value="${app.database.dataSourceClassName}"/>
+	  <property name="maximumPoolSize" value="10" />
+	  <property name="maxLifetime" value="60000" />
+	  <property name="idleTimeout" value="30000" />
+	  <property name="dataSourceProperties">
+	   <props>
+	     <prop key="url">${app.database.jdbcURL}</prop>
+	     <prop key="user">${app.database.username}</prop>
+	     <prop key="password">${app.database.password}</prop>
+	     <prop key="prepStmtCacheSize">250</prop>
+	     <prop key="prepStmtCacheSqlLimit">2048</prop>
+	     <prop key="cachePrepStmts">true</prop>
+	     <prop key="useServerPrepStmts">true</prop>
+	   </props>
+	  </property>
+	</bean>
+	-->
+
+	<bean id="dataSource" class="com.zaxxer.hikari.HikariDataSource" destroy-method="close">
+	  <constructor-arg ref="hikariConfig" />
+	</bean>
+
+
+	<bean id="retailStoreCountryCenterDAOBase" class="com.youbenben.youbenben.retailstorecountrycenter.RetailStoreCountryCenterJDBCTemplateDAO">
+		<property name="dataSource" ref="dataSource" />
+		<property name="catalogDAO" ref="catalogDAO" />
+		
+		<property name="retailStoreProvinceCenterDAO" ref="retailStoreProvinceCenterDAO" />
+		
+		<property name="retailStoreDAO" ref="retailStoreDAO" />
+		
+		<property name="retailStoreMemberDAO" ref="retailStoreMemberDAO" />
+		
+		<property name="goodsSupplierDAO" ref="goodsSupplierDAO" />
+		
+		<property name="supplyOrderDAO" ref="supplyOrderDAO" />
+		
+		<property name="retailStoreOrderDAO" ref="retailStoreOrderDAO" />
+		
+		<property name="warehouseDAO" ref="warehouseDAO" />
+		
+		<property name="transportFleetDAO" ref="transportFleetDAO" />
+		
+		<property name="accountSetDAO" ref="accountSetDAO" />
+		
+		<property name="levelOneDepartmentDAO" ref="levelOneDepartmentDAO" />
+		
+		<property name="skillTypeDAO" ref="skillTypeDAO" />
+		
+		<property name="responsibilityTypeDAO" ref="responsibilityTypeDAO" />
+		
+		<property name="terminationReasonDAO" ref="terminationReasonDAO" />
+		
+		<property name="terminationTypeDAO" ref="terminationTypeDAO" />
+		
+		<property name="occupationTypeDAO" ref="occupationTypeDAO" />
+		
+		<property name="leaveTypeDAO" ref="leaveTypeDAO" />
+		
+		<property name="salaryGradeDAO" ref="salaryGradeDAO" />
+		
+		<property name="interviewTypeDAO" ref="interviewTypeDAO" />
+		
+		<property name="trainingCourseTypeDAO" ref="trainingCourseTypeDAO" />
+		
+		<property name="publicHolidayDAO" ref="publicHolidayDAO" />
+		
+		<property name="employeeDAO" ref="employeeDAO" />
+		
+		<property name="instructorDAO" ref="instructorDAO" />
+		
+		<property name="companyTrainingDAO" ref="companyTrainingDAO" />
+		
+	</bean>
+	<bean id="retailStoreCountryCenterDAO" parent="retailStoreCountryCenterDAOBase"></bean>
+	
+
+	<bean id="catalogDAOBase" class="com.youbenben.youbenben.catalog.CatalogJDBCTemplateDAO">
+		<property name="dataSource" ref="dataSource" /><property name="retailStoreCountryCenterDAO" ref="retailStoreCountryCenterDAO" />
+		<property name="levelOneCategoryDAO" ref="levelOneCategoryDAO" />
+		
+	</bean>
+	<bean id="catalogDAO" parent="catalogDAOBase"></bean>
+	
+
+	<bean id="levelOneCategoryDAOBase" class="com.youbenben.youbenben.levelonecategory.LevelOneCategoryJDBCTemplateDAO">
+		<property name="dataSource" ref="dataSource" /><property name="catalogDAO" ref="catalogDAO" />
+		<property name="levelTwoCategoryDAO" ref="levelTwoCategoryDAO" />
+		
+	</bean>
+	<bean id="levelOneCategoryDAO" parent="levelOneCategoryDAOBase"></bean>
+	
+
+	<bean id="levelTwoCategoryDAOBase" class="com.youbenben.youbenben.leveltwocategory.LevelTwoCategoryJDBCTemplateDAO">
+		<property name="dataSource" ref="dataSource" /><property name="levelOneCategoryDAO" ref="levelOneCategoryDAO" />
+		<property name="levelThreeCategoryDAO" ref="levelThreeCategoryDAO" />
+		
+	</bean>
+	<bean id="levelTwoCategoryDAO" parent="levelTwoCategoryDAOBase"></bean>
+	
+
+	<bean id="levelThreeCategoryDAOBase" class="com.youbenben.youbenben.levelthreecategory.LevelThreeCategoryJDBCTemplateDAO">
+		<property name="dataSource" ref="dataSource" /><property name="levelTwoCategoryDAO" ref="levelTwoCategoryDAO" />
+		<property name="productDAO" ref="productDAO" />
+		
+	</bean>
+	<bean id="levelThreeCategoryDAO" parent="levelThreeCategoryDAOBase"></bean>
+	
+
+	<bean id="productDAOBase" class="com.youbenben.youbenben.product.ProductJDBCTemplateDAO">
+		<property name="dataSource" ref="dataSource" /><property name="levelThreeCategoryDAO" ref="levelThreeCategoryDAO" />
+		<property name="skuDAO" ref="skuDAO" />
+		
+	</bean>
+	<bean id="productDAO" parent="productDAOBase"></bean>
+	
+
+	<bean id="skuDAOBase" class="com.youbenben.youbenben.sku.SkuJDBCTemplateDAO">
+		<property name="dataSource" ref="dataSource" /><property name="productDAO" ref="productDAO" />
+		<property name="goodsDAO" ref="goodsDAO" />
+		
+	</bean>
+	<bean id="skuDAO" parent="skuDAOBase"></bean>
+	
+
+	<bean id="retailStoreProvinceCenterDAOBase" class="com.youbenben.youbenben.retailstoreprovincecenter.RetailStoreProvinceCenterJDBCTemplateDAO">
+		<property name="dataSource" ref="dataSource" /><property name="retailStoreCountryCenterDAO" ref="retailStoreCountryCenterDAO" />
+		<property name="provinceCenterDepartmentDAO" ref="provinceCenterDepartmentDAO" />
+		
+		<property name="provinceCenterEmployeeDAO" ref="provinceCenterEmployeeDAO" />
+		
+		<property name="retailStoreCityServiceCenterDAO" ref="retailStoreCityServiceCenterDAO" />
+		
+	</bean>
+	<bean id="retailStoreProvinceCenterDAO" parent="retailStoreProvinceCenterDAOBase"></bean>
+	
+
+	<bean id="provinceCenterDepartmentDAOBase" class="com.youbenben.youbenben.provincecenterdepartment.ProvinceCenterDepartmentJDBCTemplateDAO">
+		<property name="dataSource" ref="dataSource" /><property name="retailStoreProvinceCenterDAO" ref="retailStoreProvinceCenterDAO" />
+		<property name="provinceCenterEmployeeDAO" ref="provinceCenterEmployeeDAO" />
+		
+	</bean>
+	<bean id="provinceCenterDepartmentDAO" parent="provinceCenterDepartmentDAOBase"></bean>
+	
+
+	<bean id="provinceCenterEmployeeDAOBase" class="com.youbenben.youbenben.provincecenteremployee.ProvinceCenterEmployeeJDBCTemplateDAO">
+		<property name="dataSource" ref="dataSource" /><property name="provinceCenterDepartmentDAO" ref="provinceCenterDepartmentDAO" /><property name="retailStoreProvinceCenterDAO" ref="retailStoreProvinceCenterDAO" />
+	</bean>
+	<bean id="provinceCenterEmployeeDAO" parent="provinceCenterEmployeeDAOBase"></bean>
+	
+
+	<bean id="retailStoreCityServiceCenterDAOBase" class="com.youbenben.youbenben.retailstorecityservicecenter.RetailStoreCityServiceCenterJDBCTemplateDAO">
+		<property name="dataSource" ref="dataSource" /><property name="retailStoreProvinceCenterDAO" ref="retailStoreProvinceCenterDAO" />
+		<property name="cityPartnerDAO" ref="cityPartnerDAO" />
+		
+		<property name="potentialCustomerDAO" ref="potentialCustomerDAO" />
+		
+		<property name="cityEventDAO" ref="cityEventDAO" />
+		
+		<property name="retailStoreDAO" ref="retailStoreDAO" />
+		
+	</bean>
+	<bean id="retailStoreCityServiceCenterDAO" parent="retailStoreCityServiceCenterDAOBase"></bean>
+	
+
+	<bean id="cityPartnerDAOBase" class="com.youbenben.youbenben.citypartner.CityPartnerJDBCTemplateDAO">
+		<property name="dataSource" ref="dataSource" /><property name="retailStoreCityServiceCenterDAO" ref="retailStoreCityServiceCenterDAO" />
+		<property name="potentialCustomerDAO" ref="potentialCustomerDAO" />
+		
+		<property name="potentialCustomerContactDAO" ref="potentialCustomerContactDAO" />
+		
+	</bean>
+	<bean id="cityPartnerDAO" parent="cityPartnerDAOBase"></bean>
+	
+
+	<bean id="potentialCustomerDAOBase" class="com.youbenben.youbenben.potentialcustomer.PotentialCustomerJDBCTemplateDAO">
+		<property name="dataSource" ref="dataSource" /><property name="cityPartnerDAO" ref="cityPartnerDAO" /><property name="retailStoreCityServiceCenterDAO" ref="retailStoreCityServiceCenterDAO" />
+		<property name="potentialCustomerContactPersonDAO" ref="potentialCustomerContactPersonDAO" />
+		
+		<property name="potentialCustomerContactDAO" ref="potentialCustomerContactDAO" />
+		
+		<property name="eventAttendanceDAO" ref="eventAttendanceDAO" />
+		
+	</bean>
+	<bean id="potentialCustomerDAO" parent="potentialCustomerDAOBase"></bean>
+	
+
+	<bean id="potentialCustomerContactPersonDAOBase" class="com.youbenben.youbenben.potentialcustomercontactperson.PotentialCustomerContactPersonJDBCTemplateDAO">
+		<property name="dataSource" ref="dataSource" /><property name="potentialCustomerDAO" ref="potentialCustomerDAO" />
+		<property name="potentialCustomerContactDAO" ref="potentialCustomerContactDAO" />
+		
+	</bean>
+	<bean id="potentialCustomerContactPersonDAO" parent="potentialCustomerContactPersonDAOBase"></bean>
+	
+
+	<bean id="potentialCustomerContactDAOBase" class="com.youbenben.youbenben.potentialcustomercontact.PotentialCustomerContactJDBCTemplateDAO">
+		<property name="dataSource" ref="dataSource" /><property name="potentialCustomerDAO" ref="potentialCustomerDAO" /><property name="cityPartnerDAO" ref="cityPartnerDAO" /><property name="potentialCustomerContactPersonDAO" ref="potentialCustomerContactPersonDAO" />
+	</bean>
+	<bean id="potentialCustomerContactDAO" parent="potentialCustomerContactDAOBase"></bean>
+	
+
+	<bean id="cityEventDAOBase" class="com.youbenben.youbenben.cityevent.CityEventJDBCTemplateDAO">
+		<property name="dataSource" ref="dataSource" /><property name="retailStoreCityServiceCenterDAO" ref="retailStoreCityServiceCenterDAO" />
+		<property name="eventAttendanceDAO" ref="eventAttendanceDAO" />
+		
+	</bean>
+	<bean id="cityEventDAO" parent="cityEventDAOBase"></bean>
+	
+
+	<bean id="eventAttendanceDAOBase" class="com.youbenben.youbenben.eventattendance.EventAttendanceJDBCTemplateDAO">
+		<property name="dataSource" ref="dataSource" /><property name="potentialCustomerDAO" ref="potentialCustomerDAO" /><property name="cityEventDAO" ref="cityEventDAO" />
+	</bean>
+	<bean id="eventAttendanceDAO" parent="eventAttendanceDAOBase"></bean>
+	
+
+	<bean id="retailStoreDAOBase" class="com.youbenben.youbenben.retailstore.RetailStoreJDBCTemplateDAO">
+		<property name="dataSource" ref="dataSource" /><property name="retailStoreOpeningDAO" ref="retailStoreOpeningDAO" /><property name="retailStoreCountryCenterDAO" ref="retailStoreCountryCenterDAO" /><property name="retailStoreCityServiceCenterDAO" ref="retailStoreCityServiceCenterDAO" /><property name="retailStoreClosingDAO" ref="retailStoreClosingDAO" /><property name="retailStoreCreationDAO" ref="retailStoreCreationDAO" /><property name="retailStoreFranchisingDAO" ref="retailStoreFranchisingDAO" /><property name="retailStoreDecorationDAO" ref="retailStoreDecorationDAO" /><property name="retailStoreInvestmentInvitationDAO" ref="retailStoreInvestmentInvitationDAO" />
+		<property name="consumerOrderDAO" ref="consumerOrderDAO" />
+		
+		<property name="retailStoreOrderDAO" ref="retailStoreOrderDAO" />
+		
+		<property name="goodsDAO" ref="goodsDAO" />
+		
+		<property name="transportTaskDAO" ref="transportTaskDAO" />
+		
+		<property name="accountSetDAO" ref="accountSetDAO" />
+		
+	</bean>
+	<bean id="retailStoreDAO" parent="retailStoreDAOBase"></bean>
+	
+
+	<bean id="retailStoreCreationDAOBase" class="com.youbenben.youbenben.retailstorecreation.RetailStoreCreationJDBCTemplateDAO">
+		<property name="dataSource" ref="dataSource" />
+		<property name="retailStoreDAO" ref="retailStoreDAO" />
+		
+	</bean>
+	<bean id="retailStoreCreationDAO" parent="retailStoreCreationDAOBase"></bean>
+	
+
+	<bean id="retailStoreInvestmentInvitationDAOBase" class="com.youbenben.youbenben.retailstoreinvestmentinvitation.RetailStoreInvestmentInvitationJDBCTemplateDAO">
+		<property name="dataSource" ref="dataSource" />
+		<property name="retailStoreDAO" ref="retailStoreDAO" />
+		
+	</bean>
+	<bean id="retailStoreInvestmentInvitationDAO" parent="retailStoreInvestmentInvitationDAOBase"></bean>
+	
+
+	<bean id="retailStoreFranchisingDAOBase" class="com.youbenben.youbenben.retailstorefranchising.RetailStoreFranchisingJDBCTemplateDAO">
+		<property name="dataSource" ref="dataSource" />
+		<property name="retailStoreDAO" ref="retailStoreDAO" />
+		
+	</bean>
+	<bean id="retailStoreFranchisingDAO" parent="retailStoreFranchisingDAOBase"></bean>
+	
+
+	<bean id="retailStoreDecorationDAOBase" class="com.youbenben.youbenben.retailstoredecoration.RetailStoreDecorationJDBCTemplateDAO">
+		<property name="dataSource" ref="dataSource" />
+		<property name="retailStoreDAO" ref="retailStoreDAO" />
+		
+	</bean>
+	<bean id="retailStoreDecorationDAO" parent="retailStoreDecorationDAOBase"></bean>
+	
+
+	<bean id="retailStoreOpeningDAOBase" class="com.youbenben.youbenben.retailstoreopening.RetailStoreOpeningJDBCTemplateDAO">
+		<property name="dataSource" ref="dataSource" />
+		<property name="retailStoreDAO" ref="retailStoreDAO" />
+		
+	</bean>
+	<bean id="retailStoreOpeningDAO" parent="retailStoreOpeningDAOBase"></bean>
+	
+
+	<bean id="retailStoreClosingDAOBase" class="com.youbenben.youbenben.retailstoreclosing.RetailStoreClosingJDBCTemplateDAO">
+		<property name="dataSource" ref="dataSource" />
+		<property name="retailStoreDAO" ref="retailStoreDAO" />
+		
+	</bean>
+	<bean id="retailStoreClosingDAO" parent="retailStoreClosingDAOBase"></bean>
+	
+
+	<bean id="retailStoreMemberDAOBase" class="com.youbenben.youbenben.retailstoremember.RetailStoreMemberJDBCTemplateDAO">
+		<property name="dataSource" ref="dataSource" /><property name="retailStoreCountryCenterDAO" ref="retailStoreCountryCenterDAO" />
+		<property name="consumerOrderDAO" ref="consumerOrderDAO" />
+		
+		<property name="retailStoreMemberCouponDAO" ref="retailStoreMemberCouponDAO" />
+		
+		<property name="memberWishlistDAO" ref="memberWishlistDAO" />
+		
+		<property name="memberRewardPointDAO" ref="memberRewardPointDAO" />
+		
+		<property name="memberRewardPointRedemptionDAO" ref="memberRewardPointRedemptionDAO" />
+		
+		<property name="retailStoreMemberAddressDAO" ref="retailStoreMemberAddressDAO" />
+		
+		<property name="retailStoreMemberGiftCardDAO" ref="retailStoreMemberGiftCardDAO" />
+		
+	</bean>
+	<bean id="retailStoreMemberDAO" parent="retailStoreMemberDAOBase"></bean>
+	
+
+	<bean id="consumerOrderDAOBase" class="com.youbenben.youbenben.consumerorder.ConsumerOrderJDBCTemplateDAO">
+		<property name="dataSource" ref="dataSource" /><property name="retailStoreMemberDAO" ref="retailStoreMemberDAO" /><property name="supplyOrderProcessingDAO" ref="supplyOrderProcessingDAO" /><property name="supplyOrderApprovalDAO" ref="supplyOrderApprovalDAO" /><property name="retailStoreDAO" ref="retailStoreDAO" /><property name="supplyOrderDeliveryDAO" ref="supplyOrderDeliveryDAO" /><property name="supplyOrderConfirmationDAO" ref="supplyOrderConfirmationDAO" /><property name="supplyOrderShipmentDAO" ref="supplyOrderShipmentDAO" />
+		<property name="consumerOrderLineItemDAO" ref="consumerOrderLineItemDAO" />
+		
+		<property name="consumerOrderShippingGroupDAO" ref="consumerOrderShippingGroupDAO" />
+		
+		<property name="consumerOrderPaymentGroupDAO" ref="consumerOrderPaymentGroupDAO" />
+		
+		<property name="consumerOrderPriceAdjustmentDAO" ref="consumerOrderPriceAdjustmentDAO" />
+		
+		<property name="retailStoreMemberGiftCardConsumeRecordDAO" ref="retailStoreMemberGiftCardConsumeRecordDAO" />
+		
+	</bean>
+	<bean id="consumerOrderDAO" parent="consumerOrderDAOBase"></bean>
+	
+
+	<bean id="consumerOrderConfirmationDAOBase" class="com.youbenben.youbenben.consumerorderconfirmation.ConsumerOrderConfirmationJDBCTemplateDAO">
+		<property name="dataSource" ref="dataSource" />
+	</bean>
+	<bean id="consumerOrderConfirmationDAO" parent="consumerOrderConfirmationDAOBase"></bean>
+	
+
+	<bean id="consumerOrderApprovalDAOBase" class="com.youbenben.youbenben.consumerorderapproval.ConsumerOrderApprovalJDBCTemplateDAO">
+		<property name="dataSource" ref="dataSource" />
+	</bean>
+	<bean id="consumerOrderApprovalDAO" parent="consumerOrderApprovalDAOBase"></bean>
+	
+
+	<bean id="consumerOrderProcessingDAOBase" class="com.youbenben.youbenben.consumerorderprocessing.ConsumerOrderProcessingJDBCTemplateDAO">
+		<property name="dataSource" ref="dataSource" />
+	</bean>
+	<bean id="consumerOrderProcessingDAO" parent="consumerOrderProcessingDAOBase"></bean>
+	
+
+	<bean id="consumerOrderShipmentDAOBase" class="com.youbenben.youbenben.consumerordershipment.ConsumerOrderShipmentJDBCTemplateDAO">
+		<property name="dataSource" ref="dataSource" />
+	</bean>
+	<bean id="consumerOrderShipmentDAO" parent="consumerOrderShipmentDAOBase"></bean>
+	
+
+	<bean id="consumerOrderDeliveryDAOBase" class="com.youbenben.youbenben.consumerorderdelivery.ConsumerOrderDeliveryJDBCTemplateDAO">
+		<property name="dataSource" ref="dataSource" />
+	</bean>
+	<bean id="consumerOrderDeliveryDAO" parent="consumerOrderDeliveryDAOBase"></bean>
+	
+
+	<bean id="consumerOrderLineItemDAOBase" class="com.youbenben.youbenben.consumerorderlineitem.ConsumerOrderLineItemJDBCTemplateDAO">
+		<property name="dataSource" ref="dataSource" /><property name="consumerOrderDAO" ref="consumerOrderDAO" />
+	</bean>
+	<bean id="consumerOrderLineItemDAO" parent="consumerOrderLineItemDAOBase"></bean>
+	
+
+	<bean id="consumerOrderShippingGroupDAOBase" class="com.youbenben.youbenben.consumerordershippinggroup.ConsumerOrderShippingGroupJDBCTemplateDAO">
+		<property name="dataSource" ref="dataSource" /><property name="consumerOrderDAO" ref="consumerOrderDAO" />
+	</bean>
+	<bean id="consumerOrderShippingGroupDAO" parent="consumerOrderShippingGroupDAOBase"></bean>
+	
+
+	<bean id="consumerOrderPaymentGroupDAOBase" class="com.youbenben.youbenben.consumerorderpaymentgroup.ConsumerOrderPaymentGroupJDBCTemplateDAO">
+		<property name="dataSource" ref="dataSource" /><property name="consumerOrderDAO" ref="consumerOrderDAO" />
+	</bean>
+	<bean id="consumerOrderPaymentGroupDAO" parent="consumerOrderPaymentGroupDAOBase"></bean>
+	
+
+	<bean id="consumerOrderPriceAdjustmentDAOBase" class="com.youbenben.youbenben.consumerorderpriceadjustment.ConsumerOrderPriceAdjustmentJDBCTemplateDAO">
+		<property name="dataSource" ref="dataSource" /><property name="consumerOrderDAO" ref="consumerOrderDAO" />
+	</bean>
+	<bean id="consumerOrderPriceAdjustmentDAO" parent="consumerOrderPriceAdjustmentDAOBase"></bean>
+	
+
+	<bean id="retailStoreMemberCouponDAOBase" class="com.youbenben.youbenben.retailstoremembercoupon.RetailStoreMemberCouponJDBCTemplateDAO">
+		<property name="dataSource" ref="dataSource" /><property name="retailStoreMemberDAO" ref="retailStoreMemberDAO" />
+	</bean>
+	<bean id="retailStoreMemberCouponDAO" parent="retailStoreMemberCouponDAOBase"></bean>
+	
+
+	<bean id="memberWishlistDAOBase" class="com.youbenben.youbenben.memberwishlist.MemberWishlistJDBCTemplateDAO">
+		<property name="dataSource" ref="dataSource" /><property name="retailStoreMemberDAO" ref="retailStoreMemberDAO" />
+		<property name="memberWishlistProductDAO" ref="memberWishlistProductDAO" />
+		
+	</bean>
+	<bean id="memberWishlistDAO" parent="memberWishlistDAOBase"></bean>
+	
+
+	<bean id="memberRewardPointDAOBase" class="com.youbenben.youbenben.memberrewardpoint.MemberRewardPointJDBCTemplateDAO">
+		<property name="dataSource" ref="dataSource" /><property name="retailStoreMemberDAO" ref="retailStoreMemberDAO" />
+	</bean>
+	<bean id="memberRewardPointDAO" parent="memberRewardPointDAOBase"></bean>
+	
+
+	<bean id="memberRewardPointRedemptionDAOBase" class="com.youbenben.youbenben.memberrewardpointredemption.MemberRewardPointRedemptionJDBCTemplateDAO">
+		<property name="dataSource" ref="dataSource" /><property name="retailStoreMemberDAO" ref="retailStoreMemberDAO" />
+	</bean>
+	<bean id="memberRewardPointRedemptionDAO" parent="memberRewardPointRedemptionDAOBase"></bean>
+	
+
+	<bean id="memberWishlistProductDAOBase" class="com.youbenben.youbenben.memberwishlistproduct.MemberWishlistProductJDBCTemplateDAO">
+		<property name="dataSource" ref="dataSource" /><property name="memberWishlistDAO" ref="memberWishlistDAO" />
+	</bean>
+	<bean id="memberWishlistProductDAO" parent="memberWishlistProductDAOBase"></bean>
+	
+
+	<bean id="retailStoreMemberAddressDAOBase" class="com.youbenben.youbenben.retailstorememberaddress.RetailStoreMemberAddressJDBCTemplateDAO">
+		<property name="dataSource" ref="dataSource" /><property name="retailStoreMemberDAO" ref="retailStoreMemberDAO" />
+	</bean>
+	<bean id="retailStoreMemberAddressDAO" parent="retailStoreMemberAddressDAOBase"></bean>
+	
+
+	<bean id="retailStoreMemberGiftCardDAOBase" class="com.youbenben.youbenben.retailstoremembergiftcard.RetailStoreMemberGiftCardJDBCTemplateDAO">
+		<property name="dataSource" ref="dataSource" /><property name="retailStoreMemberDAO" ref="retailStoreMemberDAO" />
+		<property name="retailStoreMemberGiftCardConsumeRecordDAO" ref="retailStoreMemberGiftCardConsumeRecordDAO" />
+		
+	</bean>
+	<bean id="retailStoreMemberGiftCardDAO" parent="retailStoreMemberGiftCardDAOBase"></bean>
+	
+
+	<bean id="retailStoreMemberGiftCardConsumeRecordDAOBase" class="com.youbenben.youbenben.retailstoremembergiftcardconsumerecord.RetailStoreMemberGiftCardConsumeRecordJDBCTemplateDAO">
+		<property name="dataSource" ref="dataSource" /><property name="retailStoreMemberGiftCardDAO" ref="retailStoreMemberGiftCardDAO" /><property name="consumerOrderDAO" ref="consumerOrderDAO" />
+	</bean>
+	<bean id="retailStoreMemberGiftCardConsumeRecordDAO" parent="retailStoreMemberGiftCardConsumeRecordDAOBase"></bean>
+	
+
+	<bean id="goodsSupplierDAOBase" class="com.youbenben.youbenben.goodssupplier.GoodsSupplierJDBCTemplateDAO">
+		<property name="dataSource" ref="dataSource" /><property name="retailStoreCountryCenterDAO" ref="retailStoreCountryCenterDAO" />
+		<property name="supplierProductDAO" ref="supplierProductDAO" />
+		
+		<property name="supplyOrderDAO" ref="supplyOrderDAO" />
+		
+		<property name="accountSetDAO" ref="accountSetDAO" />
+		
+	</bean>
+	<bean id="goodsSupplierDAO" parent="goodsSupplierDAOBase"></bean>
+	
+
+	<bean id="supplierProductDAOBase" class="com.youbenben.youbenben.supplierproduct.SupplierProductJDBCTemplateDAO">
+		<property name="dataSource" ref="dataSource" /><property name="goodsSupplierDAO" ref="goodsSupplierDAO" />
+		<property name="productSupplyDurationDAO" ref="productSupplyDurationDAO" />
+		
+	</bean>
+	<bean id="supplierProductDAO" parent="supplierProductDAOBase"></bean>
+	
+
+	<bean id="productSupplyDurationDAOBase" class="com.youbenben.youbenben.productsupplyduration.ProductSupplyDurationJDBCTemplateDAO">
+		<property name="dataSource" ref="dataSource" /><property name="supplierProductDAO" ref="supplierProductDAO" />
+	</bean>
+	<bean id="productSupplyDurationDAO" parent="productSupplyDurationDAOBase"></bean>
+	
+
+	<bean id="supplyOrderDAOBase" class="com.youbenben.youbenben.supplyorder.SupplyOrderJDBCTemplateDAO">
+		<property name="dataSource" ref="dataSource" /><property name="supplyOrderProcessingDAO" ref="supplyOrderProcessingDAO" /><property name="supplyOrderApprovalDAO" ref="supplyOrderApprovalDAO" /><property name="supplyOrderDeliveryDAO" ref="supplyOrderDeliveryDAO" /><property name="supplyOrderConfirmationDAO" ref="supplyOrderConfirmationDAO" /><property name="supplyOrderPickingDAO" ref="supplyOrderPickingDAO" /><property name="goodsSupplierDAO" ref="goodsSupplierDAO" /><property name="supplyOrderShipmentDAO" ref="supplyOrderShipmentDAO" /><property name="retailStoreCountryCenterDAO" ref="retailStoreCountryCenterDAO" />
+		<property name="supplyOrderLineItemDAO" ref="supplyOrderLineItemDAO" />
+		
+		<property name="supplyOrderShippingGroupDAO" ref="supplyOrderShippingGroupDAO" />
+		
+		<property name="supplyOrderPaymentGroupDAO" ref="supplyOrderPaymentGroupDAO" />
+		
+		<property name="goodsDAO" ref="goodsDAO" />
+		
+	</bean>
+	<bean id="supplyOrderDAO" parent="supplyOrderDAOBase"></bean>
+	
+
+	<bean id="supplyOrderConfirmationDAOBase" class="com.youbenben.youbenben.supplyorderconfirmation.SupplyOrderConfirmationJDBCTemplateDAO">
+		<property name="dataSource" ref="dataSource" />
+		<property name="consumerOrderDAO" ref="consumerOrderDAO" />
+		
+		<property name="supplyOrderDAO" ref="supplyOrderDAO" />
+		
+	</bean>
+	<bean id="supplyOrderConfirmationDAO" parent="supplyOrderConfirmationDAOBase"></bean>
+	
+
+	<bean id="supplyOrderApprovalDAOBase" class="com.youbenben.youbenben.supplyorderapproval.SupplyOrderApprovalJDBCTemplateDAO">
+		<property name="dataSource" ref="dataSource" />
+		<property name="consumerOrderDAO" ref="consumerOrderDAO" />
+		
+		<property name="supplyOrderDAO" ref="supplyOrderDAO" />
+		
+	</bean>
+	<bean id="supplyOrderApprovalDAO" parent="supplyOrderApprovalDAOBase"></bean>
+	
+
+	<bean id="supplyOrderProcessingDAOBase" class="com.youbenben.youbenben.supplyorderprocessing.SupplyOrderProcessingJDBCTemplateDAO">
+		<property name="dataSource" ref="dataSource" />
+		<property name="consumerOrderDAO" ref="consumerOrderDAO" />
+		
+		<property name="supplyOrderDAO" ref="supplyOrderDAO" />
+		
+	</bean>
+	<bean id="supplyOrderProcessingDAO" parent="supplyOrderProcessingDAOBase"></bean>
+	
+
+	<bean id="supplyOrderPickingDAOBase" class="com.youbenben.youbenben.supplyorderpicking.SupplyOrderPickingJDBCTemplateDAO">
+		<property name="dataSource" ref="dataSource" />
+		<property name="supplyOrderDAO" ref="supplyOrderDAO" />
+		
+	</bean>
+	<bean id="supplyOrderPickingDAO" parent="supplyOrderPickingDAOBase"></bean>
+	
+
+	<bean id="supplyOrderShipmentDAOBase" class="com.youbenben.youbenben.supplyordershipment.SupplyOrderShipmentJDBCTemplateDAO">
+		<property name="dataSource" ref="dataSource" />
+		<property name="consumerOrderDAO" ref="consumerOrderDAO" />
+		
+		<property name="supplyOrderDAO" ref="supplyOrderDAO" />
+		
+	</bean>
+	<bean id="supplyOrderShipmentDAO" parent="supplyOrderShipmentDAOBase"></bean>
+	
+
+	<bean id="supplyOrderDeliveryDAOBase" class="com.youbenben.youbenben.supplyorderdelivery.SupplyOrderDeliveryJDBCTemplateDAO">
+		<property name="dataSource" ref="dataSource" />
+		<property name="consumerOrderDAO" ref="consumerOrderDAO" />
+		
+		<property name="supplyOrderDAO" ref="supplyOrderDAO" />
+		
+	</bean>
+	<bean id="supplyOrderDeliveryDAO" parent="supplyOrderDeliveryDAOBase"></bean>
+	
+
+	<bean id="supplyOrderLineItemDAOBase" class="com.youbenben.youbenben.supplyorderlineitem.SupplyOrderLineItemJDBCTemplateDAO">
+		<property name="dataSource" ref="dataSource" /><property name="supplyOrderDAO" ref="supplyOrderDAO" />
+	</bean>
+	<bean id="supplyOrderLineItemDAO" parent="supplyOrderLineItemDAOBase"></bean>
+	
+
+	<bean id="supplyOrderShippingGroupDAOBase" class="com.youbenben.youbenben.supplyordershippinggroup.SupplyOrderShippingGroupJDBCTemplateDAO">
+		<property name="dataSource" ref="dataSource" /><property name="supplyOrderDAO" ref="supplyOrderDAO" />
+	</bean>
+	<bean id="supplyOrderShippingGroupDAO" parent="supplyOrderShippingGroupDAOBase"></bean>
+	
+
+	<bean id="supplyOrderPaymentGroupDAOBase" class="com.youbenben.youbenben.supplyorderpaymentgroup.SupplyOrderPaymentGroupJDBCTemplateDAO">
+		<property name="dataSource" ref="dataSource" /><property name="supplyOrderDAO" ref="supplyOrderDAO" />
+	</bean>
+	<bean id="supplyOrderPaymentGroupDAO" parent="supplyOrderPaymentGroupDAOBase"></bean>
+	
+
+	<bean id="retailStoreOrderDAOBase" class="com.youbenben.youbenben.retailstoreorder.RetailStoreOrderJDBCTemplateDAO">
+		<property name="dataSource" ref="dataSource" /><property name="retailStoreOrderProcessingDAO" ref="retailStoreOrderProcessingDAO" /><property name="retailStoreOrderShipmentDAO" ref="retailStoreOrderShipmentDAO" /><property name="retailStoreDAO" ref="retailStoreDAO" /><property name="retailStoreOrderApprovalDAO" ref="retailStoreOrderApprovalDAO" /><property name="retailStoreCountryCenterDAO" ref="retailStoreCountryCenterDAO" /><property name="retailStoreOrderPickingDAO" ref="retailStoreOrderPickingDAO" /><property name="retailStoreOrderConfirmationDAO" ref="retailStoreOrderConfirmationDAO" /><property name="retailStoreOrderDeliveryDAO" ref="retailStoreOrderDeliveryDAO" />
+		<property name="retailStoreOrderLineItemDAO" ref="retailStoreOrderLineItemDAO" />
+		
+		<property name="retailStoreOrderShippingGroupDAO" ref="retailStoreOrderShippingGroupDAO" />
+		
+		<property name="retailStoreOrderPaymentGroupDAO" ref="retailStoreOrderPaymentGroupDAO" />
+		
+		<property name="goodsDAO" ref="goodsDAO" />
+		
+	</bean>
+	<bean id="retailStoreOrderDAO" parent="retailStoreOrderDAOBase"></bean>
+	
+
+	<bean id="retailStoreOrderConfirmationDAOBase" class="com.youbenben.youbenben.retailstoreorderconfirmation.RetailStoreOrderConfirmationJDBCTemplateDAO">
+		<property name="dataSource" ref="dataSource" />
+		<property name="retailStoreOrderDAO" ref="retailStoreOrderDAO" />
+		
+	</bean>
+	<bean id="retailStoreOrderConfirmationDAO" parent="retailStoreOrderConfirmationDAOBase"></bean>
+	
+
+	<bean id="retailStoreOrderApprovalDAOBase" class="com.youbenben.youbenben.retailstoreorderapproval.RetailStoreOrderApprovalJDBCTemplateDAO">
+		<property name="dataSource" ref="dataSource" />
+		<property name="retailStoreOrderDAO" ref="retailStoreOrderDAO" />
+		
+	</bean>
+	<bean id="retailStoreOrderApprovalDAO" parent="retailStoreOrderApprovalDAOBase"></bean>
+	
+
+	<bean id="retailStoreOrderProcessingDAOBase" class="com.youbenben.youbenben.retailstoreorderprocessing.RetailStoreOrderProcessingJDBCTemplateDAO">
+		<property name="dataSource" ref="dataSource" />
+		<property name="retailStoreOrderDAO" ref="retailStoreOrderDAO" />
+		
+	</bean>
+	<bean id="retailStoreOrderProcessingDAO" parent="retailStoreOrderProcessingDAOBase"></bean>
+	
+
+	<bean id="retailStoreOrderPickingDAOBase" class="com.youbenben.youbenben.retailstoreorderpicking.RetailStoreOrderPickingJDBCTemplateDAO">
+		<property name="dataSource" ref="dataSource" />
+		<property name="retailStoreOrderDAO" ref="retailStoreOrderDAO" />
+		
+	</bean>
+	<bean id="retailStoreOrderPickingDAO" parent="retailStoreOrderPickingDAOBase"></bean>
+	
+
+	<bean id="retailStoreOrderShipmentDAOBase" class="com.youbenben.youbenben.retailstoreordershipment.RetailStoreOrderShipmentJDBCTemplateDAO">
+		<property name="dataSource" ref="dataSource" />
+		<property name="retailStoreOrderDAO" ref="retailStoreOrderDAO" />
+		
+	</bean>
+	<bean id="retailStoreOrderShipmentDAO" parent="retailStoreOrderShipmentDAOBase"></bean>
+	
+
+	<bean id="retailStoreOrderDeliveryDAOBase" class="com.youbenben.youbenben.retailstoreorderdelivery.RetailStoreOrderDeliveryJDBCTemplateDAO">
+		<property name="dataSource" ref="dataSource" />
+		<property name="retailStoreOrderDAO" ref="retailStoreOrderDAO" />
+		
+	</bean>
+	<bean id="retailStoreOrderDeliveryDAO" parent="retailStoreOrderDeliveryDAOBase"></bean>
+	
+
+	<bean id="retailStoreOrderLineItemDAOBase" class="com.youbenben.youbenben.retailstoreorderlineitem.RetailStoreOrderLineItemJDBCTemplateDAO">
+		<property name="dataSource" ref="dataSource" /><property name="retailStoreOrderDAO" ref="retailStoreOrderDAO" />
+	</bean>
+	<bean id="retailStoreOrderLineItemDAO" parent="retailStoreOrderLineItemDAOBase"></bean>
+	
+
+	<bean id="retailStoreOrderShippingGroupDAOBase" class="com.youbenben.youbenben.retailstoreordershippinggroup.RetailStoreOrderShippingGroupJDBCTemplateDAO">
+		<property name="dataSource" ref="dataSource" /><property name="retailStoreOrderDAO" ref="retailStoreOrderDAO" />
+	</bean>
+	<bean id="retailStoreOrderShippingGroupDAO" parent="retailStoreOrderShippingGroupDAOBase"></bean>
+	
+
+	<bean id="retailStoreOrderPaymentGroupDAOBase" class="com.youbenben.youbenben.retailstoreorderpaymentgroup.RetailStoreOrderPaymentGroupJDBCTemplateDAO">
+		<property name="dataSource" ref="dataSource" /><property name="retailStoreOrderDAO" ref="retailStoreOrderDAO" />
+	</bean>
+	<bean id="retailStoreOrderPaymentGroupDAO" parent="retailStoreOrderPaymentGroupDAOBase"></bean>
+	
+
+	<bean id="warehouseDAOBase" class="com.youbenben.youbenben.warehouse.WarehouseJDBCTemplateDAO">
+		<property name="dataSource" ref="dataSource" /><property name="retailStoreCountryCenterDAO" ref="retailStoreCountryCenterDAO" />
+		<property name="storageSpaceDAO" ref="storageSpaceDAO" />
+		
+		<property name="smartPalletDAO" ref="smartPalletDAO" />
+		
+		<property name="supplierSpaceDAO" ref="supplierSpaceDAO" />
+		
+		<property name="receivingSpaceDAO" ref="receivingSpaceDAO" />
+		
+		<property name="shippingSpaceDAO" ref="shippingSpaceDAO" />
+		
+		<property name="damageSpaceDAO" ref="damageSpaceDAO" />
+		
+		<property name="warehouseAssetDAO" ref="warehouseAssetDAO" />
+		
+	</bean>
+	<bean id="warehouseDAO" parent="warehouseDAOBase"></bean>
+	
+
+	<bean id="storageSpaceDAOBase" class="com.youbenben.youbenben.storagespace.StorageSpaceJDBCTemplateDAO">
+		<property name="dataSource" ref="dataSource" /><property name="warehouseDAO" ref="warehouseDAO" />
+		<property name="goodsShelfDAO" ref="goodsShelfDAO" />
+		
+	</bean>
+	<bean id="storageSpaceDAO" parent="storageSpaceDAOBase"></bean>
+	
+
+	<bean id="smartPalletDAOBase" class="com.youbenben.youbenben.smartpallet.SmartPalletJDBCTemplateDAO">
+		<property name="dataSource" ref="dataSource" /><property name="warehouseDAO" ref="warehouseDAO" />
+		<property name="goodsDAO" ref="goodsDAO" />
+		
+	</bean>
+	<bean id="smartPalletDAO" parent="smartPalletDAOBase"></bean>
+	
+
+	<bean id="goodsShelfDAOBase" class="com.youbenben.youbenben.goodsshelf.GoodsShelfJDBCTemplateDAO">
+		<property name="dataSource" ref="dataSource" /><property name="supplierSpaceDAO" ref="supplierSpaceDAO" /><property name="damageSpaceDAO" ref="damageSpaceDAO" /><property name="storageSpaceDAO" ref="storageSpaceDAO" />
+		<property name="goodsShelfStockCountDAO" ref="goodsShelfStockCountDAO" />
+		
+		<property name="goodsAllocationDAO" ref="goodsAllocationDAO" />
+		
+	</bean>
+	<bean id="goodsShelfDAO" parent="goodsShelfDAOBase"></bean>
+	
+
+	<bean id="goodsShelfStockCountDAOBase" class="com.youbenben.youbenben.goodsshelfstockcount.GoodsShelfStockCountJDBCTemplateDAO">
+		<property name="dataSource" ref="dataSource" /><property name="goodsShelfDAO" ref="goodsShelfDAO" />
+		<property name="stockCountIssueTrackDAO" ref="stockCountIssueTrackDAO" />
+		
+	</bean>
+	<bean id="goodsShelfStockCountDAO" parent="goodsShelfStockCountDAOBase"></bean>
+	
+
+	<bean id="stockCountIssueTrackDAOBase" class="com.youbenben.youbenben.stockcountissuetrack.StockCountIssueTrackJDBCTemplateDAO">
+		<property name="dataSource" ref="dataSource" /><property name="goodsShelfStockCountDAO" ref="goodsShelfStockCountDAO" />
+	</bean>
+	<bean id="stockCountIssueTrackDAO" parent="stockCountIssueTrackDAOBase"></bean>
+	
+
+	<bean id="goodsAllocationDAOBase" class="com.youbenben.youbenben.goodsallocation.GoodsAllocationJDBCTemplateDAO">
+		<property name="dataSource" ref="dataSource" /><property name="goodsShelfDAO" ref="goodsShelfDAO" />
+		<property name="goodsDAO" ref="goodsDAO" />
+		
+	</bean>
+	<bean id="goodsAllocationDAO" parent="goodsAllocationDAOBase"></bean>
+	
+
+	<bean id="goodsDAOBase" class="com.youbenben.youbenben.goods.GoodsJDBCTemplateDAO">
+		<property name="dataSource" ref="dataSource" /><property name="receivingSpaceDAO" ref="receivingSpaceDAO" /><property name="goodsAllocationDAO" ref="goodsAllocationDAO" /><property name="smartPalletDAO" ref="smartPalletDAO" /><property name="supplyOrderDAO" ref="supplyOrderDAO" /><property name="goodsPackagingDAO" ref="goodsPackagingDAO" /><property name="transportTaskDAO" ref="transportTaskDAO" /><property name="shippingSpaceDAO" ref="shippingSpaceDAO" /><property name="skuDAO" ref="skuDAO" /><property name="retailStoreOrderDAO" ref="retailStoreOrderDAO" /><property name="retailStoreDAO" ref="retailStoreDAO" />
+		<property name="goodsMovementDAO" ref="goodsMovementDAO" />
+		
+	</bean>
+	<bean id="goodsDAO" parent="goodsDAOBase"></bean>
+	
+
+	<bean id="goodsPackagingDAOBase" class="com.youbenben.youbenben.goodspackaging.GoodsPackagingJDBCTemplateDAO">
+		<property name="dataSource" ref="dataSource" />
+		<property name="goodsDAO" ref="goodsDAO" />
+		
+	</bean>
+	<bean id="goodsPackagingDAO" parent="goodsPackagingDAOBase"></bean>
+	
+
+	<bean id="goodsMovementDAOBase" class="com.youbenben.youbenben.goodsmovement.GoodsMovementJDBCTemplateDAO">
+		<property name="dataSource" ref="dataSource" /><property name="goodsDAO" ref="goodsDAO" />
+	</bean>
+	<bean id="goodsMovementDAO" parent="goodsMovementDAOBase"></bean>
+	
+
+	<bean id="supplierSpaceDAOBase" class="com.youbenben.youbenben.supplierspace.SupplierSpaceJDBCTemplateDAO">
+		<property name="dataSource" ref="dataSource" /><property name="warehouseDAO" ref="warehouseDAO" />
+		<property name="goodsShelfDAO" ref="goodsShelfDAO" />
+		
+	</bean>
+	<bean id="supplierSpaceDAO" parent="supplierSpaceDAOBase"></bean>
+	
+
+	<bean id="receivingSpaceDAOBase" class="com.youbenben.youbenben.receivingspace.ReceivingSpaceJDBCTemplateDAO">
+		<property name="dataSource" ref="dataSource" /><property name="warehouseDAO" ref="warehouseDAO" />
+		<property name="goodsDAO" ref="goodsDAO" />
+		
+	</bean>
+	<bean id="receivingSpaceDAO" parent="receivingSpaceDAOBase"></bean>
+	
+
+	<bean id="shippingSpaceDAOBase" class="com.youbenben.youbenben.shippingspace.ShippingSpaceJDBCTemplateDAO">
+		<property name="dataSource" ref="dataSource" /><property name="warehouseDAO" ref="warehouseDAO" />
+		<property name="goodsDAO" ref="goodsDAO" />
+		
+	</bean>
+	<bean id="shippingSpaceDAO" parent="shippingSpaceDAOBase"></bean>
+	
+
+	<bean id="damageSpaceDAOBase" class="com.youbenben.youbenben.damagespace.DamageSpaceJDBCTemplateDAO">
+		<property name="dataSource" ref="dataSource" /><property name="warehouseDAO" ref="warehouseDAO" />
+		<property name="goodsShelfDAO" ref="goodsShelfDAO" />
+		
+	</bean>
+	<bean id="damageSpaceDAO" parent="damageSpaceDAOBase"></bean>
+	
+
+	<bean id="warehouseAssetDAOBase" class="com.youbenben.youbenben.warehouseasset.WarehouseAssetJDBCTemplateDAO">
+		<property name="dataSource" ref="dataSource" /><property name="warehouseDAO" ref="warehouseDAO" />
+	</bean>
+	<bean id="warehouseAssetDAO" parent="warehouseAssetDAOBase"></bean>
+	
+
+	<bean id="transportFleetDAOBase" class="com.youbenben.youbenben.transportfleet.TransportFleetJDBCTemplateDAO">
+		<property name="dataSource" ref="dataSource" /><property name="retailStoreCountryCenterDAO" ref="retailStoreCountryCenterDAO" />
+		<property name="transportTruckDAO" ref="transportTruckDAO" />
+		
+		<property name="truckDriverDAO" ref="truckDriverDAO" />
+		
+		<property name="transportTaskDAO" ref="transportTaskDAO" />
+		
+	</bean>
+	<bean id="transportFleetDAO" parent="transportFleetDAOBase"></bean>
+	
+
+	<bean id="transportTruckDAOBase" class="com.youbenben.youbenben.transporttruck.TransportTruckJDBCTemplateDAO">
+		<property name="dataSource" ref="dataSource" /><property name="transportFleetDAO" ref="transportFleetDAO" />
+		<property name="transportTaskDAO" ref="transportTaskDAO" />
+		
+	</bean>
+	<bean id="transportTruckDAO" parent="transportTruckDAOBase"></bean>
+	
+
+	<bean id="truckDriverDAOBase" class="com.youbenben.youbenben.truckdriver.TruckDriverJDBCTemplateDAO">
+		<property name="dataSource" ref="dataSource" /><property name="transportFleetDAO" ref="transportFleetDAO" />
+		<property name="transportTaskDAO" ref="transportTaskDAO" />
+		
+	</bean>
+	<bean id="truckDriverDAO" parent="truckDriverDAOBase"></bean>
+	
+
+	<bean id="transportTaskDAOBase" class="com.youbenben.youbenben.transporttask.TransportTaskJDBCTemplateDAO">
+		<property name="dataSource" ref="dataSource" /><property name="transportFleetDAO" ref="transportFleetDAO" /><property name="truckDriverDAO" ref="truckDriverDAO" /><property name="retailStoreDAO" ref="retailStoreDAO" /><property name="transportTruckDAO" ref="transportTruckDAO" />
+		<property name="goodsDAO" ref="goodsDAO" />
+		
+		<property name="transportTaskTrackDAO" ref="transportTaskTrackDAO" />
+		
+	</bean>
+	<bean id="transportTaskDAO" parent="transportTaskDAOBase"></bean>
+	
+
+	<bean id="transportTaskTrackDAOBase" class="com.youbenben.youbenben.transporttasktrack.TransportTaskTrackJDBCTemplateDAO">
+		<property name="dataSource" ref="dataSource" /><property name="transportTaskDAO" ref="transportTaskDAO" />
+	</bean>
+	<bean id="transportTaskTrackDAO" parent="transportTaskTrackDAOBase"></bean>
+	
+
+	<bean id="accountSetDAOBase" class="com.youbenben.youbenben.accountset.AccountSetJDBCTemplateDAO">
+		<property name="dataSource" ref="dataSource" /><property name="retailStoreCountryCenterDAO" ref="retailStoreCountryCenterDAO" /><property name="goodsSupplierDAO" ref="goodsSupplierDAO" /><property name="retailStoreDAO" ref="retailStoreDAO" />
+		<property name="accountingSubjectDAO" ref="accountingSubjectDAO" />
+		
+		<property name="accountingPeriodDAO" ref="accountingPeriodDAO" />
+		
+		<property name="accountingDocumentTypeDAO" ref="accountingDocumentTypeDAO" />
+		
+	</bean>
+	<bean id="accountSetDAO" parent="accountSetDAOBase"></bean>
+	
+
+	<bean id="accountingSubjectDAOBase" class="com.youbenben.youbenben.accountingsubject.AccountingSubjectJDBCTemplateDAO">
+		<property name="dataSource" ref="dataSource" /><property name="accountSetDAO" ref="accountSetDAO" />
+		<property name="accountingDocumentLineDAO" ref="accountingDocumentLineDAO" />
+		
+	</bean>
+	<bean id="accountingSubjectDAO" parent="accountingSubjectDAOBase"></bean>
+	
+
+	<bean id="accountingPeriodDAOBase" class="com.youbenben.youbenben.accountingperiod.AccountingPeriodJDBCTemplateDAO">
+		<property name="dataSource" ref="dataSource" /><property name="accountSetDAO" ref="accountSetDAO" />
+		<property name="accountingDocumentDAO" ref="accountingDocumentDAO" />
+		
+	</bean>
+	<bean id="accountingPeriodDAO" parent="accountingPeriodDAOBase"></bean>
+	
+
+	<bean id="accountingDocumentTypeDAOBase" class="com.youbenben.youbenben.accountingdocumenttype.AccountingDocumentTypeJDBCTemplateDAO">
+		<property name="dataSource" ref="dataSource" /><property name="accountSetDAO" ref="accountSetDAO" />
+		<property name="accountingDocumentDAO" ref="accountingDocumentDAO" />
+		
+	</bean>
+	<bean id="accountingDocumentTypeDAO" parent="accountingDocumentTypeDAOBase"></bean>
+	
+
+	<bean id="accountingDocumentDAOBase" class="com.youbenben.youbenben.accountingdocument.AccountingDocumentJDBCTemplateDAO">
+		<property name="dataSource" ref="dataSource" /><property name="accountingDocumentPostingDAO" ref="accountingDocumentPostingDAO" /><property name="accountingDocumentConfirmationDAO" ref="accountingDocumentConfirmationDAO" /><property name="accountingDocumentAuditingDAO" ref="accountingDocumentAuditingDAO" /><property name="accountingPeriodDAO" ref="accountingPeriodDAO" /><property name="accountingDocumentTypeDAO" ref="accountingDocumentTypeDAO" /><property name="accountingDocumentCreationDAO" ref="accountingDocumentCreationDAO" />
+		<property name="originalVoucherDAO" ref="originalVoucherDAO" />
+		
+		<property name="accountingDocumentLineDAO" ref="accountingDocumentLineDAO" />
+		
+	</bean>
+	<bean id="accountingDocumentDAO" parent="accountingDocumentDAOBase"></bean>
+	
+
+	<bean id="accountingDocumentCreationDAOBase" class="com.youbenben.youbenben.accountingdocumentcreation.AccountingDocumentCreationJDBCTemplateDAO">
+		<property name="dataSource" ref="dataSource" />
+		<property name="accountingDocumentDAO" ref="accountingDocumentDAO" />
+		
+	</bean>
+	<bean id="accountingDocumentCreationDAO" parent="accountingDocumentCreationDAOBase"></bean>
+	
+
+	<bean id="accountingDocumentConfirmationDAOBase" class="com.youbenben.youbenben.accountingdocumentconfirmation.AccountingDocumentConfirmationJDBCTemplateDAO">
+		<property name="dataSource" ref="dataSource" />
+		<property name="accountingDocumentDAO" ref="accountingDocumentDAO" />
+		
+	</bean>
+	<bean id="accountingDocumentConfirmationDAO" parent="accountingDocumentConfirmationDAOBase"></bean>
+	
+
+	<bean id="accountingDocumentAuditingDAOBase" class="com.youbenben.youbenben.accountingdocumentauditing.AccountingDocumentAuditingJDBCTemplateDAO">
+		<property name="dataSource" ref="dataSource" />
+		<property name="accountingDocumentDAO" ref="accountingDocumentDAO" />
+		
+	</bean>
+	<bean id="accountingDocumentAuditingDAO" parent="accountingDocumentAuditingDAOBase"></bean>
+	
+
+	<bean id="accountingDocumentPostingDAOBase" class="com.youbenben.youbenben.accountingdocumentposting.AccountingDocumentPostingJDBCTemplateDAO">
+		<property name="dataSource" ref="dataSource" />
+		<property name="accountingDocumentDAO" ref="accountingDocumentDAO" />
+		
+	</bean>
+	<bean id="accountingDocumentPostingDAO" parent="accountingDocumentPostingDAOBase"></bean>
+	
+
+	<bean id="originalVoucherDAOBase" class="com.youbenben.youbenben.originalvoucher.OriginalVoucherJDBCTemplateDAO">
+		<property name="dataSource" ref="dataSource" /><property name="originalVoucherCreationDAO" ref="originalVoucherCreationDAO" /><property name="accountingDocumentDAO" ref="accountingDocumentDAO" /><property name="originalVoucherConfirmationDAO" ref="originalVoucherConfirmationDAO" /><property name="originalVoucherAuditingDAO" ref="originalVoucherAuditingDAO" />
+	</bean>
+	<bean id="originalVoucherDAO" parent="originalVoucherDAOBase"></bean>
+	
+
+	<bean id="originalVoucherCreationDAOBase" class="com.youbenben.youbenben.originalvouchercreation.OriginalVoucherCreationJDBCTemplateDAO">
+		<property name="dataSource" ref="dataSource" />
+		<property name="originalVoucherDAO" ref="originalVoucherDAO" />
+		
+	</bean>
+	<bean id="originalVoucherCreationDAO" parent="originalVoucherCreationDAOBase"></bean>
+	
+
+	<bean id="originalVoucherConfirmationDAOBase" class="com.youbenben.youbenben.originalvoucherconfirmation.OriginalVoucherConfirmationJDBCTemplateDAO">
+		<property name="dataSource" ref="dataSource" />
+		<property name="originalVoucherDAO" ref="originalVoucherDAO" />
+		
+	</bean>
+	<bean id="originalVoucherConfirmationDAO" parent="originalVoucherConfirmationDAOBase"></bean>
+	
+
+	<bean id="originalVoucherAuditingDAOBase" class="com.youbenben.youbenben.originalvoucherauditing.OriginalVoucherAuditingJDBCTemplateDAO">
+		<property name="dataSource" ref="dataSource" />
+		<property name="originalVoucherDAO" ref="originalVoucherDAO" />
+		
+	</bean>
+	<bean id="originalVoucherAuditingDAO" parent="originalVoucherAuditingDAOBase"></bean>
+	
+
+	<bean id="accountingDocumentLineDAOBase" class="com.youbenben.youbenben.accountingdocumentline.AccountingDocumentLineJDBCTemplateDAO">
+		<property name="dataSource" ref="dataSource" /><property name="accountingDocumentDAO" ref="accountingDocumentDAO" /><property name="accountingSubjectDAO" ref="accountingSubjectDAO" />
+	</bean>
+	<bean id="accountingDocumentLineDAO" parent="accountingDocumentLineDAOBase"></bean>
+	
+
+	<bean id="levelOneDepartmentDAOBase" class="com.youbenben.youbenben.levelonedepartment.LevelOneDepartmentJDBCTemplateDAO">
+		<property name="dataSource" ref="dataSource" /><property name="retailStoreCountryCenterDAO" ref="retailStoreCountryCenterDAO" />
+		<property name="levelTwoDepartmentDAO" ref="levelTwoDepartmentDAO" />
+		
+	</bean>
+	<bean id="levelOneDepartmentDAO" parent="levelOneDepartmentDAOBase"></bean>
+	
+
+	<bean id="levelTwoDepartmentDAOBase" class="com.youbenben.youbenben.leveltwodepartment.LevelTwoDepartmentJDBCTemplateDAO">
+		<property name="dataSource" ref="dataSource" /><property name="levelOneDepartmentDAO" ref="levelOneDepartmentDAO" />
+		<property name="levelThreeDepartmentDAO" ref="levelThreeDepartmentDAO" />
+		
+	</bean>
+	<bean id="levelTwoDepartmentDAO" parent="levelTwoDepartmentDAOBase"></bean>
+	
+
+	<bean id="levelThreeDepartmentDAOBase" class="com.youbenben.youbenben.levelthreedepartment.LevelThreeDepartmentJDBCTemplateDAO">
+		<property name="dataSource" ref="dataSource" /><property name="levelTwoDepartmentDAO" ref="levelTwoDepartmentDAO" />
+		<property name="employeeDAO" ref="employeeDAO" />
+		
+	</bean>
+	<bean id="levelThreeDepartmentDAO" parent="levelThreeDepartmentDAOBase"></bean>
+	
+
+	<bean id="skillTypeDAOBase" class="com.youbenben.youbenben.skilltype.SkillTypeJDBCTemplateDAO">
+		<property name="dataSource" ref="dataSource" /><property name="retailStoreCountryCenterDAO" ref="retailStoreCountryCenterDAO" />
+		<property name="employeeSkillDAO" ref="employeeSkillDAO" />
+		
+	</bean>
+	<bean id="skillTypeDAO" parent="skillTypeDAOBase"></bean>
+	
+
+	<bean id="responsibilityTypeDAOBase" class="com.youbenben.youbenben.responsibilitytype.ResponsibilityTypeJDBCTemplateDAO">
+		<property name="dataSource" ref="dataSource" /><property name="retailStoreCountryCenterDAO" ref="retailStoreCountryCenterDAO" />
+		<property name="employeeDAO" ref="employeeDAO" />
+		
+	</bean>
+	<bean id="responsibilityTypeDAO" parent="responsibilityTypeDAOBase"></bean>
+	
+
+	<bean id="terminationReasonDAOBase" class="com.youbenben.youbenben.terminationreason.TerminationReasonJDBCTemplateDAO">
+		<property name="dataSource" ref="dataSource" /><property name="retailStoreCountryCenterDAO" ref="retailStoreCountryCenterDAO" />
+		<property name="terminationDAO" ref="terminationDAO" />
+		
+	</bean>
+	<bean id="terminationReasonDAO" parent="terminationReasonDAOBase"></bean>
+	
+
+	<bean id="terminationTypeDAOBase" class="com.youbenben.youbenben.terminationtype.TerminationTypeJDBCTemplateDAO">
+		<property name="dataSource" ref="dataSource" /><property name="retailStoreCountryCenterDAO" ref="retailStoreCountryCenterDAO" />
+		<property name="terminationDAO" ref="terminationDAO" />
+		
+	</bean>
+	<bean id="terminationTypeDAO" parent="terminationTypeDAOBase"></bean>
+	
+
+	<bean id="occupationTypeDAOBase" class="com.youbenben.youbenben.occupationtype.OccupationTypeJDBCTemplateDAO">
+		<property name="dataSource" ref="dataSource" /><property name="retailStoreCountryCenterDAO" ref="retailStoreCountryCenterDAO" />
+		<property name="employeeDAO" ref="employeeDAO" />
+		
+	</bean>
+	<bean id="occupationTypeDAO" parent="occupationTypeDAOBase"></bean>
+	
+
+	<bean id="leaveTypeDAOBase" class="com.youbenben.youbenben.leavetype.LeaveTypeJDBCTemplateDAO">
+		<property name="dataSource" ref="dataSource" /><property name="retailStoreCountryCenterDAO" ref="retailStoreCountryCenterDAO" />
+		<property name="employeeLeaveDAO" ref="employeeLeaveDAO" />
+		
+	</bean>
+	<bean id="leaveTypeDAO" parent="leaveTypeDAOBase"></bean>
+	
+
+	<bean id="salaryGradeDAOBase" class="com.youbenben.youbenben.salarygrade.SalaryGradeJDBCTemplateDAO">
+		<property name="dataSource" ref="dataSource" /><property name="retailStoreCountryCenterDAO" ref="retailStoreCountryCenterDAO" />
+		<property name="employeeDAO" ref="employeeDAO" />
+		
+		<property name="employeeSalarySheetDAO" ref="employeeSalarySheetDAO" />
+		
+	</bean>
+	<bean id="salaryGradeDAO" parent="salaryGradeDAOBase"></bean>
+	
+
+	<bean id="interviewTypeDAOBase" class="com.youbenben.youbenben.interviewtype.InterviewTypeJDBCTemplateDAO">
+		<property name="dataSource" ref="dataSource" /><property name="retailStoreCountryCenterDAO" ref="retailStoreCountryCenterDAO" />
+		<property name="employeeInterviewDAO" ref="employeeInterviewDAO" />
+		
+	</bean>
+	<bean id="interviewTypeDAO" parent="interviewTypeDAOBase"></bean>
+	
+
+	<bean id="trainingCourseTypeDAOBase" class="com.youbenben.youbenben.trainingcoursetype.TrainingCourseTypeJDBCTemplateDAO">
+		<property name="dataSource" ref="dataSource" /><property name="retailStoreCountryCenterDAO" ref="retailStoreCountryCenterDAO" />
+		<property name="companyTrainingDAO" ref="companyTrainingDAO" />
+		
+	</bean>
+	<bean id="trainingCourseTypeDAO" parent="trainingCourseTypeDAOBase"></bean>
+	
+
+	<bean id="publicHolidayDAOBase" class="com.youbenben.youbenben.publicholiday.PublicHolidayJDBCTemplateDAO">
+		<property name="dataSource" ref="dataSource" /><property name="retailStoreCountryCenterDAO" ref="retailStoreCountryCenterDAO" />
+	</bean>
+	<bean id="publicHolidayDAO" parent="publicHolidayDAOBase"></bean>
+	
+
+	<bean id="terminationDAOBase" class="com.youbenben.youbenben.termination.TerminationJDBCTemplateDAO">
+		<property name="dataSource" ref="dataSource" /><property name="terminationReasonDAO" ref="terminationReasonDAO" /><property name="terminationTypeDAO" ref="terminationTypeDAO" />
+		<property name="employeeDAO" ref="employeeDAO" />
+		
+	</bean>
+	<bean id="terminationDAO" parent="terminationDAOBase"></bean>
+	
+
+	<bean id="viewDAOBase" class="com.youbenben.youbenben.view.ViewJDBCTemplateDAO">
+		<property name="dataSource" ref="dataSource" />
+	</bean>
+	<bean id="viewDAO" parent="viewDAOBase"></bean>
+	
+
+	<bean id="employeeDAOBase" class="com.youbenben.youbenben.employee.EmployeeJDBCTemplateDAO">
+		<property name="dataSource" ref="dataSource" /><property name="professionInterviewDAO" ref="professionInterviewDAO" /><property name="salaryGradeDAO" ref="salaryGradeDAO" /><property name="levelThreeDepartmentDAO" ref="levelThreeDepartmentDAO" /><property name="occupationTypeDAO" ref="occupationTypeDAO" /><property name="offerAcceptanceDAO" ref="offerAcceptanceDAO" /><property name="hrInterviewDAO" ref="hrInterviewDAO" /><property name="jobApplicationDAO" ref="jobApplicationDAO" /><property name="employeeBoardingDAO" ref="employeeBoardingDAO" /><property name="offerApprovalDAO" ref="offerApprovalDAO" /><property name="retailStoreCountryCenterDAO" ref="retailStoreCountryCenterDAO" /><property name="responsibilityTypeDAO" ref="responsibilityTypeDAO" /><property name="terminationDAO" ref="terminationDAO" />
+		<property name="employeeCompanyTrainingDAO" ref="employeeCompanyTrainingDAO" />
+		
+		<property name="employeeSkillDAO" ref="employeeSkillDAO" />
+		
+		<property name="employeePerformanceDAO" ref="employeePerformanceDAO" />
+		
+		<property name="employeeWorkExperienceDAO" ref="employeeWorkExperienceDAO" />
+		
+		<property name="employeeLeaveDAO" ref="employeeLeaveDAO" />
+		
+		<property name="employeeInterviewDAO" ref="employeeInterviewDAO" />
+		
+		<property name="employeeAttendanceDAO" ref="employeeAttendanceDAO" />
+		
+		<property name="employeeQualifierDAO" ref="employeeQualifierDAO" />
+		
+		<property name="employeeEducationDAO" ref="employeeEducationDAO" />
+		
+		<property name="employeeAwardDAO" ref="employeeAwardDAO" />
+		
+		<property name="employeeSalarySheetDAO" ref="employeeSalarySheetDAO" />
+		
+		<property name="payingOffDAO" ref="payingOffDAO" />
+		
+	</bean>
+	<bean id="employeeDAO" parent="employeeDAOBase"></bean>
+	
+
+	<bean id="jobApplicationDAOBase" class="com.youbenben.youbenben.jobapplication.JobApplicationJDBCTemplateDAO">
+		<property name="dataSource" ref="dataSource" />
+		<property name="employeeDAO" ref="employeeDAO" />
+		
+	</bean>
+	<bean id="jobApplicationDAO" parent="jobApplicationDAOBase"></bean>
+	
+
+	<bean id="professionInterviewDAOBase" class="com.youbenben.youbenben.professioninterview.ProfessionInterviewJDBCTemplateDAO">
+		<property name="dataSource" ref="dataSource" />
+		<property name="employeeDAO" ref="employeeDAO" />
+		
+	</bean>
+	<bean id="professionInterviewDAO" parent="professionInterviewDAOBase"></bean>
+	
+
+	<bean id="hrInterviewDAOBase" class="com.youbenben.youbenben.hrinterview.HrInterviewJDBCTemplateDAO">
+		<property name="dataSource" ref="dataSource" />
+		<property name="employeeDAO" ref="employeeDAO" />
+		
+	</bean>
+	<bean id="hrInterviewDAO" parent="hrInterviewDAOBase"></bean>
+	
+
+	<bean id="offerApprovalDAOBase" class="com.youbenben.youbenben.offerapproval.OfferApprovalJDBCTemplateDAO">
+		<property name="dataSource" ref="dataSource" />
+		<property name="employeeDAO" ref="employeeDAO" />
+		
+	</bean>
+	<bean id="offerApprovalDAO" parent="offerApprovalDAOBase"></bean>
+	
+
+	<bean id="offerAcceptanceDAOBase" class="com.youbenben.youbenben.offeracceptance.OfferAcceptanceJDBCTemplateDAO">
+		<property name="dataSource" ref="dataSource" />
+		<property name="employeeDAO" ref="employeeDAO" />
+		
+	</bean>
+	<bean id="offerAcceptanceDAO" parent="offerAcceptanceDAOBase"></bean>
+	
+
+	<bean id="employeeBoardingDAOBase" class="com.youbenben.youbenben.employeeboarding.EmployeeBoardingJDBCTemplateDAO">
+		<property name="dataSource" ref="dataSource" />
+		<property name="employeeDAO" ref="employeeDAO" />
+		
+	</bean>
+	<bean id="employeeBoardingDAO" parent="employeeBoardingDAOBase"></bean>
+	
+
+	<bean id="instructorDAOBase" class="com.youbenben.youbenben.instructor.InstructorJDBCTemplateDAO">
+		<property name="dataSource" ref="dataSource" /><property name="retailStoreCountryCenterDAO" ref="retailStoreCountryCenterDAO" />
+		<property name="companyTrainingDAO" ref="companyTrainingDAO" />
+		
+	</bean>
+	<bean id="instructorDAO" parent="instructorDAOBase"></bean>
+	
+
+	<bean id="companyTrainingDAOBase" class="com.youbenben.youbenben.companytraining.CompanyTrainingJDBCTemplateDAO">
+		<property name="dataSource" ref="dataSource" /><property name="instructorDAO" ref="instructorDAO" /><property name="retailStoreCountryCenterDAO" ref="retailStoreCountryCenterDAO" /><property name="trainingCourseTypeDAO" ref="trainingCourseTypeDAO" />
+		<property name="employeeCompanyTrainingDAO" ref="employeeCompanyTrainingDAO" />
+		
+	</bean>
+	<bean id="companyTrainingDAO" parent="companyTrainingDAOBase"></bean>
+	
+
+	<bean id="scoringDAOBase" class="com.youbenben.youbenben.scoring.ScoringJDBCTemplateDAO">
+		<property name="dataSource" ref="dataSource" />
+		<property name="employeeCompanyTrainingDAO" ref="employeeCompanyTrainingDAO" />
+		
+	</bean>
+	<bean id="scoringDAO" parent="scoringDAOBase"></bean>
+	
+
+	<bean id="employeeCompanyTrainingDAOBase" class="com.youbenben.youbenben.employeecompanytraining.EmployeeCompanyTrainingJDBCTemplateDAO">
+		<property name="dataSource" ref="dataSource" /><property name="employeeDAO" ref="employeeDAO" /><property name="scoringDAO" ref="scoringDAO" /><property name="companyTrainingDAO" ref="companyTrainingDAO" />
+	</bean>
+	<bean id="employeeCompanyTrainingDAO" parent="employeeCompanyTrainingDAOBase"></bean>
+	
+
+	<bean id="employeeSkillDAOBase" class="com.youbenben.youbenben.employeeskill.EmployeeSkillJDBCTemplateDAO">
+		<property name="dataSource" ref="dataSource" /><property name="employeeDAO" ref="employeeDAO" /><property name="skillTypeDAO" ref="skillTypeDAO" />
+	</bean>
+	<bean id="employeeSkillDAO" parent="employeeSkillDAOBase"></bean>
+	
+
+	<bean id="employeePerformanceDAOBase" class="com.youbenben.youbenben.employeeperformance.EmployeePerformanceJDBCTemplateDAO">
+		<property name="dataSource" ref="dataSource" /><property name="employeeDAO" ref="employeeDAO" />
+	</bean>
+	<bean id="employeePerformanceDAO" parent="employeePerformanceDAOBase"></bean>
+	
+
+	<bean id="employeeWorkExperienceDAOBase" class="com.youbenben.youbenben.employeeworkexperience.EmployeeWorkExperienceJDBCTemplateDAO">
+		<property name="dataSource" ref="dataSource" /><property name="employeeDAO" ref="employeeDAO" />
+	</bean>
+	<bean id="employeeWorkExperienceDAO" parent="employeeWorkExperienceDAOBase"></bean>
+	
+
+	<bean id="employeeLeaveDAOBase" class="com.youbenben.youbenben.employeeleave.EmployeeLeaveJDBCTemplateDAO">
+		<property name="dataSource" ref="dataSource" /><property name="leaveTypeDAO" ref="leaveTypeDAO" /><property name="employeeDAO" ref="employeeDAO" />
+	</bean>
+	<bean id="employeeLeaveDAO" parent="employeeLeaveDAOBase"></bean>
+	
+
+	<bean id="employeeInterviewDAOBase" class="com.youbenben.youbenben.employeeinterview.EmployeeInterviewJDBCTemplateDAO">
+		<property name="dataSource" ref="dataSource" /><property name="employeeDAO" ref="employeeDAO" /><property name="interviewTypeDAO" ref="interviewTypeDAO" />
+	</bean>
+	<bean id="employeeInterviewDAO" parent="employeeInterviewDAOBase"></bean>
+	
+
+	<bean id="employeeAttendanceDAOBase" class="com.youbenben.youbenben.employeeattendance.EmployeeAttendanceJDBCTemplateDAO">
+		<property name="dataSource" ref="dataSource" /><property name="employeeDAO" ref="employeeDAO" />
+	</bean>
+	<bean id="employeeAttendanceDAO" parent="employeeAttendanceDAOBase"></bean>
+	
+
+	<bean id="employeeQualifierDAOBase" class="com.youbenben.youbenben.employeequalifier.EmployeeQualifierJDBCTemplateDAO">
+		<property name="dataSource" ref="dataSource" /><property name="employeeDAO" ref="employeeDAO" />
+	</bean>
+	<bean id="employeeQualifierDAO" parent="employeeQualifierDAOBase"></bean>
+	
+
+	<bean id="employeeEducationDAOBase" class="com.youbenben.youbenben.employeeeducation.EmployeeEducationJDBCTemplateDAO">
+		<property name="dataSource" ref="dataSource" /><property name="employeeDAO" ref="employeeDAO" />
+	</bean>
+	<bean id="employeeEducationDAO" parent="employeeEducationDAOBase"></bean>
+	
+
+	<bean id="employeeAwardDAOBase" class="com.youbenben.youbenben.employeeaward.EmployeeAwardJDBCTemplateDAO">
+		<property name="dataSource" ref="dataSource" /><property name="employeeDAO" ref="employeeDAO" />
+	</bean>
+	<bean id="employeeAwardDAO" parent="employeeAwardDAOBase"></bean>
+	
+
+	<bean id="employeeSalarySheetDAOBase" class="com.youbenben.youbenben.employeesalarysheet.EmployeeSalarySheetJDBCTemplateDAO">
+		<property name="dataSource" ref="dataSource" /><property name="employeeDAO" ref="employeeDAO" /><property name="salaryGradeDAO" ref="salaryGradeDAO" /><property name="payingOffDAO" ref="payingOffDAO" />
+	</bean>
+	<bean id="employeeSalarySheetDAO" parent="employeeSalarySheetDAOBase"></bean>
+	
+
+	<bean id="payingOffDAOBase" class="com.youbenben.youbenben.payingoff.PayingOffJDBCTemplateDAO">
+		<property name="dataSource" ref="dataSource" /><property name="employeeDAO" ref="employeeDAO" />
+		<property name="employeeSalarySheetDAO" ref="employeeSalarySheetDAO" />
+		
+	</bean>
+	<bean id="payingOffDAO" parent="payingOffDAOBase"></bean>
+	
+
+	<bean id="mobileAppDAOBase" class="com.youbenben.youbenben.mobileapp.MobileAppJDBCTemplateDAO">
+		<property name="dataSource" ref="dataSource" />
+		<property name="pageDAO" ref="pageDAO" />
+		
+		<property name="pageTypeDAO" ref="pageTypeDAO" />
+		
+	</bean>
+	<bean id="mobileAppDAO" parent="mobileAppDAOBase"></bean>
+	
+
+	<bean id="pageDAOBase" class="com.youbenben.youbenben.page.PageJDBCTemplateDAO">
+		<property name="dataSource" ref="dataSource" /><property name="pageTypeDAO" ref="pageTypeDAO" /><property name="mobileAppDAO" ref="mobileAppDAO" />
+		<property name="slideDAO" ref="slideDAO" />
+		
+		<property name="uiActionDAO" ref="uiActionDAO" />
+		
+		<property name="sectionDAO" ref="sectionDAO" />
+		
+	</bean>
+	<bean id="pageDAO" parent="pageDAOBase"></bean>
+	
+
+	<bean id="pageTypeDAOBase" class="com.youbenben.youbenben.pagetype.PageTypeJDBCTemplateDAO">
+		<property name="dataSource" ref="dataSource" /><property name="mobileAppDAO" ref="mobileAppDAO" />
+		<property name="pageDAO" ref="pageDAO" />
+		
+	</bean>
+	<bean id="pageTypeDAO" parent="pageTypeDAOBase"></bean>
+	
+
+	<bean id="slideDAOBase" class="com.youbenben.youbenben.slide.SlideJDBCTemplateDAO">
+		<property name="dataSource" ref="dataSource" /><property name="pageDAO" ref="pageDAO" />
+	</bean>
+	<bean id="slideDAO" parent="slideDAOBase"></bean>
+	
+
+	<bean id="uiActionDAOBase" class="com.youbenben.youbenben.uiaction.UiActionJDBCTemplateDAO">
+		<property name="dataSource" ref="dataSource" /><property name="pageDAO" ref="pageDAO" />
+	</bean>
+	<bean id="uiActionDAO" parent="uiActionDAOBase"></bean>
+	
+
+	<bean id="sectionDAOBase" class="com.youbenben.youbenben.section.SectionJDBCTemplateDAO">
+		<property name="dataSource" ref="dataSource" /><property name="pageDAO" ref="pageDAO" />
+	</bean>
+	<bean id="sectionDAO" parent="sectionDAOBase"></bean>
+	
+
+	<bean id="userDomainDAOBase" class="com.youbenben.youbenben.userdomain.UserDomainJDBCTemplateDAO">
+		<property name="dataSource" ref="dataSource" />
+		<property name="userWhiteListDAO" ref="userWhiteListDAO" />
+		
+		<property name="secUserDAO" ref="secUserDAO" />
+		
+		<property name="publicKeyTypeDAO" ref="publicKeyTypeDAO" />
+		
+	</bean>
+	<bean id="userDomainDAO" parent="userDomainDAOBase"></bean>
+	
+
+	<bean id="userWhiteListDAOBase" class="com.youbenben.youbenben.userwhitelist.UserWhiteListJDBCTemplateDAO">
+		<property name="dataSource" ref="dataSource" /><property name="userDomainDAO" ref="userDomainDAO" />
+	</bean>
+	<bean id="userWhiteListDAO" parent="userWhiteListDAOBase"></bean>
+	
+
+	<bean id="secUserDAOBase" class="com.youbenben.youbenben.secuser.SecUserJDBCTemplateDAO">
+		<property name="dataSource" ref="dataSource" /><property name="userDomainDAO" ref="userDomainDAO" />
+		<property name="userAppDAO" ref="userAppDAO" />
+		
+		<property name="loginHistoryDAO" ref="loginHistoryDAO" />
+		
+		<property name="wechatWorkappIdentifyDAO" ref="wechatWorkappIdentifyDAO" />
+		
+		<property name="wechatMiniappIdentifyDAO" ref="wechatMiniappIdentifyDAO" />
+		
+		<property name="keypairIdentifyDAO" ref="keypairIdentifyDAO" />
+		
+	</bean>
+	<bean id="secUserDAO" parent="secUserDAOBase"></bean>
+	
+
+	<bean id="userAppDAOBase" class="com.youbenben.youbenben.userapp.UserAppJDBCTemplateDAO">
+		<property name="dataSource" ref="dataSource" /><property name="secUserDAO" ref="secUserDAO" />
+		<property name="quickLinkDAO" ref="quickLinkDAO" />
+		
+		<property name="listAccessDAO" ref="listAccessDAO" />
+		
+	</bean>
+	<bean id="userAppDAO" parent="userAppDAOBase"></bean>
+	
+
+	<bean id="quickLinkDAOBase" class="com.youbenben.youbenben.quicklink.QuickLinkJDBCTemplateDAO">
+		<property name="dataSource" ref="dataSource" /><property name="userAppDAO" ref="userAppDAO" />
+	</bean>
+	<bean id="quickLinkDAO" parent="quickLinkDAOBase"></bean>
+	
+
+	<bean id="listAccessDAOBase" class="com.youbenben.youbenben.listaccess.ListAccessJDBCTemplateDAO">
+		<property name="dataSource" ref="dataSource" /><property name="userAppDAO" ref="userAppDAO" />
+	</bean>
+	<bean id="listAccessDAO" parent="listAccessDAOBase"></bean>
+	
+
+	<bean id="loginHistoryDAOBase" class="com.youbenben.youbenben.loginhistory.LoginHistoryJDBCTemplateDAO">
+		<property name="dataSource" ref="dataSource" /><property name="secUserDAO" ref="secUserDAO" />
+	</bean>
+	<bean id="loginHistoryDAO" parent="loginHistoryDAOBase"></bean>
+	
+
+	<bean id="candidateContainerDAOBase" class="com.youbenben.youbenben.candidatecontainer.CandidateContainerJDBCTemplateDAO">
+		<property name="dataSource" ref="dataSource" />
+		<property name="candidateElementDAO" ref="candidateElementDAO" />
+		
+	</bean>
+	<bean id="candidateContainerDAO" parent="candidateContainerDAOBase"></bean>
+	
+
+	<bean id="candidateElementDAOBase" class="com.youbenben.youbenben.candidateelement.CandidateElementJDBCTemplateDAO">
+		<property name="dataSource" ref="dataSource" /><property name="candidateContainerDAO" ref="candidateContainerDAO" />
+	</bean>
+	<bean id="candidateElementDAO" parent="candidateElementDAOBase"></bean>
+	
+
+	<bean id="wechatWorkappIdentifyDAOBase" class="com.youbenben.youbenben.wechatworkappidentify.WechatWorkappIdentifyJDBCTemplateDAO">
+		<property name="dataSource" ref="dataSource" /><property name="secUserDAO" ref="secUserDAO" />
+	</bean>
+	<bean id="wechatWorkappIdentifyDAO" parent="wechatWorkappIdentifyDAOBase"></bean>
+	
+
+	<bean id="wechatMiniappIdentifyDAOBase" class="com.youbenben.youbenben.wechatminiappidentify.WechatMiniappIdentifyJDBCTemplateDAO">
+		<property name="dataSource" ref="dataSource" /><property name="secUserDAO" ref="secUserDAO" />
+	</bean>
+	<bean id="wechatMiniappIdentifyDAO" parent="wechatMiniappIdentifyDAOBase"></bean>
+	
+
+	<bean id="keypairIdentifyDAOBase" class="com.youbenben.youbenben.keypairidentify.KeypairIdentifyJDBCTemplateDAO">
+		<property name="dataSource" ref="dataSource" /><property name="publicKeyTypeDAO" ref="publicKeyTypeDAO" /><property name="secUserDAO" ref="secUserDAO" />
+	</bean>
+	<bean id="keypairIdentifyDAO" parent="keypairIdentifyDAOBase"></bean>
+	
+
+	<bean id="publicKeyTypeDAOBase" class="com.youbenben.youbenben.publickeytype.PublicKeyTypeJDBCTemplateDAO">
+		<property name="dataSource" ref="dataSource" /><property name="userDomainDAO" ref="userDomainDAO" />
+		<property name="keypairIdentifyDAO" ref="keypairIdentifyDAO" />
+		
+	</bean>
+	<bean id="publicKeyTypeDAO" parent="publicKeyTypeDAOBase"></bean>
+	
+
+	<bean id="treeNodeDAOBase" class="com.youbenben.youbenben.treenode.TreeNodeJDBCTemplateDAO">
+		<property name="dataSource" ref="dataSource" />
+	</bean>
+	<bean id="treeNodeDAO" parent="treeNodeDAOBase"></bean>
+	
+
+
+	<bean id="DAOGroupBase" class="com.youbenben.youbenben.DAOGroup">
+		<property name="retailStoreCountryCenterDAO" ref="retailStoreCountryCenterDAO"/>
+		<property name="catalogDAO" ref="catalogDAO"/>
+		<property name="levelOneCategoryDAO" ref="levelOneCategoryDAO"/>
+		<property name="levelTwoCategoryDAO" ref="levelTwoCategoryDAO"/>
+		<property name="levelThreeCategoryDAO" ref="levelThreeCategoryDAO"/>
+		<property name="productDAO" ref="productDAO"/>
+		<property name="skuDAO" ref="skuDAO"/>
+		<property name="retailStoreProvinceCenterDAO" ref="retailStoreProvinceCenterDAO"/>
+		<property name="provinceCenterDepartmentDAO" ref="provinceCenterDepartmentDAO"/>
+		<property name="provinceCenterEmployeeDAO" ref="provinceCenterEmployeeDAO"/>
+		<property name="retailStoreCityServiceCenterDAO" ref="retailStoreCityServiceCenterDAO"/>
+		<property name="cityPartnerDAO" ref="cityPartnerDAO"/>
+		<property name="potentialCustomerDAO" ref="potentialCustomerDAO"/>
+		<property name="potentialCustomerContactPersonDAO" ref="potentialCustomerContactPersonDAO"/>
+		<property name="potentialCustomerContactDAO" ref="potentialCustomerContactDAO"/>
+		<property name="cityEventDAO" ref="cityEventDAO"/>
+		<property name="eventAttendanceDAO" ref="eventAttendanceDAO"/>
+		<property name="retailStoreDAO" ref="retailStoreDAO"/>
+		<property name="retailStoreCreationDAO" ref="retailStoreCreationDAO"/>
+		<property name="retailStoreInvestmentInvitationDAO" ref="retailStoreInvestmentInvitationDAO"/>
+		<property name="retailStoreFranchisingDAO" ref="retailStoreFranchisingDAO"/>
+		<property name="retailStoreDecorationDAO" ref="retailStoreDecorationDAO"/>
+		<property name="retailStoreOpeningDAO" ref="retailStoreOpeningDAO"/>
+		<property name="retailStoreClosingDAO" ref="retailStoreClosingDAO"/>
+		<property name="retailStoreMemberDAO" ref="retailStoreMemberDAO"/>
+		<property name="consumerOrderDAO" ref="consumerOrderDAO"/>
+		<property name="consumerOrderConfirmationDAO" ref="consumerOrderConfirmationDAO"/>
+		<property name="consumerOrderApprovalDAO" ref="consumerOrderApprovalDAO"/>
+		<property name="consumerOrderProcessingDAO" ref="consumerOrderProcessingDAO"/>
+		<property name="consumerOrderShipmentDAO" ref="consumerOrderShipmentDAO"/>
+		<property name="consumerOrderDeliveryDAO" ref="consumerOrderDeliveryDAO"/>
+		<property name="consumerOrderLineItemDAO" ref="consumerOrderLineItemDAO"/>
+		<property name="consumerOrderShippingGroupDAO" ref="consumerOrderShippingGroupDAO"/>
+		<property name="consumerOrderPaymentGroupDAO" ref="consumerOrderPaymentGroupDAO"/>
+		<property name="consumerOrderPriceAdjustmentDAO" ref="consumerOrderPriceAdjustmentDAO"/>
+		<property name="retailStoreMemberCouponDAO" ref="retailStoreMemberCouponDAO"/>
+		<property name="memberWishlistDAO" ref="memberWishlistDAO"/>
+		<property name="memberRewardPointDAO" ref="memberRewardPointDAO"/>
+		<property name="memberRewardPointRedemptionDAO" ref="memberRewardPointRedemptionDAO"/>
+		<property name="memberWishlistProductDAO" ref="memberWishlistProductDAO"/>
+		<property name="retailStoreMemberAddressDAO" ref="retailStoreMemberAddressDAO"/>
+		<property name="retailStoreMemberGiftCardDAO" ref="retailStoreMemberGiftCardDAO"/>
+		<property name="retailStoreMemberGiftCardConsumeRecordDAO" ref="retailStoreMemberGiftCardConsumeRecordDAO"/>
+		<property name="goodsSupplierDAO" ref="goodsSupplierDAO"/>
+		<property name="supplierProductDAO" ref="supplierProductDAO"/>
+		<property name="productSupplyDurationDAO" ref="productSupplyDurationDAO"/>
+		<property name="supplyOrderDAO" ref="supplyOrderDAO"/>
+		<property name="supplyOrderConfirmationDAO" ref="supplyOrderConfirmationDAO"/>
+		<property name="supplyOrderApprovalDAO" ref="supplyOrderApprovalDAO"/>
+		<property name="supplyOrderProcessingDAO" ref="supplyOrderProcessingDAO"/>
+		<property name="supplyOrderPickingDAO" ref="supplyOrderPickingDAO"/>
+		<property name="supplyOrderShipmentDAO" ref="supplyOrderShipmentDAO"/>
+		<property name="supplyOrderDeliveryDAO" ref="supplyOrderDeliveryDAO"/>
+		<property name="supplyOrderLineItemDAO" ref="supplyOrderLineItemDAO"/>
+		<property name="supplyOrderShippingGroupDAO" ref="supplyOrderShippingGroupDAO"/>
+		<property name="supplyOrderPaymentGroupDAO" ref="supplyOrderPaymentGroupDAO"/>
+		<property name="retailStoreOrderDAO" ref="retailStoreOrderDAO"/>
+		<property name="retailStoreOrderConfirmationDAO" ref="retailStoreOrderConfirmationDAO"/>
+		<property name="retailStoreOrderApprovalDAO" ref="retailStoreOrderApprovalDAO"/>
+		<property name="retailStoreOrderProcessingDAO" ref="retailStoreOrderProcessingDAO"/>
+		<property name="retailStoreOrderPickingDAO" ref="retailStoreOrderPickingDAO"/>
+		<property name="retailStoreOrderShipmentDAO" ref="retailStoreOrderShipmentDAO"/>
+		<property name="retailStoreOrderDeliveryDAO" ref="retailStoreOrderDeliveryDAO"/>
+		<property name="retailStoreOrderLineItemDAO" ref="retailStoreOrderLineItemDAO"/>
+		<property name="retailStoreOrderShippingGroupDAO" ref="retailStoreOrderShippingGroupDAO"/>
+		<property name="retailStoreOrderPaymentGroupDAO" ref="retailStoreOrderPaymentGroupDAO"/>
+		<property name="warehouseDAO" ref="warehouseDAO"/>
+		<property name="storageSpaceDAO" ref="storageSpaceDAO"/>
+		<property name="smartPalletDAO" ref="smartPalletDAO"/>
+		<property name="goodsShelfDAO" ref="goodsShelfDAO"/>
+		<property name="goodsShelfStockCountDAO" ref="goodsShelfStockCountDAO"/>
+		<property name="stockCountIssueTrackDAO" ref="stockCountIssueTrackDAO"/>
+		<property name="goodsAllocationDAO" ref="goodsAllocationDAO"/>
+		<property name="goodsDAO" ref="goodsDAO"/>
+		<property name="goodsPackagingDAO" ref="goodsPackagingDAO"/>
+		<property name="goodsMovementDAO" ref="goodsMovementDAO"/>
+		<property name="supplierSpaceDAO" ref="supplierSpaceDAO"/>
+		<property name="receivingSpaceDAO" ref="receivingSpaceDAO"/>
+		<property name="shippingSpaceDAO" ref="shippingSpaceDAO"/>
+		<property name="damageSpaceDAO" ref="damageSpaceDAO"/>
+		<property name="warehouseAssetDAO" ref="warehouseAssetDAO"/>
+		<property name="transportFleetDAO" ref="transportFleetDAO"/>
+		<property name="transportTruckDAO" ref="transportTruckDAO"/>
+		<property name="truckDriverDAO" ref="truckDriverDAO"/>
+		<property name="transportTaskDAO" ref="transportTaskDAO"/>
+		<property name="transportTaskTrackDAO" ref="transportTaskTrackDAO"/>
+		<property name="accountSetDAO" ref="accountSetDAO"/>
+		<property name="accountingSubjectDAO" ref="accountingSubjectDAO"/>
+		<property name="accountingPeriodDAO" ref="accountingPeriodDAO"/>
+		<property name="accountingDocumentTypeDAO" ref="accountingDocumentTypeDAO"/>
+		<property name="accountingDocumentDAO" ref="accountingDocumentDAO"/>
+		<property name="accountingDocumentCreationDAO" ref="accountingDocumentCreationDAO"/>
+		<property name="accountingDocumentConfirmationDAO" ref="accountingDocumentConfirmationDAO"/>
+		<property name="accountingDocumentAuditingDAO" ref="accountingDocumentAuditingDAO"/>
+		<property name="accountingDocumentPostingDAO" ref="accountingDocumentPostingDAO"/>
+		<property name="originalVoucherDAO" ref="originalVoucherDAO"/>
+		<property name="originalVoucherCreationDAO" ref="originalVoucherCreationDAO"/>
+		<property name="originalVoucherConfirmationDAO" ref="originalVoucherConfirmationDAO"/>
+		<property name="originalVoucherAuditingDAO" ref="originalVoucherAuditingDAO"/>
+		<property name="accountingDocumentLineDAO" ref="accountingDocumentLineDAO"/>
+		<property name="levelOneDepartmentDAO" ref="levelOneDepartmentDAO"/>
+		<property name="levelTwoDepartmentDAO" ref="levelTwoDepartmentDAO"/>
+		<property name="levelThreeDepartmentDAO" ref="levelThreeDepartmentDAO"/>
+		<property name="skillTypeDAO" ref="skillTypeDAO"/>
+		<property name="responsibilityTypeDAO" ref="responsibilityTypeDAO"/>
+		<property name="terminationReasonDAO" ref="terminationReasonDAO"/>
+		<property name="terminationTypeDAO" ref="terminationTypeDAO"/>
+		<property name="occupationTypeDAO" ref="occupationTypeDAO"/>
+		<property name="leaveTypeDAO" ref="leaveTypeDAO"/>
+		<property name="salaryGradeDAO" ref="salaryGradeDAO"/>
+		<property name="interviewTypeDAO" ref="interviewTypeDAO"/>
+		<property name="trainingCourseTypeDAO" ref="trainingCourseTypeDAO"/>
+		<property name="publicHolidayDAO" ref="publicHolidayDAO"/>
+		<property name="terminationDAO" ref="terminationDAO"/>
+		<property name="viewDAO" ref="viewDAO"/>
+		<property name="employeeDAO" ref="employeeDAO"/>
+		<property name="jobApplicationDAO" ref="jobApplicationDAO"/>
+		<property name="professionInterviewDAO" ref="professionInterviewDAO"/>
+		<property name="hrInterviewDAO" ref="hrInterviewDAO"/>
+		<property name="offerApprovalDAO" ref="offerApprovalDAO"/>
+		<property name="offerAcceptanceDAO" ref="offerAcceptanceDAO"/>
+		<property name="employeeBoardingDAO" ref="employeeBoardingDAO"/>
+		<property name="instructorDAO" ref="instructorDAO"/>
+		<property name="companyTrainingDAO" ref="companyTrainingDAO"/>
+		<property name="scoringDAO" ref="scoringDAO"/>
+		<property name="employeeCompanyTrainingDAO" ref="employeeCompanyTrainingDAO"/>
+		<property name="employeeSkillDAO" ref="employeeSkillDAO"/>
+		<property name="employeePerformanceDAO" ref="employeePerformanceDAO"/>
+		<property name="employeeWorkExperienceDAO" ref="employeeWorkExperienceDAO"/>
+		<property name="employeeLeaveDAO" ref="employeeLeaveDAO"/>
+		<property name="employeeInterviewDAO" ref="employeeInterviewDAO"/>
+		<property name="employeeAttendanceDAO" ref="employeeAttendanceDAO"/>
+		<property name="employeeQualifierDAO" ref="employeeQualifierDAO"/>
+		<property name="employeeEducationDAO" ref="employeeEducationDAO"/>
+		<property name="employeeAwardDAO" ref="employeeAwardDAO"/>
+		<property name="employeeSalarySheetDAO" ref="employeeSalarySheetDAO"/>
+		<property name="payingOffDAO" ref="payingOffDAO"/>
+		<property name="mobileAppDAO" ref="mobileAppDAO"/>
+		<property name="pageDAO" ref="pageDAO"/>
+		<property name="pageTypeDAO" ref="pageTypeDAO"/>
+		<property name="slideDAO" ref="slideDAO"/>
+		<property name="uiActionDAO" ref="uiActionDAO"/>
+		<property name="sectionDAO" ref="sectionDAO"/>
+		<property name="userDomainDAO" ref="userDomainDAO"/>
+		<property name="userWhiteListDAO" ref="userWhiteListDAO"/>
+		<property name="secUserDAO" ref="secUserDAO"/>
+		<property name="userAppDAO" ref="userAppDAO"/>
+		<property name="quickLinkDAO" ref="quickLinkDAO"/>
+		<property name="listAccessDAO" ref="listAccessDAO"/>
+		<property name="loginHistoryDAO" ref="loginHistoryDAO"/>
+		<property name="candidateContainerDAO" ref="candidateContainerDAO"/>
+		<property name="candidateElementDAO" ref="candidateElementDAO"/>
+		<property name="wechatWorkappIdentifyDAO" ref="wechatWorkappIdentifyDAO"/>
+		<property name="wechatMiniappIdentifyDAO" ref="wechatMiniappIdentifyDAO"/>
+		<property name="keypairIdentifyDAO" ref="keypairIdentifyDAO"/>
+		<property name="publicKeyTypeDAO" ref="publicKeyTypeDAO"/>
+		<property name="treeNodeDAO" ref="treeNodeDAO"/>
+	</bean>
+	<bean id="DAOGroup" parent="DAOGroupBase"></bean>
+</beans>
+
+
+
+
+<!--
+
+	各种候选配置，可以选择你更为熟悉的类型
+	Creating TransactionManager Bean, since JDBC we are creating of type
+		DataSourceTransactionManager
+
+		<bean id="hikariConfig" class="com.zaxxer.hikari.HikariConfig">
+	  <property name="poolName" value="mercatus_connection_pool" />
+	  <property name="dataSourceClassName" value="com.mysql.cj.jdbc.MysqlDataSource"/>
+	  <property name="maximumPoolSize" value="50" />
+	  <property name="maxLifetime" value="60000" />
+	  <property name="idleTimeout" value="30000" />
+	  <property name="dataSourceProperties">
+	   <props>
+	     <prop key="url">${app.database.jdbcURL}</prop>
+	     <prop key="user">${app.database.username}</prop>
+	     <prop key="password">${app.database.password}</prop>
+	     <prop key="prepStmtCacheSize">250</prop>
+	     <prop key="prepStmtCacheSqlLimit">2048</prop>
+	     <prop key="cachePrepStmts">true</prop>
+	     <prop key="useServerPrepStmts">true</prop>
+	   </props>
+	  </property>
+	</bean>
+
+	<bean id="dataSource" class="org.apache.commons.dbcp2.BasicDataSource" destroy-method="close" >
+
+		<property name="url" value="${app.database.jdbcURL}" />
+		<property name="username" value="${app.database.username}" />
+		<property name="password" value="${app.database.password}" />
+		<property name="driverClassName" value="${app.database.driverClass}" />
+		<property name="initialSize" value="${app.database.pool.initialSize}" />
+		<property name="maxTotal" value="${app.database.pool.maxActive}" />
+
+		<property name="testOnBorrow" value="true" />
+		<property name="testWhileIdle" value="true" />
+		<property name="validationQuery" value="SELECT 1 from sec_user_data" />
+		<property name="removeAbandonedTimeout" value="55" />
+		<property name="removeAbandonedOnBorrow" value="true"/>
+
+	</bean>
+
+	<bean id="dataSource" class="com.mchange.v2.c3p0.ComboPooledDataSource" destroy-method="close" >
+
+		<property name="jdbcUrl" value="${app.database.jdbcURL}" />
+		<property name="user" value="${app.database.username}" />
+		<property name="password" value="${app.database.password}" />
+		<property name="driverClass" value="${app.database.driverClass}" />
+
+  		<property name="minPoolSize" value="10"/>
+  		<property name="maxPoolSize" value="50"/>
+  		<property name="acquireIncrement" value="1"/>
+  		<property name="idleConnectionTestPeriod" value="1000"/>
+  		<property name="maxStatements" value="250"/>
+  		<property name="checkoutTimeout" value="60000"/>
+  		<property name="initialPoolSize" value="10" />
+
+	</bean>
+
+
+	<bean id="hikariConfig" class="com.zaxxer.hikari.HikariConfig">
+	  <property name="poolName" value="mercatus_connection_pool" />
+	  <property name="dataSourceClassName" value="${app.database.dataSourceClassName}"/>
+	  <property name="maximumPoolSize" value="50" />
+	  <property name="maxLifetime" value="60000" />
+	  <property name="idleTimeout" value="30000" />
+	  <property name="dataSourceProperties">
+	   <props>
+	     <prop key="url">${app.database.jdbcURL}</prop>
+	     <prop key="user">${app.database.username}</prop>
+	     <prop key="password">${app.database.password}</prop>
+	     <prop key="prepStmtCacheSize">250</prop>
+	     <prop key="prepStmtCacheSqlLimit">2048</prop>
+	     <prop key="cachePrepStmts">true</prop>
+	     <prop key="useServerPrepStmts">true</prop>
+	   </props>
+	  </property>
+	</bean>
+	<bean id="dataSource" class="com.zaxxer.hikari.HikariDataSource" destroy-method="close">
+	  <constructor-arg ref="hikariConfig" />
+	</bean>
+
+
+-->
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
