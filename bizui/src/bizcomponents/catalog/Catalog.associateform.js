@@ -20,7 +20,7 @@ const testValues = {};
 const testValues = {
   name: '饲料',
   subCount: '3',
-  amount: '7.71',
+  amount: '9.75',
   ownerId: 'FOPC000001',
 }
 */
