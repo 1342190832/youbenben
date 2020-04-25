@@ -116,8 +116,8 @@ const internalSummaryOf = (section,targetComponent) =>{
 	const userContext = null
 	return (
 	<DescriptionList className={styles.headerList} size="small" col="4">
-<Description term="ID" style={{wordBreak: 'break-all'}}>{section.id}</Description> 
-<Description term="标题" style={{wordBreak: 'break-all'}}>{section.title}</Description> 
+<Description term="序号" style={{wordBreak: 'break-all'}}>{section.id}</Description> 
+<Description term="头衔" style={{wordBreak: 'break-all'}}>{section.title}</Description> 
 <Description term="短暂的" style={{wordBreak: 'break-all'}}>{section.brief}</Description> 
 <Description term="图标" style={{wordBreak: 'break-all'}}>{section.icon}</Description> 
 <Description term="视图组" style={{wordBreak: 'break-all'}}>{section.viewGroup}</Description> 

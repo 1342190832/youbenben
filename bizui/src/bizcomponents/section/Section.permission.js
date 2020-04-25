@@ -31,8 +31,8 @@ const internalSummaryOf = (section,targetComponent) =>{
     const userContext = null
 	return (
 	<DescriptionList className={styles.headerList} size="small" col="4">
-<Description term="ID">{section.id}</Description> 
-<Description term="标题">{section.title}</Description> 
+<Description term="序号">{section.id}</Description> 
+<Description term="头衔">{section.title}</Description> 
 <Description term="短暂的">{section.brief}</Description> 
 <Description term="图标">{section.icon}</Description> 
 <Description term="视图组">{section.viewGroup}</Description> 

@@ -31,7 +31,7 @@ const internalSummaryOf = (treeNode,targetComponent) =>{
     const userContext = null
 	return (
 	<DescriptionList className={styles.headerList} size="small" col="4">
-<Description term="ID">{treeNode.id}</Description> 
+<Description term="序号">{treeNode.id}</Description> 
 <Description term="节点Id">{treeNode.nodeId}</Description> 
 <Description term="节点类型">{treeNode.nodeType}</Description> 
 <Description term="左值">{treeNode.leftValue}</Description> 

@@ -18,7 +18,7 @@ const { TextArea } = Input
 const testValues = {};
 /*
 const testValues = {
-  name: '饲料',
+  name: '水果蔬菜',
   catalogId: 'C000001',
 }
 */

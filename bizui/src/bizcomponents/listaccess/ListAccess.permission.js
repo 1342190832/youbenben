@@ -37,7 +37,7 @@ const internalSummaryOf = (listAccess,targetComponent) =>{
 <Description term="读权限">{listAccess.readPermission}</Description> 
 <Description term="创建权限">{listAccess.createPermission}</Description> 
 <Description term="删除权限">{listAccess.deletePermission}</Description> 
-<Description term="更新许可">{listAccess.updatePermission}</Description> 
+<Description term="更新权限">{listAccess.updatePermission}</Description> 
 <Description term="执行权限">{listAccess.executionPermission}</Description> 
 	
       </DescriptionList>

@@ -18,10 +18,10 @@ const { TextArea } = Input
 const testValues = {};
 /*
 const testValues = {
-  name: '饲料',
-  subCount: '3',
-  amount: '9.75',
-  ownerId: 'FOPC000001',
+  name: '水果蔬菜',
+  subCount: '8',
+  amount: '9.51',
+  ownerId: 'RSCC000001',
 }
 */
 

@@ -117,17 +117,17 @@ const internalSummaryOf = (userApp,targetComponent) =>{
 	return (
 	<DescriptionList className={styles.headerList} size="small" col="4">
 <Description term="序号" style={{wordBreak: 'break-all'}}>{userApp.id}</Description> 
-<Description term="标题" style={{wordBreak: 'break-all'}}>{userApp.title}</Description> 
-<Description term="安全用户">{userApp.secUser==null?appLocaleName(userContext,"NotAssigned"):`${userApp.secUser.displayName}(${userApp.secUser.id})`}
+<Description term="头衔" style={{wordBreak: 'break-all'}}>{userApp.title}</Description> 
+<Description term="SEC的用户">{userApp.secUser==null?appLocaleName(userContext,"NotAssigned"):`${userApp.secUser.displayName}(${userApp.secUser.id})`}
  <Icon type="swap" onClick={()=>
-  showTransferModel(targetComponent,"安全用户","secUser",UserAppService.requestCandidateSecUser,
+  showTransferModel(targetComponent,"SEC的用户","secUser",UserAppService.requestCandidateSecUser,
 	      UserAppService.transferToAnotherSecUser,"anotherSecUserId",userApp.secUser?userApp.secUser.id:"")} 
   style={{fontSize: 20,color:"red"}} />
 </Description>
 <Description term="应用程序图标" style={{wordBreak: 'break-all'}}>{userApp.appIcon}</Description> 
 <Description term="完全访问" style={{wordBreak: 'break-all'}}>{userApp.fullAccess}</Description> 
 <Description term="许可" style={{wordBreak: 'break-all'}}>{userApp.permission}</Description> 
-<Description term="访问对象类型" style={{wordBreak: 'break-all'}}>{userApp.objectType}</Description> 
+<Description term="对象类型" style={{wordBreak: 'break-all'}}>{userApp.objectType}</Description> 
 <Description term="对象ID" style={{wordBreak: 'break-all'}}>{userApp.objectId}</Description> 
 <Description term="位置" style={{wordBreak: 'break-all'}}>{userApp.location}</Description> 
 	

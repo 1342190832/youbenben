@@ -116,12 +116,12 @@ const internalSummaryOf = (wechatMiniappIdentify,targetComponent) =>{
 	const userContext = null
 	return (
 	<DescriptionList className={styles.headerList} size="small" col="4">
-<Description term="ID" style={{wordBreak: 'break-all'}}>{wechatMiniappIdentify.id}</Description> 
+<Description term="序号" style={{wordBreak: 'break-all'}}>{wechatMiniappIdentify.id}</Description> 
 <Description term="开放Id" style={{wordBreak: 'break-all'}}>{wechatMiniappIdentify.openId}</Description> 
 <Description term="应用程序Id" style={{wordBreak: 'break-all'}}>{wechatMiniappIdentify.appId}</Description> 
-<Description term="安全用户">{wechatMiniappIdentify.secUser==null?appLocaleName(userContext,"NotAssigned"):`${wechatMiniappIdentify.secUser.displayName}(${wechatMiniappIdentify.secUser.id})`}
+<Description term="SEC的用户">{wechatMiniappIdentify.secUser==null?appLocaleName(userContext,"NotAssigned"):`${wechatMiniappIdentify.secUser.displayName}(${wechatMiniappIdentify.secUser.id})`}
  <Icon type="swap" onClick={()=>
-  showTransferModel(targetComponent,"安全用户","secUser",WechatMiniappIdentifyService.requestCandidateSecUser,
+  showTransferModel(targetComponent,"SEC的用户","secUser",WechatMiniappIdentifyService.requestCandidateSecUser,
 	      WechatMiniappIdentifyService.transferToAnotherSecUser,"anotherSecUserId",wechatMiniappIdentify.secUser?wechatMiniappIdentify.secUser.id:"")} 
   style={{fontSize: 20,color:"red"}} />
 </Description>

@@ -119,16 +119,16 @@ const internalSummaryOf = (keypairIdentify,targetComponent) =>{
 	const userContext = null
 	return (
 	<DescriptionList className={styles.headerList} size="small" col="4">
-<Description term="ID" style={{wordBreak: 'break-all'}}>{keypairIdentify.id}</Description> 
+<Description term="序号" style={{wordBreak: 'break-all'}}>{keypairIdentify.id}</Description> 
 <Description term="密钥类型">{keypairIdentify.keyType==null?appLocaleName(userContext,"NotAssigned"):`${keypairIdentify.keyType.displayName}(${keypairIdentify.keyType.id})`}
  <Icon type="swap" onClick={()=>
   showTransferModel(targetComponent,"密钥类型","publicKeyType",KeypairIdentifyService.requestCandidateKeyType,
 	      KeypairIdentifyService.transferToAnotherKeyType,"anotherKeyTypeId",keypairIdentify.keyType?keypairIdentify.keyType.id:"")} 
   style={{fontSize: 20,color:"red"}} />
 </Description>
-<Description term="安全用户">{keypairIdentify.secUser==null?appLocaleName(userContext,"NotAssigned"):`${keypairIdentify.secUser.displayName}(${keypairIdentify.secUser.id})`}
+<Description term="SEC的用户">{keypairIdentify.secUser==null?appLocaleName(userContext,"NotAssigned"):`${keypairIdentify.secUser.displayName}(${keypairIdentify.secUser.id})`}
  <Icon type="swap" onClick={()=>
-  showTransferModel(targetComponent,"安全用户","secUser",KeypairIdentifyService.requestCandidateSecUser,
+  showTransferModel(targetComponent,"SEC的用户","secUser",KeypairIdentifyService.requestCandidateSecUser,
 	      KeypairIdentifyService.transferToAnotherSecUser,"anotherSecUserId",keypairIdentify.secUser?keypairIdentify.secUser.id:"")} 
   style={{fontSize: 20,color:"red"}} />
 </Description>

@@ -116,7 +116,7 @@ const internalSummaryOf = (page,targetComponent) =>{
 	const userContext = null
 	return (
 	<DescriptionList className={styles.headerList} size="small" col="4">
-<Description term="ID" style={{wordBreak: 'break-all'}}>{page.id}</Description> 
+<Description term="序号" style={{wordBreak: 'break-all'}}>{page.id}</Description> 
 <Description term="页面标题" style={{wordBreak: 'break-all'}}>{page.pageTitle}</Description> 
 <Description term="链接网址" style={{wordBreak: 'break-all'}}>{page.linkToUrl}</Description> 
 <Description term="页面类型">{page.pageType==null?appLocaleName(userContext,"NotAssigned"):`${page.pageType.displayName}(${page.pageType.id})`}

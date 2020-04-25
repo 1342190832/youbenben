@@ -116,7 +116,7 @@ const internalSummaryOf = (treeNode,targetComponent) =>{
 	const userContext = null
 	return (
 	<DescriptionList className={styles.headerList} size="small" col="4">
-<Description term="ID" style={{wordBreak: 'break-all'}}>{treeNode.id}</Description> 
+<Description term="序号" style={{wordBreak: 'break-all'}}>{treeNode.id}</Description> 
 <Description term="节点Id" style={{wordBreak: 'break-all'}}>{treeNode.nodeId}</Description> 
 <Description term="节点类型" style={{wordBreak: 'break-all'}}>{treeNode.nodeType}</Description> 
 <Description term="左值" style={{wordBreak: 'break-all'}}>{treeNode.leftValue}</Description> 

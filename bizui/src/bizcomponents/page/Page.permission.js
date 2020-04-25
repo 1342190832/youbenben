@@ -31,7 +31,7 @@ const internalSummaryOf = (page,targetComponent) =>{
     const userContext = null
 	return (
 	<DescriptionList className={styles.headerList} size="small" col="4">
-<Description term="ID">{page.id}</Description> 
+<Description term="序号">{page.id}</Description> 
 <Description term="页面标题">{page.pageTitle}</Description> 
 <Description term="链接网址">{page.linkToUrl}</Description> 
 	

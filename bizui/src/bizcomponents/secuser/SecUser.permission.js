@@ -33,9 +33,9 @@ const internalSummaryOf = (secUser,targetComponent) =>{
 	<DescriptionList className={styles.headerList} size="small" col="4">
 <Description term="序号">{secUser.id}</Description> 
 <Description term="登录">{secUser.login}</Description> 
-<Description term="手机号码">{secUser.mobile}</Description> 
+<Description term="手机">{secUser.mobile}</Description> 
 <Description term="电子邮件">{secUser.email}</Description> 
-<Description term="密码">{secUser.pwd}</Description> 
+<Description term="PWD">{secUser.pwd}</Description> 
 <Description term="微信openid">{secUser.weixinOpenid}</Description> 
 <Description term="微信Appid">{secUser.weixinAppid}</Description> 
 <Description term="访问令牌">{secUser.accessToken}</Description> 
@@ -68,7 +68,7 @@ class SecUserPermission extends Component {
     const  secUser = this.props.secUser
     const { id,displayName, userAppCount, loginHistoryCount, wechatWorkappIdentifyCount, wechatMiniappIdentifyCount, keypairIdentifyCount } = secUser
     const  returnURL = `/secUser/${id}/dashboard`
-    const cardsData = {cardsName:"安全用户",cardsFor: "secUser",cardsSource: secUser,displayName,returnURL,
+    const cardsData = {cardsName:"SEC的用户",cardsFor: "secUser",cardsSource: secUser,displayName,returnURL,
   		subItems: [
     
       	],

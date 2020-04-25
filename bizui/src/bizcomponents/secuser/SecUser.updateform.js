@@ -248,7 +248,7 @@ class SecUserUpdateForm extends Component {
 	
 	const internalRenderTitle = () =>{
       const linkComp=<a onClick={goback}  > <Icon type="double-left" style={{marginRight:"10px"}} /> </a>
-      return (<div>{linkComp}{appLocaleName(userContext,"Update")}安全用户: {(currentUpdateIndex+1)}/{selectedRows.length}</div>)
+      return (<div>{linkComp}{appLocaleName(userContext,"Update")}SEC的用户: {(currentUpdateIndex+1)}/{selectedRows.length}</div>)
     }
 	
 	return (

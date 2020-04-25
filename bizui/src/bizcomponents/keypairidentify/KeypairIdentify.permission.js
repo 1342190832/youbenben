@@ -31,7 +31,7 @@ const internalSummaryOf = (keypairIdentify,targetComponent) =>{
     const userContext = null
 	return (
 	<DescriptionList className={styles.headerList} size="small" col="4">
-<Description term="ID">{keypairIdentify.id}</Description> 
+<Description term="序号">{keypairIdentify.id}</Description> 
 <Description term="创建时间">{ moment(keypairIdentify.createTime).format('YYYY-MM-DD')}</Description> 
 	
       </DescriptionList>

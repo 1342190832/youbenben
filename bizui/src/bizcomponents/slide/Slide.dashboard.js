@@ -118,7 +118,7 @@ const internalSummaryOf = (slide,targetComponent) =>{
 	const userContext = null
 	return (
 	<DescriptionList className={styles.headerList} size="small" col="4">
-<Description term="ID" style={{wordBreak: 'break-all'}}>{slide.id}</Description> 
+<Description term="序号" style={{wordBreak: 'break-all'}}>{slide.id}</Description> 
 <Description term="顺序" style={{wordBreak: 'break-all'}}>{slide.displayOrder}</Description> 
 <Description term="名称" style={{wordBreak: 'break-all'}}>{slide.name}</Description> 
 

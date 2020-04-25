@@ -120,10 +120,10 @@ const internalSummaryOf = (uiAction,targetComponent) =>{
 	const userContext = null
 	return (
 	<DescriptionList className={styles.headerList} size="small" col="4">
-<Description term="ID" style={{wordBreak: 'break-all'}}>{uiAction.id}</Description> 
-<Description term="编码" style={{wordBreak: 'break-all'}}>{uiAction.code}</Description> 
+<Description term="序号" style={{wordBreak: 'break-all'}}>{uiAction.id}</Description> 
+<Description term="代码" style={{wordBreak: 'break-all'}}>{uiAction.code}</Description> 
 <Description term="图标" style={{wordBreak: 'break-all'}}>{uiAction.icon}</Description> 
-<Description term="标题" style={{wordBreak: 'break-all'}}>{uiAction.title}</Description> 
+<Description term="头衔" style={{wordBreak: 'break-all'}}>{uiAction.title}</Description> 
 <Description term="短暂的" style={{wordBreak: 'break-all'}}>{uiAction.brief}</Description> 
 
 <Description term="链接网址" style={{wordBreak: 'break-all'}}>{uiAction.linkToUrl}</Description> 

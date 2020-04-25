@@ -116,9 +116,9 @@ const internalSummaryOf = (publicKeyType,targetComponent) =>{
 	const userContext = null
 	return (
 	<DescriptionList className={styles.headerList} size="small" col="4">
-<Description term="ID" style={{wordBreak: 'break-all'}}>{publicKeyType.id}</Description> 
+<Description term="序号" style={{wordBreak: 'break-all'}}>{publicKeyType.id}</Description> 
 <Description term="名称" style={{wordBreak: 'break-all'}}>{publicKeyType.name}</Description> 
-<Description term="编码" style={{wordBreak: 'break-all'}}>{publicKeyType.code}</Description> 
+<Description term="代码" style={{wordBreak: 'break-all'}}>{publicKeyType.code}</Description> 
 	
         {buildTransferModal(publicKeyType,targetComponent)}
       </DescriptionList>

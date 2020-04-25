@@ -31,9 +31,9 @@ const internalSummaryOf = (publicKeyType,targetComponent) =>{
     const userContext = null
 	return (
 	<DescriptionList className={styles.headerList} size="small" col="4">
-<Description term="ID">{publicKeyType.id}</Description> 
+<Description term="序号">{publicKeyType.id}</Description> 
 <Description term="名称">{publicKeyType.name}</Description> 
-<Description term="编码">{publicKeyType.code}</Description> 
+<Description term="代码">{publicKeyType.code}</Description> 
 	
       </DescriptionList>
 	)

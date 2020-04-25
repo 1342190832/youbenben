@@ -31,7 +31,7 @@ const internalSummaryOf = (wechatMiniappIdentify,targetComponent) =>{
     const userContext = null
 	return (
 	<DescriptionList className={styles.headerList} size="small" col="4">
-<Description term="ID">{wechatMiniappIdentify.id}</Description> 
+<Description term="序号">{wechatMiniappIdentify.id}</Description> 
 <Description term="开放Id">{wechatMiniappIdentify.openId}</Description> 
 <Description term="应用程序Id">{wechatMiniappIdentify.appId}</Description> 
 <Description term="创建时间">{ moment(wechatMiniappIdentify.createTime).format('YYYY-MM-DD')}</Description> 

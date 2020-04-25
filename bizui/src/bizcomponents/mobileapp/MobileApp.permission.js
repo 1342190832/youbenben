@@ -31,7 +31,7 @@ const internalSummaryOf = (mobileApp,targetComponent) =>{
     const userContext = null
 	return (
 	<DescriptionList className={styles.headerList} size="small" col="4">
-<Description term="ID">{mobileApp.id}</Description> 
+<Description term="序号">{mobileApp.id}</Description> 
 <Description term="名称">{mobileApp.name}</Description> 
 	
       </DescriptionList>

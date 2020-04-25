@@ -366,7 +366,7 @@ constructor(props) {
   getPageTitle = () => {
     // const { location } = this.props
     // const { pathname } = location
-    const title = '医生排班系统'
+    const title = '双链小超全流程供应链系统'
     return title
   }
  

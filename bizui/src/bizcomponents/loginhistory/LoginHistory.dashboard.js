@@ -118,11 +118,11 @@ const internalSummaryOf = (loginHistory,targetComponent) =>{
 	<DescriptionList className={styles.headerList} size="small" col="4">
 <Description term="序号" style={{wordBreak: 'break-all'}}>{loginHistory.id}</Description> 
 <Description term="登录时间">{ moment(loginHistory.loginTime).format('YYYY-MM-DD HH:mm')}</Description> 
-<Description term="来自IP" style={{wordBreak: 'break-all'}}>{loginHistory.fromIp}</Description> 
+<Description term="从IP" style={{wordBreak: 'break-all'}}>{loginHistory.fromIp}</Description> 
 <Description term="描述" style={{wordBreak: 'break-all'}}>{loginHistory.description}</Description> 
-<Description term="安全用户">{loginHistory.secUser==null?appLocaleName(userContext,"NotAssigned"):`${loginHistory.secUser.displayName}(${loginHistory.secUser.id})`}
+<Description term="SEC的用户">{loginHistory.secUser==null?appLocaleName(userContext,"NotAssigned"):`${loginHistory.secUser.displayName}(${loginHistory.secUser.id})`}
  <Icon type="swap" onClick={()=>
-  showTransferModel(targetComponent,"安全用户","secUser",LoginHistoryService.requestCandidateSecUser,
+  showTransferModel(targetComponent,"SEC的用户","secUser",LoginHistoryService.requestCandidateSecUser,
 	      LoginHistoryService.transferToAnotherSecUser,"anotherSecUserId",loginHistory.secUser?loginHistory.secUser.id:"")} 
   style={{fontSize: 20,color:"red"}} />
 </Description>

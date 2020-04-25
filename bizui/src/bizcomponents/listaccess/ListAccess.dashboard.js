@@ -122,7 +122,7 @@ const internalSummaryOf = (listAccess,targetComponent) =>{
 <Description term="读权限" style={{wordBreak: 'break-all'}}>{listAccess.readPermission}</Description> 
 <Description term="创建权限" style={{wordBreak: 'break-all'}}>{listAccess.createPermission}</Description> 
 <Description term="删除权限" style={{wordBreak: 'break-all'}}>{listAccess.deletePermission}</Description> 
-<Description term="更新许可" style={{wordBreak: 'break-all'}}>{listAccess.updatePermission}</Description> 
+<Description term="更新权限" style={{wordBreak: 'break-all'}}>{listAccess.updatePermission}</Description> 
 <Description term="执行权限" style={{wordBreak: 'break-all'}}>{listAccess.executionPermission}</Description> 
 <Description term="应用程序">{listAccess.app==null?appLocaleName(userContext,"NotAssigned"):`${listAccess.app.displayName}(${listAccess.app.id})`}
  <Icon type="swap" onClick={()=>

@@ -31,7 +31,7 @@ const internalSummaryOf = (slide,targetComponent) =>{
     const userContext = null
 	return (
 	<DescriptionList className={styles.headerList} size="small" col="4">
-<Description term="ID">{slide.id}</Description> 
+<Description term="序号">{slide.id}</Description> 
 <Description term="顺序">{slide.displayOrder}</Description> 
 <Description term="名称">{slide.name}</Description> 
 <Description term="图片链接"><ImagePreview imageTitle="图片链接" imageLocation={slide.imageUrl}/></Description> 

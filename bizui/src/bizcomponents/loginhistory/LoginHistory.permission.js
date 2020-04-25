@@ -33,7 +33,7 @@ const internalSummaryOf = (loginHistory,targetComponent) =>{
 	<DescriptionList className={styles.headerList} size="small" col="4">
 <Description term="序号">{loginHistory.id}</Description> 
 <Description term="登录时间">{ moment(loginHistory.loginTime).format('YYYY-MM-DD')}</Description> 
-<Description term="来自IP">{loginHistory.fromIp}</Description> 
+<Description term="从IP">{loginHistory.fromIp}</Description> 
 <Description term="描述">{loginHistory.description}</Description> 
 	
       </DescriptionList>

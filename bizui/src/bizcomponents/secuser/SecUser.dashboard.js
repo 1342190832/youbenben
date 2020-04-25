@@ -118,9 +118,9 @@ const internalSummaryOf = (secUser,targetComponent) =>{
 	<DescriptionList className={styles.headerList} size="small" col="4">
 <Description term="序号" style={{wordBreak: 'break-all'}}>{secUser.id}</Description> 
 <Description term="登录" style={{wordBreak: 'break-all'}}>{secUser.login}</Description> 
-<Description term="手机号码" style={{wordBreak: 'break-all'}}>{secUser.mobile}</Description> 
+<Description term="手机" style={{wordBreak: 'break-all'}}>{secUser.mobile}</Description> 
 <Description term="电子邮件" style={{wordBreak: 'break-all'}}>{secUser.email}</Description> 
-<Description term="密码" style={{wordBreak: 'break-all'}}>{secUser.pwd}</Description> 
+<Description term="PWD" style={{wordBreak: 'break-all'}}>{secUser.pwd}</Description> 
 <Description term="微信openid" style={{wordBreak: 'break-all'}}>{secUser.weixinOpenid}</Description> 
 <Description term="微信Appid" style={{wordBreak: 'break-all'}}>{secUser.weixinAppid}</Description> 
 <Description term="访问令牌" style={{wordBreak: 'break-all'}}>{secUser.accessToken}</Description> 
